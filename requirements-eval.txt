@@ -1,0 +1,9 @@
+deepeval
+pandas
+pyarrow
+matplotlib
+scipy
+pyyaml
+httpx
+python-dotenv
+pytest

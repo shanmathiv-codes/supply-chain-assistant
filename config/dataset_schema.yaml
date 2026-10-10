@@ -1,0 +1,132 @@
+columns:
+  disruption_id:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["id", "case_id", "disruption_number"]
+    description: "Unique disruption identifier"
+    known_at: "T0"
+
+  disruption_type:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["type", "event_type", "disruption_category"]
+    description: "Classification of disruption event"
+    known_at: "T0"
+
+  industry:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["sector", "industry_vertical", "business_domain"]
+    description: "Industry vertical affected"
+    known_at: "T0"
+
+  supplier_tier:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["tier", "supply_tier", "tier_level"]
+    description: "Supply chain tier (Tier 1, Tier 2, Tier 3)"
+    known_at: "T0"
+
+  supplier_region:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["region", "geography", "location", "supplier_location"]
+    description: "Geographic region of supplier"
+    known_at: "T0"
+
+  supplier_size:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["size", "company_size", "supplier_scale"]
+    description: "Supplier company scale (Small, Medium, Large)"
+    known_at: "T0"
+
+  has_backup_supplier:
+    dtype: "boolean"
+    required: true
+    nullable: false
+    aliases: ["backup_supplier", "has_backup", "secondary_supplier"]
+    description: "Whether an alternate supplier contract exists"
+    known_at: "T0"
+
+  disruption_severity:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["severity", "severity_level", "impact_severity"]
+    description: "Disruption severity rating (Low, Medium, High, Critical)"
+    known_at: "T0"
+
+  production_impact_pct:
+    dtype: "float"
+    required: true
+    nullable: false
+    range: [0.0, 100.0]
+    aliases: ["production_impact", "capacity_loss_pct", "impact_pct"]
+    description: "Observed percentage loss of production capacity"
+    known_at: "T1"
+
+  revenue_loss_usd:
+    dtype: "float"
+    required: true
+    nullable: false
+    range: [0.0, 1000000000.0]
+    aliases: ["revenue_loss", "financial_loss_usd", "loss_usd", "loss"]
+    description: "Direct revenue loss in USD"
+    known_at: "T1"
+
+  response_type:
+    dtype: "string"
+    required: true
+    nullable: false
+    aliases: ["response", "action_taken", "mitigation_strategy"]
+    description: "Operational response strategy executed"
+    known_at: "T2"
+
+  response_time_days:
+    dtype: "float"
+    required: true
+    nullable: false
+    range: [0.0, 365.0]
+    aliases: ["response_time", "reaction_time_days"]
+    description: "Elapsed days before executing response"
+    known_at: "T2"
+
+  partial_recovery_days:
+    dtype: "float"
+    required: true
+    nullable: false
+    range: [0.0, 730.0]
+    aliases: ["partial_recovery", "time_to_partial_recovery"]
+    description: "Days to resume partial operations"
+    known_at: "outcome"
+
+  full_recovery_days:
+    dtype: "float"
+    required: true
+    nullable: false
+    range: [0.0, 1095.0]
+    aliases: ["full_recovery", "time_to_full_recovery", "recovery_days"]
+    description: "Days to return to 100% baseline operations"
+    known_at: "outcome"
+
+  permanent_supplier_change:
+    dtype: "boolean"
+    required: true
+    nullable: false
+    aliases: ["supplier_change", "permanent_switch", "renegotiated_vendor"]
+    description: "Whether the disruption led to permanent supplier replacement"
+    known_at: "outcome"
+
+constraints:
+  max_rejection_percentage: 20.0
+  deduplicate_by: "disruption_id"
+  deduplicate_strategy: "first"
+  temporal_order_check:
+    partial_le_full: true

@@ -1,0 +1,46 @@
+roles:
+  fast:
+    candidates:
+      - "gemini/gemini-1.5-flash-8b"
+      - "gemini/gemini-1.5-flash"
+      - "gemini/gemini-2.0-flash-exp"
+      - "openrouter/meta-llama/llama-3.2-3b-instruct:free"
+      - "openrouter/google/gemini-flash-1.5:free"
+      - "openrouter/qwen/qwen-2.5-7b-instruct:free"
+    temperature: 0.0
+    timeout_seconds: 30
+  reason:
+    candidates:
+      - "gemini/gemini-1.5-flash"
+      - "gemini/gemini-1.5-pro"
+      - "gemini/gemini-2.0-flash-exp"
+      - "openrouter/meta-llama/llama-3.3-70b-instruct:free"
+      - "openrouter/google/gemini-flash-1.5:free"
+      - "openrouter/qwen/qwen-2.5-72b-instruct:free"
+    temperature: 0.1
+    timeout_seconds: 45
+  judge:
+    candidates:
+      - "openrouter/meta-llama/llama-3.3-70b-instruct:free"
+      - "openrouter/mistralai/mistral-7b-instruct:free"
+      - "gemini/gemini-1.5-flash"
+      - "openrouter/qwen/qwen-2.5-72b-instruct:free"
+    temperature: 0.0
+    timeout_seconds: 45
+
+rate_limits:
+  gemini:
+    requests_per_minute: 15
+    tokens_per_minute: 1000000
+    daily_request_quota: 1500
+  openrouter:
+    requests_per_minute: 20
+    tokens_per_minute: 200000
+    daily_request_quota: 200
+
+concurrency_limit: 2
+max_repair_retries: 1
+cache_enabled: true
+cache_db_path: "artifacts/cache/llm_cache.db"
+budget_max_calls_per_run: 8
+budget_max_tokens_per_run: 16000

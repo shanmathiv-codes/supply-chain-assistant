@@ -1,0 +1,34 @@
+mode: "auto"
+transport: "auto"
+
+providers:
+  default_id: ""
+  eval_id: ""
+
+parameters:
+  top_k: 5
+  max_top_k: 20
+  graph_hops: 2
+  timeout_seconds: 30
+
+fusion:
+  reciprocal_rank_k: 60
+  weights:
+    cypher_overlap: 0.35
+    node_search: 0.25
+    chunk_search: 0.25
+    exact_lookup: 0.15
+
+relaxation_ladder:
+  order:
+    - "supplier_size"
+    - "supplier_region"
+    - "supplier_tier"
+    - "industry"
+  preserve_longest:
+    - "disruption_type"
+    - "disruption_severity"
+  min_cases_threshold: 5
+
+case_id_pattern: "DIS-\\d{4,6}"
+composite_key_separator: ":"

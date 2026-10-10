@@ -1,0 +1,31 @@
+node_labels:
+  case: "SupplyChainDisruption"
+  type: "DisruptionType"
+  industry: "Industry"
+  tier: "SupplierTier"
+  region: "SupplierRegion"
+  size: "SupplierSize"
+  severity: "Severity"
+  impact: "Impact"
+  response: "Response"
+  recovery: "Recovery"
+
+relationship_types:
+  has_type: "HAS_TYPE"
+  affects_industry: "AFFECTS_INDUSTRY"
+  has_tier: "HAS_SUPPLIER_TIER"
+  has_region: "HAS_SUPPLIER_REGION"
+  has_size: "HAS_SUPPLIER_SIZE"
+  has_severity: "HAS_SEVERITY"
+  has_impact: "HAS_IMPACT"
+  has_response: "HAS_RESPONSE"
+  has_recovery: "HAS_RECOVERY"
+
+property_mapping:
+  case_id: "disruption_id"
+  title: "title"
+  production_impact: "production_impact_pct"
+  revenue_loss: "revenue_loss_usd"
+  full_recovery_days: "full_recovery_days"
+  has_backup_supplier: "has_backup_supplier"
+  permanent_supplier_change: "permanent_supplier_change"

@@ -1,0 +1,38 @@
+tools:
+  trident_query:
+    query: "query"
+    top_k: "top_k"
+    hops: "hops"
+  trident_label_ticket:
+    ticket_text: "ticket_text"
+  trident_get_stats:
+    provider_id: "provider_id"
+  trident_get_schema:
+    provider_id: "provider_id"
+  trident_search:
+    query: "query"
+    top_k: "top_k"
+  trident_find_exact:
+    label: "label"
+  trident_cypher:
+    query: "query"
+    params: "params"
+  trident_get_node:
+    node_id: "node_id"
+    depth: "depth"
+  trident_traverse:
+    start_node_id: "start_node_id"
+    edge_types: "edge_types"
+  trident_get_chunks:
+    query: "query"
+    top_k: "top_k"
+  trident_get_procedures:
+    query: "query"
+  trident_episodes:
+    query: "query"
+  trident_ingest:
+    connector_type: "connector_type"
+    content: "content"
+  trident_feedback:
+    query_ref: "query_ref"
+    feedback: "feedback"

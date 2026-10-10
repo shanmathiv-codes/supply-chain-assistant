@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "supply-chain-disruption-assistant"
+version = "0.1.0"
+description = "AI-Powered Supply Chain Disruption Assistant with Synapt Context Substrate"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic>=2.0.0",
+    "pydantic-settings",
+    "httpx",
+    "tenacity",
+    "pyyaml",
+    "python-dotenv",
+    "pandas",
+    "numpy",
+    "pyarrow",
+    "scikit-learn",
+    "scipy",
+    "shap",
+    "joblib",
+    "langgraph",
+    "langchain-core",
+    "litellm",
+    "mcp",
+    "streamlit",
+    "plotly",
+    "rank-bm25",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "respx",
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --asyncio-mode=auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]

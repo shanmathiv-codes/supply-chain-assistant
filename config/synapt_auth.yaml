@@ -1,0 +1,6 @@
+auth_method: "undetermined"
+token_endpoint: "https://beta.synapt.ai/auth_service/api/v1/auth/token"
+token_field: "access_token"
+expiry_field: "expires_in"
+tested_at: ""
+notes: "Will be detected and updated by scripts.synapt_probe"

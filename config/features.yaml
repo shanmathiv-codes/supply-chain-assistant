@@ -1,0 +1,54 @@
+feature_sets:
+  T0:
+    name: "at_alert"
+    description: "Features available immediately upon receiving disruption alert"
+    columns:
+      - "disruption_type"
+      - "industry"
+      - "supplier_tier"
+      - "supplier_region"
+      - "supplier_size"
+      - "has_backup_supplier"
+      - "disruption_severity"
+
+  T1:
+    name: "early_signal"
+    description: "T0 features plus observed early operational or financial loss"
+    columns:
+      - "disruption_type"
+      - "industry"
+      - "supplier_tier"
+      - "supplier_region"
+      - "supplier_size"
+      - "has_backup_supplier"
+      - "disruption_severity"
+      - "production_impact_pct"
+      - "revenue_loss_usd"
+
+  T2:
+    name: "response_chosen"
+    description: "T0 features plus chosen operational response type (associational only)"
+    columns:
+      - "disruption_type"
+      - "industry"
+      - "supplier_tier"
+      - "supplier_region"
+      - "supplier_size"
+      - "has_backup_supplier"
+      - "disruption_severity"
+      - "response_type"
+
+targets:
+  regression:
+    - "production_impact_pct"
+    - "revenue_loss_usd"
+    - "full_recovery_days"
+  classification:
+    - "severity_high_or_critical"
+    - "permanent_supplier_change"
+
+forbidden_columns:
+  outcome_prediction:
+    - "partial_recovery_days"
+    - "response_time_days"
+    - "permanent_supplier_change"

@@ -1,0 +1,31 @@
+# Environment variables
+.env
+
+# Virtual environments
+.venv/
+.venv*/
+venv/
+
+# Build and caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Application artifacts and outputs
+artifacts/
+config/models.resolved.yaml
+dataset/raw/*
+!dataset/raw/.gitkeep
+dataset/store/*.db
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

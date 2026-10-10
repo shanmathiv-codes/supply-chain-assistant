@@ -1,0 +1,24 @@
+app:
+  name: "supply-chain-disruption-assistant"
+  version: "0.1.0"
+  description: "AI-Powered Supply Chain Disruption Assistant"
+  environment: "development"
+  log_level: "INFO"
+
+server:
+  host: "127.0.0.1"
+  port: 8000
+  cors_origins:
+    - "http://localhost:8000"
+    - "http://127.0.0.1:8000"
+    - "http://localhost:8501"
+    - "http://127.0.0.1:8501"
+
+storage:
+  ledger_path: "dataset/processed/cases_clean.parquet"
+  db_path: "dataset/store/disruptions.db"
+  app_db_path: "dataset/store/app.db"
+  models_dir: "artifacts/models"
+  reports_dir: "artifacts/reports"
+  traces_dir: "artifacts/traces"
+  cache_dir: "artifacts/cache"

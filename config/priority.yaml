@@ -1,0 +1,31 @@
+weights:
+  severity: 0.40
+  production_impact: 0.35
+  financial_loss: 0.25
+
+severity_map:
+  Low: 0.10
+  Medium: 0.40
+  High: 0.75
+  Critical: 1.00
+
+bands:
+  P1:
+    min_score: 75.0
+    label: "Critical Escalation"
+    description: "Immediate war-room required; catastrophic production and revenue impact."
+  P2:
+    min_score: 55.0
+    label: "High Priority"
+    description: "Executive review needed; substantial operational and financial disruption."
+  P3:
+    min_score: 35.0
+    label: "Medium Priority"
+    description: "Standard tactical response; monitor daily milestones."
+  P4:
+    min_score: 0.0
+    label: "Low Priority"
+    description: "Routine containment; local supplier management sufficient."
+
+sensitivity:
+  delta: 0.10
