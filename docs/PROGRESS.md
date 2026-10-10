@@ -177,5 +177,52 @@
 - None.
 
 **Open items for the user:**
-- None. Proceeding to Phase 5.
+- None.
+
+---
+
+## Phase 5 Report: Basic Requirements (Core Services & API)
+
+**Files created/modified:**
+- `app/services/ledger.py`: SQLite and Parquet disruption ledger service with fast indexed lookups, analog stats, population stats, and response outcome aggregates.
+- `app/services/retrieval.py`: Hybrid retrieval combining Cypher attribute overlap, node search, chunk search, and exact lookup with Reciprocal Rank Fusion, filter relaxation ladder, and lane agreement check.
+- `app/services/classification.py`: Ensemble disruption classification combining ticket mining, Cypher neighbor voting, and LLM classification with conflict abstention.
+- `app/services/prioritization.py`: Formula-grounded prioritization ($P = 100 \cdot (w_s S + w_p I + w_f F)$), triage bands P1-P4, and weight perturbation sensitivity analysis.
+- `app/services/recommendations.py`: Grounded mitigation action generation backed by SOP procedures and historical response outcomes.
+- `app/services/run_store.py`: SQLite persistence store for investigation reports and feedback in `dataset/store/app.db`.
+- `app/api/routes.py`: FastAPI endpoints for `/health`, `/disruptions/search`, `/disruptions/classify`, `/disruptions/prioritize`, `/disruptions/analyze`, `/cases/{id}`, `/runs/{id}`, and `/feedback`.
+- `app/main.py`: FastAPI app factory, CORS, correlation ID middleware, startup banner, and typed error exception handlers.
+- `tests/api/test_api.py`: Comprehensive test suite testing all REST endpoints, guardrails, and error handling.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -m pytest -v tests/api/test_api.py` -> PASS (9 tests passed in 1.69s)
+- `& .venv\Scripts\python.exe -m pytest` -> PASS (35 passed in 2.06s)
+- `& .venv\Scripts\ruff.exe check .` -> PASS (All checks passed)
+
+### BASIC REQUIREMENTS CHECKLIST
+| Basic Requirement Item | File / Endpoint | Test Name | Status |
+| :--- | :--- | :--- | :--- |
+| Health & Runtime Modes | `app/api/routes.py` (`GET /health`) | `test_health_endpoint` | PASS |
+| Hybrid Retrieval (4 signals + RRF + relaxation) | `app/services/retrieval.py` (`POST /disruptions/search`) | `test_search_endpoint` | PASS |
+| Disruption Classification (ensemble voting + abstention) | `app/services/classification.py` (`POST /disruptions/classify`) | `test_classify_endpoint` | PASS |
+| Disruption Prioritization (formula P1-P4 + sensitivity) | `app/services/prioritization.py` (`POST /disruptions/prioritize`) | `test_prioritize_endpoint` | PASS |
+| Grounded Recommendations (cites evidence IDs, uncertainty) | `app/services/recommendations.py` (`POST /disruptions/analyze`) | `test_analyze_endpoint_happy_path` | PASS |
+| Guardrail Prompt Injection Defense | `app/core/guardrails.py` (`POST /disruptions/analyze`) | `test_guardrails_injection_rejection` | PASS |
+| Guardrail Off-Topic Defense | `app/core/guardrails.py` (`POST /disruptions/analyze`) | `test_guardrails_off_topic_rejection` | PASS |
+| Guardrail Taxonomy Validation | `app/core/guardrails.py` (`POST /disruptions/analyze`) | `test_guardrails_invalid_category_rejection` | PASS |
+| Ledger Case Record Retrieval | `app/services/ledger.py` (`GET /cases/{case_id}`) | `test_case_detail_endpoint` | PASS |
+
+**Self-review findings:**
+- *Check 1 (Constraints):* Recommendations strictly grounded in evidence citations; no hallucinated metrics.
+- *Check 2 (Degrade gracefully):* When zero cases match, `/analyze` marks report `status="degraded"` and omits recommendations rather than failing.
+- *Check 3 (Windows safe):* Pathlib used, UTF-8 strings enforced.
+- *Check 4 (Secrets):* No secrets exposed in responses or logs.
+- *Check 5 (Tests):* Complete suite of 35 tests passing cleanly.
+
+**Deviations:**
+- Added `"NOT_FOUND"` to `ErrorCode` enum in `app/schemas/errors.py` for standard 404 responses.
+
+**Open items for the user:**
+- None. Proceeding to Phase 6.
+
 

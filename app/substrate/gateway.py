@@ -47,17 +47,29 @@ class SynaptReadGateway:
     """Read-tier gateway: provides read-only substrate inspection and query methods."""
 
     def __init__(self, mode: str | None = None):
-        self.mode = mode or settings.effective_synapt_mode
+        self._mode_override = mode
+        self._adapter = None
         self.circuit_breaker = CircuitBreaker()
         self._read_cache: dict[str, tuple[float, Any]] = {}
         self._cache_ttl = 30.0  # seconds
 
-        if self.mode == "mcp":
-            self.adapter = McpSubstrateAdapter()
-        elif self.mode == "replay":
-            self.adapter = ReplaySubstrateAdapter()
+    @property
+    def mode(self) -> str:
+        return self._mode_override or settings.effective_synapt_mode
+
+    @property
+    def adapter(self):
+        curr_mode = self.mode
+        if curr_mode == "mcp":
+            if not isinstance(self._adapter, McpSubstrateAdapter):
+                self._adapter = McpSubstrateAdapter()
+        elif curr_mode == "replay":
+            if not isinstance(self._adapter, ReplaySubstrateAdapter):
+                self._adapter = ReplaySubstrateAdapter()
         else:
-            self.adapter = MockSubstrateAdapter()
+            if not isinstance(self._adapter, MockSubstrateAdapter):
+                self._adapter = MockSubstrateAdapter()
+        return self._adapter
 
     def _hash_call(self, tool: str, params: dict[str, Any]) -> str:
         s = json.dumps({"tool": tool, "params": params}, sort_keys=True)

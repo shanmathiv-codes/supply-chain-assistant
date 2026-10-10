@@ -13,6 +13,7 @@ ErrorCode = Literal[
     "RATE_LIMITED",
     "INTERNAL",
     "UNAUTHORIZED",
+    "NOT_FOUND",
 ]
 
 
