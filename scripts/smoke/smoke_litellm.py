@@ -1,11 +1,12 @@
 """Smoke test for LiteLLM imports and offline configuration."""
-import os
 import importlib.metadata
+import os
 
 os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
 os.environ["LITELLM_DISABLE_TELEMETRY"] = "True"
 
 import litellm
+
 
 def run_smoke():
     litellm.telemetry = False

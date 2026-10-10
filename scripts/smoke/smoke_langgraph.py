@@ -1,6 +1,8 @@
 """Smoke test for LangGraph."""
 from typing import TypedDict
-from langgraph.graph import StateGraph, END
+
+from langgraph.graph import END, StateGraph
+
 
 class SimpleState(TypedDict):
     step: str

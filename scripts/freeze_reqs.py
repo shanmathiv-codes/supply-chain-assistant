@@ -21,7 +21,7 @@ def freeze_venv(venv_path: Path, output_file: Path):
             name = d.metadata["Name"]
             ver = d.version
             pkgs[name.lower()] = f"{name}=={ver}"
-        
+
         sorted_lines = [pkgs[k] for k in sorted(pkgs.keys())]
         output_file.write_text("\n".join(sorted_lines) + "\n", encoding="utf-8")
         print(f"{output_file.name} written with {len(sorted_lines)} packages.")

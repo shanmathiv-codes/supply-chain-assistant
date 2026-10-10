@@ -6,7 +6,7 @@ limits:
 injection_patterns:
   - "(?i)ignore\\s+(all\\s+)?(previous|above)\\s+instructions"
   - "(?i)system\\s+prompt"
-  - "(?i)reveal\\s+(the\\s+)?(keys|passwords|credentials|secrets|token)"
+  - "(?i)reveal\\s+(the\\s+)?(api[\\s_-]*)?(keys|passwords|credentials|secrets|token)"
   - "(?i)you\\s+are\\s+now\\s+in\\s+developer\\s+mode"
   - "(?i)<\\s*script"
   - "(?i)DAN\\s+mode"
