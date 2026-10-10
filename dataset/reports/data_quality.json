@@ -1,0 +1,107 @@
+{
+  "is_synthetic": false,
+  "total_rows_inspected": 100000,
+  "clean_rows": 100000,
+  "rejected_rows": 0,
+  "rejection_percentage": 0.0,
+  "missing_rates": {
+    "disruption_id": 0.0,
+    "disruption_type": 0.0,
+    "industry": 0.0,
+    "supplier_tier": 0.0,
+    "supplier_region": 0.0,
+    "supplier_size": 0.0,
+    "has_backup_supplier": 0.0,
+    "disruption_severity": 0.0,
+    "production_impact_pct": 0.0,
+    "revenue_loss_usd": 0.0,
+    "response_type": 0.0,
+    "response_time_days": 0.0,
+    "partial_recovery_days": 0.0,
+    "full_recovery_days": 0.0,
+    "permanent_supplier_change": 0.0
+  },
+  "numeric_stats": {
+    "production_impact_pct": {
+      "min": 1.0,
+      "max": 100.0,
+      "mean": 31.411037,
+      "median": 30.1,
+      "std": 17.565837055800834,
+      "skew": 0.4165451901041118
+    },
+    "revenue_loss_usd": {
+      "min": 10000.0,
+      "max": 373130977.48,
+      "mean": 2522811.8556522,
+      "median": 875466.1799999999,
+      "std": 5533129.753361169,
+      "skew": 10.320019162724337
+    },
+    "response_time_days": {
+      "min": 1.0,
+      "max": 64.0,
+      "mean": 4.06759,
+      "median": 2.0,
+      "std": 4.712086971771244,
+      "skew": 2.8394417825493075
+    },
+    "full_recovery_days": {
+      "min": 8.0,
+      "max": 798.0,
+      "mean": 75.8411,
+      "median": 61.0,
+      "std": 56.91114741047658,
+      "skew": 1.7847964821242326
+    }
+  },
+  "category_counts": {
+    "disruption_type": {
+      "Transportation Delay": 25118,
+      "Geopolitical": 18084,
+      "Labor Strike": 15017,
+      "Natural Disaster": 15016,
+      "Cyber Attack": 14887,
+      "Factory Incident": 11878
+    },
+    "industry": {
+      "Electronics": 29844,
+      "Automotive": 24934,
+      "Consumer Goods": 20158,
+      "Pharmaceuticals": 15015,
+      "Aerospace": 10049
+    },
+    "supplier_tier": {
+      "Tier 1": 34938,
+      "Tier 2": 30023,
+      "Tier 3": 25019,
+      "4": 10020
+    },
+    "supplier_region": {
+      "Asia-Pacific": 40262,
+      "Europe": 21890,
+      "North America": 19939,
+      "South America": 9896,
+      "Africa/Middle East": 8013
+    },
+    "supplier_size": {
+      "Medium": 45161,
+      "Small": 29872,
+      "Large": 24967
+    },
+    "disruption_severity": {
+      "2": 31553,
+      "3": 29804,
+      "1": 20390,
+      "4": 14462,
+      "5": 3791
+    },
+    "response_type": {
+      "Alternative Supplier": 44362,
+      "Production Reroute": 18858,
+      "Inventory Buffer": 12687,
+      "Customer Delay": 12429,
+      "Combined Strategy": 11664
+    }
+  }
+}

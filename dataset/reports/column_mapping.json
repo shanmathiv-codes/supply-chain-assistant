@@ -1,0 +1,17 @@
+{
+  "disruption_id": "disruption_id",
+  "disruption_type": "disruption_type",
+  "industry": "industry",
+  "supplier_tier": "supplier_tier",
+  "supplier_region": "supplier_region",
+  "supplier_size": "supplier_size",
+  "has_backup_supplier": "has_backup_supplier",
+  "disruption_severity": "disruption_severity",
+  "production_impact_pct": "production_impact_pct",
+  "revenue_loss_usd": "revenue_loss_usd",
+  "response_type": "response_type",
+  "response_time_days": "response_time_days",
+  "partial_recovery_days": "partial_recovery_days",
+  "full_recovery_days": "full_recovery_days",
+  "permanent_supplier_change": "permanent_supplier_change"
+}

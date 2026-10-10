@@ -1,0 +1,61 @@
+disruption_id,disruption_type,industry,supplier_tier,supplier_region,supplier_size,has_backup_supplier,disruption_severity,production_impact_pct,revenue_loss_usd,response_type,response_time_days,partial_recovery_days,full_recovery_days,permanent_supplier_change
+DIS-00001,Natural Disaster,Consumer Goods,Tier 1,Latin America,Small,True,Medium,13.47,147032.26,Production Rescheduling,2.0,19.1,38.4,False
+DIS-00002,Natural Disaster,Pharmaceuticals,Tier 1,Middle East & Africa,Medium,True,Low,11.03,4204.84,Buffer Inventory,2.7,6.6,9.3,False
+DIS-00003,Quality Issue,Electronics,Tier 1,Latin America,Small,True,Low,4.71,17037.54,Activate Backup Supplier,3.0,5.0,8.3,True
+DIS-00004,Natural Disaster,Consumer Goods,Tier 3,Middle East & Africa,Medium,False,High,71.63,2243523.21,Accept Delay,5.0,82.8,126.6,True
+DIS-00005,Geopolitical,Aerospace,Tier 3,Middle East & Africa,Medium,False,Low,18.69,72724.91,Accept Delay,6.1,9.3,14.4,False
+DIS-00006,Quality Issue,Industrial,Tier 2,Latin America,Medium,True,High,34.2,624223.1,Renegotiate Contract,1.4,17.2,34.8,True
+DIS-00007,Supplier Bankruptcy,Industrial,Tier 2,Europe,Medium,False,High,67.47,111395.98,Renegotiate Contract,3.2,55.9,83.3,False
+DIS-00008,Cyber Incident,Automotive,Tier 1,North America,Large,False,Low,7.63,44431.66,Expedite Freight,4.9,9.9,19.4,False
+DIS-00009,Quality Issue,Automotive,Tier 2,Latin America,Large,True,Medium,19.07,42761.71,Activate Backup Supplier,9.0,20.5,25.5,False
+DIS-00010,Geopolitical,Chemicals,Tier 2,North America,Small,False,Low,5.2,124918.79,Expedite Freight,1.5,12.3,18.7,False
+DIS-00011,Transportation Delay,Chemicals,Tier 2,North America,Small,True,Medium,23.79,309553.43,Renegotiate Contract,2.7,13.3,21.2,True
+DIS-00012,Quality Issue,Automotive,Tier 2,Latin America,Small,False,Low,4.99,30266.9,Expedite Freight,5.4,13.5,20.5,True
+DIS-00013,Geopolitical,Automotive,Tier 2,Asia-Pacific,Medium,True,Medium,28.48,153527.59,Activate Backup Supplier,8.4,15.8,27.1,False
+DIS-00014,Quality Issue,Electronics,Tier 2,Europe,Medium,True,High,40.26,437382.42,Accept Delay,1.4,24.3,36.4,False
+DIS-00015,Natural Disaster,Chemicals,Tier 2,Europe,Large,False,High,82.71,1446043.73,Buffer Inventory,1.1,41.7,112.8,True
+DIS-00016,Cyber Incident,Electronics,Tier 2,Middle East & Africa,Medium,True,High,51.79,479770.66,Buffer Inventory,2.5,26.3,43.8,False
+DIS-00017,Cyber Incident,Industrial,Tier 3,Latin America,Medium,True,Low,1.0,33652.29,Expedite Freight,11.4,13.0,16.4,False
+DIS-00018,Operational Failure,Energy,Tier 2,Middle East & Africa,Medium,True,High,46.31,219145.24,Expedite Freight,5.9,24.3,32.2,True
+DIS-00019,Labor Strike,Aerospace,Tier 3,Asia-Pacific,Medium,True,Critical,66.28,1073761.66,Production Rescheduling,4.6,40.0,81.6,True
+DIS-00020,Natural Disaster,Aerospace,Tier 1,Europe,Small,False,Low,15.8,19158.9,Production Rescheduling,3.9,9.7,14.1,False
+DIS-00021,Operational Failure,Industrial,Tier 2,Latin America,Medium,False,High,74.5,279173.51,Accept Delay,8.5,55.0,110.9,False
+DIS-00022,Geopolitical,Energy,Tier 1,Europe,Large,True,Medium,23.96,62897.35,Reroute Shipments,1.8,11.2,16.7,False
+DIS-00023,Geopolitical,Energy,Tier 2,North America,Medium,False,High,71.96,182274.17,Expedite Freight,4.5,65.1,91.7,False
+DIS-00024,Quality Issue,Energy,Tier 1,Latin America,Medium,True,High,41.28,356904.82,Activate Backup Supplier,2.4,30.0,56.8,False
+DIS-00025,Natural Disaster,Chemicals,Tier 1,Asia-Pacific,Large,True,High,47.51,206231.41,Buffer Inventory,7.6,33.5,78.7,False
+DIS-00026,Transportation Delay,Electronics,Tier 3,Middle East & Africa,Large,False,Low,13.08,81441.76,Buffer Inventory,17.4,19.1,22.4,True
+DIS-00027,Quality Issue,Consumer Goods,Tier 1,Middle East & Africa,Medium,False,Low,8.15,24355.55,Buffer Inventory,3.4,8.3,15.0,False
+DIS-00028,Geopolitical,Energy,Tier 1,Latin America,Medium,False,Medium,35.52,143264.58,Reroute Shipments,3.4,30.8,49.0,True
+DIS-00029,Natural Disaster,Chemicals,Tier 2,Europe,Medium,True,Medium,25.06,109080.79,Production Rescheduling,1.7,10.0,21.3,False
+DIS-00030,Cyber Incident,Aerospace,Tier 2,North America,Medium,False,High,73.45,379320.84,Reroute Shipments,5.4,66.5,98.6,True
+DIS-00031,Quality Issue,Aerospace,Tier 2,North America,Large,False,Low,13.76,131082.49,Buffer Inventory,3.3,8.4,18.5,False
+DIS-00032,Natural Disaster,Automotive,Tier 2,Europe,Small,False,Medium,39.05,285038.4,Accept Delay,2.6,31.8,46.1,False
+DIS-00033,Labor Strike,Consumer Goods,Tier 2,Latin America,Small,True,Low,10.38,45557.32,Production Rescheduling,6.6,8.9,11.6,False
+DIS-00034,Transportation Delay,Aerospace,Tier 2,North America,Medium,False,Medium,29.84,72273.08,Accept Delay,1.9,28.8,44.9,False
+DIS-00035,Natural Disaster,Chemicals,Tier 2,Latin America,Medium,True,Medium,27.89,74168.47,Activate Backup Supplier,1.0,17.2,31.4,False
+DIS-00036,Labor Strike,Automotive,Tier 1,Europe,Small,True,Low,8.54,26886.84,Renegotiate Contract,2.9,5.8,8.0,False
+DIS-00037,Natural Disaster,Automotive,Tier 3,Europe,Medium,False,High,69.15,506541.76,Activate Backup Supplier,1.1,32.4,91.0,True
+DIS-00038,Transportation Delay,Energy,Tier 1,North America,Medium,True,Medium,29.36,51818.98,Buffer Inventory,5.2,20.3,26.8,False
+DIS-00039,Quality Issue,Chemicals,Tier 2,Latin America,Small,False,High,63.89,1444332.19,Expedite Freight,1.4,35.8,109.1,True
+DIS-00040,Supplier Bankruptcy,Pharmaceuticals,Tier 1,Asia-Pacific,Medium,True,Medium,27.36,85483.32,Expedite Freight,3.2,23.7,36.5,False
+DIS-00041,Labor Strike,Chemicals,Tier 3,North America,Medium,True,Medium,18.26,17426.85,Expedite Freight,1.8,13.3,32.5,False
+DIS-00042,Labor Strike,Chemicals,Tier 1,Europe,Large,True,High,43.07,600979.08,Reroute Shipments,2.1,37.9,55.8,True
+DIS-00043,Supplier Bankruptcy,Energy,Tier 1,Europe,Small,False,Critical,90.99,385141.85,Renegotiate Contract,2.5,106.3,169.1,True
+DIS-00044,Natural Disaster,Pharmaceuticals,Tier 1,North America,Small,True,Medium,17.28,302676.92,Accept Delay,1.0,15.9,31.1,False
+DIS-00045,Labor Strike,Aerospace,Tier 2,Asia-Pacific,Medium,True,High,40.82,209151.84,Expedite Freight,14.2,50.5,72.8,False
+DIS-00046,Quality Issue,Energy,Tier 2,North America,Small,True,Low,5.18,15291.82,Activate Backup Supplier,6.0,8.3,11.0,False
+DIS-00047,Operational Failure,Automotive,Tier 2,Middle East & Africa,Large,False,Critical,99.0,4984141.61,Production Rescheduling,1.1,58.1,175.4,True
+DIS-00048,Operational Failure,Chemicals,Tier 3,Middle East & Africa,Small,False,High,53.14,281137.4,Reroute Shipments,1.4,34.5,85.5,False
+DIS-00049,Natural Disaster,Consumer Goods,Tier 1,Europe,Medium,False,High,73.53,254935.14,Renegotiate Contract,2.3,38.7,102.1,False
+DIS-00050,Labor Strike,Chemicals,Tier 2,North America,Small,False,Medium,20.51,51007.89,Buffer Inventory,5.0,18.7,49.0,True
+DIS-00051,Operational Failure,Chemicals,Tier 1,North America,Medium,True,High,42.86,279148.75,Expedite Freight,1.2,42.8,62.1,True
+DIS-00052,Operational Failure,Electronics,Tier 1,North America,Medium,False,Medium,38.46,247579.7,Expedite Freight,2.8,29.4,42.4,False
+DIS-00053,Transportation Delay,Electronics,Tier 2,North America,Large,False,Medium,39.95,235107.37,Accept Delay,1.5,25.4,42.1,False
+DIS-00054,Transportation Delay,Industrial,Tier 3,North America,Small,True,Medium,19.13,104980.03,Accept Delay,2.8,13.7,24.0,False
+DIS-00055,Quality Issue,Energy,Tier 3,Europe,Large,True,Medium,15.77,149951.52,Buffer Inventory,4.4,10.5,17.4,False
+DIS-00056,Natural Disaster,Chemicals,Tier 1,North America,Small,False,Medium,36.57,208066.23,Accept Delay,4.5,30.8,43.2,False
+DIS-00057,Transportation Delay,Electronics,Tier 3,North America,Medium,False,Medium,35.15,786364.16,Reroute Shipments,1.0,19.3,49.3,False
+DIS-00058,Labor Strike,Consumer Goods,Tier 1,Middle East & Africa,Medium,False,Critical,99.0,2488350.99,Renegotiate Contract,2.9,103.1,158.7,True
+DIS-00059,Transportation Delay,Aerospace,Tier 1,Latin America,Small,True,High,40.3,429665.3,Accept Delay,4.7,23.7,48.0,False
+DIS-00060,Operational Failure,Automotive,Tier 2,North America,Medium,True,Medium,26.23,188155.02,Renegotiate Contract,2.8,10.4,22.0,False

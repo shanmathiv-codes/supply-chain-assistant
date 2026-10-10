@@ -1,0 +1,17 @@
+{
+  "disruption_id": "str",
+  "disruption_type": "str",
+  "industry": "str",
+  "supplier_tier": "str",
+  "supplier_region": "str",
+  "supplier_size": "str",
+  "has_backup_supplier": "bool",
+  "disruption_severity": "str",
+  "production_impact_pct": "float64",
+  "revenue_loss_usd": "float64",
+  "response_type": "str",
+  "response_time_days": "int64",
+  "partial_recovery_days": "int64",
+  "full_recovery_days": "int64",
+  "permanent_supplier_change": "bool"
+}

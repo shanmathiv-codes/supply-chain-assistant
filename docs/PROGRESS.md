@@ -68,3 +68,38 @@
 
 **Open items for the user:**
 - None. Proceeding to Phase 2.
+
+
+## PHASE 2 REPORT
+**Built:**
+- Schema-faithful synthetic dataset generator in `data_preprocessing/synthetic/generator.py` with domain correlations.
+- Acquisition orchestrator in `scripts/download_dataset.py` detecting raw dataset (`100,000` rows), Kaggle API, or synthetic fallback.
+- Cleaning suite in `data_preprocessing/data_cleaning/` (`cleaners.py`, `validators.py`, `quality_report.py`) with column remapping, type coercion, range validation, and rejected row reporting.
+- Storage layer in `data_preprocessing/data_storing/` (`parquet_io.py`, `sqlite_io.py`, `manifest.py`) writing snappy Parquet ledger, schema.json, SQLite mirror `disruptions.db`, and `MANIFEST.json`.
+- Preprocessing modules in `data_preprocessing/preprocessing/` (`taxonomy.py`, `feature_sets.py`, `splitting.py`, `synapt_sample.py`) generating stratified 80/10/10 splits, 20% calibration slice, and stratified Synapt sample (500 cases with pilot batches and checklist).
+- Case cards generator in `data_preprocessing/case_cards/builder.py` outputting collision-free narrative cards and `_index.json`.
+- Derived playbooks generator in `data_preprocessing/case_cards/playbooks.py` producing `[DERIVED]` SOP markdown per disruption type from training observations.
+- Data dictionary ontology in `data_preprocessing/case_cards/data_dictionary_builder.py` writing `dataset/schema_doc/data_dictionary.md`.
+- Exploratory data analysis in `data_preprocessing/eda/eda.py` evaluating tree models vs dummy median baselines and writing `dataset/reports/signal_check.md`.
+- Master pipeline CLI in `data_preprocessing/pipeline.py` with strict integrity assertions (split disjointness, sample subset validation, hash logging).
+- Test fixtures and test suite in `tests/fixtures/mini_dataset.csv` and `tests/data/test_data_pipeline.py`.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -m scripts.dev data --source auto` -> PASS (100,000 cases cleaned and stored in 34.8s)
+- `& .venv\Scripts\python.exe -m pytest tests/unit tests/data` -> PASS (18 tests passed in 1.30s)
+- `& .venv\Scripts\python.exe -m ruff check app tests scripts data_preprocessing` -> PASS (All checks passed)
+
+**Self-review findings:**
+- *Check 1 (Constraints):* Python 3.12, PyArrow, Pandas, SQLite; no forbidden search indices or external DBs.
+- *Check 2 (Degrade gracefully):* When real raw CSV is absent, synthetic generator automatically generates 3,000 plausible records with explicit warning banners.
+- *Check 3 (Windows safe):* Pathlib used, UTF-8 file reads/writes, clean forward slashes.
+- *Check 4 (Secrets):* No secrets in dataset manifests or reports.
+- *Check 5 (Missing configs):* Schema, taxonomy, and features loaded cleanly from YAML.
+- *Check 6 (Tests):* Mini dataset (60 rows), leakage checks, and split disjointness verified.
+- *Check 7 (Traceability):* All SHA256 hashes, timestamps, and record counts saved in `dataset/MANIFEST.json`.
+
+**Deviations (also in docs/DECISIONS.md):**
+- Per user instruction: `INGESTION_STATE=user_preingested`; skipped manual console ingestion pause, bypassing STOP POINT to continue into Phase 3.
+
+**Open items for the user:**
+- None. Continuing directly to Phase 3.

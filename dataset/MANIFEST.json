@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-10T17:29:34Z",
+  "source": "real",
+  "row_count": 100000,
+  "column_count": 15,
+  "columns": [
+    "disruption_id",
+    "disruption_type",
+    "industry",
+    "supplier_tier",
+    "supplier_region",
+    "supplier_size",
+    "has_backup_supplier",
+    "disruption_severity",
+    "production_impact_pct",
+    "revenue_loss_usd",
+    "response_type",
+    "response_time_days",
+    "partial_recovery_days",
+    "full_recovery_days",
+    "permanent_supplier_change"
+  ],
+  "sha256_checksums": {
+    "raw_dataset": "4c5ccb6553e8c4f2ad4fc2f8c2e5c3bdf1ae79792b9c496a67c5b792972823b5",
+    "clean_ledger": "2ba6aa93003cffa8a790f7ae990b3864b5b23617e39f21709dae751516295693"
+  }
+}
