@@ -140,4 +140,42 @@
 - None.
 
 **Open items for the user:**
-- None. Proceeding to Phase 4.
+- None.
+
+---
+
+## Phase 4 Report: LLM Layer
+
+**Files created/modified:**
+- `app/llm/prompts/intake_v1.md`, `classify_v1.md`, `response_v1.md`, `recovery_v1.md`, `synthesize_v1.md`, `judge_v1.md`: Versioned prompt templates.
+- `app/llm/fake.py`: Deterministic schema-faithful FakeLLM generator across all prompt roles.
+- `app/llm/cache.py`: SQLite response cache with SHA256 keying.
+- `app/llm/limiter.py`: Token-bucket provider rate limiter and concurrency controller.
+- `app/workflow/budget.py`: Per-run call and token budget enforcement tracker.
+- `app/llm/structured.py`: JSON extraction, markdown delimiter stripping, and validation.
+- `app/llm/router.py`: LiteLLM router with candidate fallback chain, single-repair retry, and FakeLLM fallback.
+- `scripts/probe_models.py`: Free model probe resolving `config/models.resolved.yaml`.
+- `scripts/warm_cache.py`: Cache pre-warming script executing 10 golden scenarios.
+- `tests/unit/test_llm.py`: Unit test suite verifying FakeLLM output compliance, cache hit/miss, limiter, parsing, and budget tracking.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -m scripts.warm_cache` -> PASS (Pre-warmed 340 candidate responses across 10 golden scenarios)
+- `& .venv\Scripts\python.exe -m scripts.probe_models` -> PASS (Probed candidates concurrently, saved config/models.resolved.yaml)
+- `& .venv\Scripts\python.exe -m pytest tests/unit/test_llm.py` -> PASS (5 tests passed in 0.21s)
+- `& .venv\Scripts\python.exe -m pytest` -> PASS (26 passed in 1.29s)
+- `& .venv\Scripts\ruff.exe check .` -> PASS (All checks passed)
+
+**Self-review findings:**
+- *Check 1 (Constraints):* Prompt rules strictly followed: evidence citations required, no causal claims ("associated with"), no LLM-computed numbers.
+- *Check 2 (Degrade gracefully):* FakeLLM fully covers all 6 prompt templates so complete system runs offline with 0 keys.
+- *Check 3 (Windows safe):* Pathlib used, UTF-8 encoded files, no unclosed quotation blocks.
+- *Check 4 (Secrets):* No API keys printed or logged.
+- *Check 5 (Missing configs):* Config fallbacks operational; offline LiteLLM flags set.
+- *Check 6 (Tests):* Complete test suite passing.
+
+**Deviations:**
+- None.
+
+**Open items for the user:**
+- None. Proceeding to Phase 5.
+

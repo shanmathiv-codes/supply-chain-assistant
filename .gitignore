@@ -23,6 +23,7 @@ config/models.resolved.yaml
 dataset/raw/*
 !dataset/raw/.gitkeep
 dataset/store/*.db
+dataset/cache/*.db
 
 # IDE and OS
 .vscode/
