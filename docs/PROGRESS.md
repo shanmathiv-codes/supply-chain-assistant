@@ -316,6 +316,62 @@
 **Open items for the user:**
 - None. Proceeding to Phase 8.
 
+---
+
+## Phase 8 Report: Evaluation Harness, Benchmark Suites, and Continuous Feedback Loop
+
+**Files created/modified:**
+- `evaluation/build_eval_sets.py`: Evaluation dataset generator creating held-out benchmark splits disjoint from training data and Synapt sample (`retrieval_set.json` with 100 queries, `qa_set.json` with 43 questions including the 3 domain benchmark questions, `classification_set.json` with 100 cases, `guardrails_set.json` with 40 adversarial/edge cases, `judge_calibration_template.csv` with 30 human scoring rows, and `ingested_ids.json`).
+- `evaluation/retrieval_metrics.py`: Metrics module implementing Precision@K, Recall@K, nDCG@K, MRR, and Attribute Agreement@K.
+- `evaluation/client.py`: Clean HTTP API client (`EvaluationAPIClient`) that never imports from `app/` and queries FastAPI endpoints via HTTP.
+- `evaluation/deepeval_suite.py`: DeepEval evaluation runner wrapping `DeepEvalBaseLLM` and offline `FakeJudgeModel` with budget controls (`--budget small|medium|full`), metric scoring (Faithfulness, Relevancy, Contextual Precision/Recall, GEval criteria), and per-case checkpointing.
+- `evaluation/ablation.py`: Ablation experiments harness comparing 5 configurations (Config A: LLM only, Config B: chunks only, Config B2: ask lane alone, Config C: inspect lane + SOPs, Config D: full hybrid workflow) producing CSV, Markdown table, and HTML interactive chart.
+- `evaluation/report.py`: Evaluation report compiler outputting `artifacts/reports/EVALUATION_REPORT.md` and updating `docs/EVALUATION.md` with transparent runtime mode disclosures and negative findings.
+- `app/feedback/store.py`: Feedback persistence store with SQLite tables for `feedback`, `outcomes`, and `review_queue`.
+- `app/feedback/review.py`: Human feedback review module and case card formatter for approved outcomes.
+- `scripts/review_feedback.py`: CLI tool for listing, approving, and rejecting feedback and outcome items.
+- `scripts/retrain_gate.py`: Retraining gate and champion-challenger validation tournament enforcing minimum approved outcomes and validation MAE improvement.
+- `scripts/replay_feedback_experiment.py`: Feedback replay experiment ingesting simulated approved outcomes (`simulated=True`), evaluating before vs after performance with 95% confidence intervals, and reporting statistical noise boundaries.
+- `app/api/routes.py`: Enhanced `POST /feedback` to persist feedback records and added `GET /evaluations` returning latest benchmark results.
+- `tests/eval/test_eval.py`: Test suite verifying retrieval metrics, benchmark datasets integrity, ablation logic, and fake judge execution.
+- `tests/feedback/test_feedback.py`: Test suite verifying feedback persistence lifecycle, review queue, case card staging, retrain gate, and simulated replay experiment.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -m scripts.dev eval --budget small` -> PASS (DeepEval benchmark, ablation, and report generation completed; EVALUATION_REPORT.md and docs/EVALUATION.md written)
+- `& .venv\Scripts\python.exe -m scripts.review_feedback seed ; approve` -> PASS
+- `& .venv\Scripts\python.exe -m scripts.retrain_gate --force` -> PASS
+- `& .venv\Scripts\python.exe -m scripts.replay_feedback_experiment --samples 10` -> PASS (Within statistical noise verdict reported)
+- `& .venv\Scripts\python.exe -m pytest` -> PASS (55 passed in 6.16s)
+- `& .venv\Scripts\ruff.exe check .` -> PASS (All checks passed)
+
+### EVALUATION & FEEDBACK GATE SUMMARY
+| Requirement | Implementation | Test Name | Status |
+| :--- | :--- | :--- | :--- |
+| Disjoint Held-Out Evaluation Sets | `evaluation/build_eval_sets.py` | `test_evaluation_datasets_integrity` | PASS |
+| Retrieval Metrics (P@K, R@K, nDCG, MRR) | `evaluation/retrieval_metrics.py` | `test_retrieval_metrics_calculation` | PASS |
+| Attribute Agreement@K | `evaluation/retrieval_metrics.py` | `test_attribute_agreement_calculation` | PASS |
+| DeepEval Suite & FakeJudge Fallback | `evaluation/deepeval_suite.py` | `test_fake_judge_benchmark` | PASS |
+| Ablation Study (5 Configs, CSV & Chart) | `evaluation/ablation.py` | `test_ablation_experiments_runner` | PASS |
+| Evaluation Report Generator | `evaluation/report.py` | `cmd_eval` in `scripts/dev.py` | PASS |
+| Human Feedback Store & Queue | `app/feedback/store.py` | `test_feedback_store_lifecycle` | PASS |
+| Case Card Staging for Ingestion | `app/feedback/review.py` | `test_case_card_formatting_and_staging` | PASS |
+| Retrain Gate & Champion-Challenger | `scripts/retrain_gate.py` | `test_retrain_gate_and_champion_challenger` | PASS |
+| Feedback Replay Experiment (Simulated) | `scripts/replay_feedback_experiment.py` | `test_feedback_replay_experiment_simulation` | PASS |
+
+**Self-review findings:**
+- *Check 1 (Leakage-free):* Evaluation sets strictly drawn from held-out test split and assert disjointness from Synapt ingested IDs.
+- *Check 2 (Boundary isolation):* Evaluation harness never imports from `app/`, interacting strictly via HTTP client or saved JSON.
+- *Check 3 (Simulation honesty):* All replay experiment feedback is explicitly flagged `simulated=True` with statistical noise disclosed.
+- *Check 4 (Windows safe & Ruff clean):* Unicode Delta replaced with ASCII Delta to support Windows cp1252 consoles without crashing; 0 ruff errors.
+- *Check 5 (Tests):* 55 tests passing across all suites in ~6 seconds.
+
+**Deviations:**
+- Replaced Greek unicode characters with ASCII text in stdout prints to ensure strict compatibility with default Windows cp1252 consoles.
+
+**Open items for the user:**
+- None. Proceeding to Phase 9.
+
+
 
 
 

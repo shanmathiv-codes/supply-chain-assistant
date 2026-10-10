@@ -1,5 +1,9 @@
 """FastAPI route handlers implementing the core disruption assistant API endpoints."""
 
+import json
+from pathlib import Path
+from typing import Any
+
 from fastapi import APIRouter, Header, HTTPException, Query
 from fastapi.responses import StreamingResponse
 
@@ -12,6 +16,7 @@ from app.core.guardrails import (
     sanitize_text,
 )
 from app.core.ids import generate_id
+from app.feedback.store import FeedbackStore
 from app.schemas.evidence import SubstrateCall
 from app.schemas.feedback import FeedbackSubmission
 from app.schemas.request import (
@@ -32,6 +37,7 @@ from ml.registry import model_registry
 
 router = APIRouter()
 gateway = SynaptReadGateway()
+feedback_store = FeedbackStore()
 
 
 def verify_api_key_if_configured(x_api_key: str | None = Header(default=None)):
@@ -279,9 +285,52 @@ async def submit_feedback(fb: FeedbackSubmission, x_api_key: str | None = Header
     """Submit user feedback for an investigation report."""
     verify_api_key_if_configured(x_api_key)
 
+    numeric_val = None
+    try:
+        numeric_val = float(fb.value)
+    except (ValueError, TypeError):
+        pass
+
+    db_id = feedback_store.record_feedback(
+        run_id=fb.run_id,
+        case_id=fb.case_id,
+        kind=fb.kind,
+        value=numeric_val,
+        comment=fb.comment,
+    )
     fb_id = generate_id("FB")
+
     return {
         "feedback_id": fb_id,
+        "queue_id": db_id,
         "status": "pending",
         "message": "Feedback received and queued for review.",
     }
+
+
+@router.get("/evaluations")
+async def get_latest_evaluations(x_api_key: str | None = Header(default=None)):
+    """Return latest evaluation summary JSON from artifacts/reports."""
+    verify_api_key_if_configured(x_api_key)
+
+    reports_dir = Path("artifacts/reports")
+    summary: dict[str, Any] = {
+        "status": "available",
+        "runtime_modes": settings.runtime_modes,
+    }
+
+    deepeval_file = reports_dir / "deepeval_results.json"
+    if deepeval_file.exists():
+        with open(deepeval_file, encoding="utf-8") as f:
+            summary["deepeval"] = json.load(f)
+
+    ablation_file = reports_dir / "ablation_results.csv"
+    if ablation_file.exists():
+        summary["ablation_csv_available"] = True
+
+    replay_file = reports_dir / "feedback_replay_report.json"
+    if replay_file.exists():
+        with open(replay_file, encoding="utf-8") as f:
+            summary["feedback_replay"] = json.load(f)
+
+    return summary

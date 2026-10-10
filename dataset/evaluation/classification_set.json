@@ -1,0 +1,1402 @@
+[
+  {
+    "id": "CLS-001",
+    "case_id": "DIS-008397",
+    "free_text": "Incident Report #1: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "1",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-002",
+    "case_id": "DIS-057738",
+    "free_text": "Incident Report #2: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Europe. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "3",
+      "industry": "Consumer Goods",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-003",
+    "case_id": "DIS-035665",
+    "free_text": "Incident Report #3: We have detected an urgent disruption involving a Medium 4 supplier situated in North America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "4",
+      "industry": "Consumer Goods",
+      "supplier_region": "North America",
+      "supplier_tier": "4",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-004",
+    "case_id": "DIS-024414",
+    "free_text": "Incident Report #4: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Africa/Middle East. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Africa/Middle East",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-005",
+    "case_id": "DIS-006782",
+    "free_text": "Incident Report #5: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Europe. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-006",
+    "case_id": "DIS-013935",
+    "free_text": "Incident Report #6: We have detected an urgent disruption involving a Small Tier 3 supplier situated in Europe. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-007",
+    "case_id": "DIS-020112",
+    "free_text": "Incident Report #7: We have detected an urgent disruption involving a Medium 4 supplier situated in Africa/Middle East. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "Africa/Middle East",
+      "supplier_tier": "4",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-008",
+    "case_id": "DIS-090636",
+    "free_text": "Incident Report #8: We have detected an urgent disruption involving a Small Tier 2 supplier situated in South America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Factory Incident at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "1",
+      "industry": "Consumer Goods",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-009",
+    "case_id": "DIS-031000",
+    "free_text": "Incident Report #9: We have detected an urgent disruption involving a Small Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "1",
+      "industry": "Consumer Goods",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-010",
+    "case_id": "DIS-056383",
+    "free_text": "Incident Report #10: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Geopolitical at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "2",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-011",
+    "case_id": "DIS-047261",
+    "free_text": "Incident Report #11: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Europe. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "4",
+      "industry": "Consumer Goods",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-012",
+    "case_id": "DIS-069059",
+    "free_text": "Incident Report #12: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in South America. The affected enterprise operates within the Aerospace domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Aerospace",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-013",
+    "case_id": "DIS-045837",
+    "free_text": "Incident Report #13: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "1",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-014",
+    "case_id": "DIS-088669",
+    "free_text": "Incident Report #14: We have detected an urgent disruption involving a Large Tier 3 supplier situated in Europe. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 5 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "5",
+      "industry": "Electronics",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-015",
+    "case_id": "DIS-029331",
+    "free_text": "Incident Report #15: We have detected an urgent disruption involving a Large Tier 2 supplier situated in Europe. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-016",
+    "case_id": "DIS-022714",
+    "free_text": "Incident Report #16: We have detected an urgent disruption involving a Large Tier 3 supplier situated in North America. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "4",
+      "industry": "Electronics",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-017",
+    "case_id": "DIS-019692",
+    "free_text": "Incident Report #17: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Europe. The affected enterprise operates within the Aerospace domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Natural Disaster at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "2",
+      "industry": "Aerospace",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-018",
+    "case_id": "DIS-077771",
+    "free_text": "Incident Report #18: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-019",
+    "case_id": "DIS-046949",
+    "free_text": "Incident Report #19: We have detected an urgent disruption involving a Large Tier 2 supplier situated in North America. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-020",
+    "case_id": "DIS-016417",
+    "free_text": "Incident Report #20: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-021",
+    "case_id": "DIS-051996",
+    "free_text": "Incident Report #21: We have detected an urgent disruption involving a Small Tier 2 supplier situated in South America. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "4",
+      "industry": "Electronics",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-022",
+    "case_id": "DIS-090166",
+    "free_text": "Incident Report #22: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in North America. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "4",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-023",
+    "case_id": "DIS-071217",
+    "free_text": "Incident Report #23: We have detected an urgent disruption involving a Small 4 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "2",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "4",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-024",
+    "case_id": "DIS-088289",
+    "free_text": "Incident Report #24: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Europe. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-025",
+    "case_id": "DIS-084410",
+    "free_text": "Incident Report #25: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in South America. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-026",
+    "case_id": "DIS-081253",
+    "free_text": "Incident Report #26: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in South America. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-027",
+    "case_id": "DIS-057050",
+    "free_text": "Incident Report #27: We have detected an urgent disruption involving a Large Tier 2 supplier situated in North America. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-028",
+    "case_id": "DIS-031892",
+    "free_text": "Incident Report #28: We have detected an urgent disruption involving a Small Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-029",
+    "case_id": "DIS-085368",
+    "free_text": "Incident Report #29: We have detected an urgent disruption involving a Small 4 supplier situated in South America. The affected enterprise operates within the Aerospace domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Aerospace",
+      "supplier_region": "South America",
+      "supplier_tier": "4",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-030",
+    "case_id": "DIS-092470",
+    "free_text": "Incident Report #30: We have detected an urgent disruption involving a Large Tier 2 supplier situated in North America. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Factory Incident at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "3",
+      "industry": "Automotive",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-031",
+    "case_id": "DIS-093906",
+    "free_text": "Incident Report #31: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "3",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-032",
+    "case_id": "DIS-019702",
+    "free_text": "Incident Report #32: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Aerospace domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Aerospace",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-033",
+    "case_id": "DIS-006754",
+    "free_text": "Incident Report #33: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in North America. The affected enterprise operates within the Aerospace domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Natural Disaster at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "4",
+      "industry": "Aerospace",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-034",
+    "case_id": "DIS-080623",
+    "free_text": "Incident Report #34: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "4",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-035",
+    "case_id": "DIS-031758",
+    "free_text": "Incident Report #35: We have detected an urgent disruption involving a Large Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Factory Incident at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-036",
+    "case_id": "DIS-055521",
+    "free_text": "Incident Report #36: We have detected an urgent disruption involving a Large Tier 1 supplier situated in North America. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "1",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-037",
+    "case_id": "DIS-060913",
+    "free_text": "Incident Report #37: We have detected an urgent disruption involving a Small Tier 2 supplier situated in South America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Geopolitical at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "3",
+      "industry": "Consumer Goods",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-038",
+    "case_id": "DIS-002580",
+    "free_text": "Incident Report #38: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-039",
+    "case_id": "DIS-054270",
+    "free_text": "Incident Report #39: We have detected an urgent disruption involving a Small Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-040",
+    "case_id": "DIS-008321",
+    "free_text": "Incident Report #40: We have detected an urgent disruption involving a Large Tier 3 supplier situated in South America. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 5 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "5",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-041",
+    "case_id": "DIS-080395",
+    "free_text": "Incident Report #41: We have detected an urgent disruption involving a Large Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Geopolitical at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-042",
+    "case_id": "DIS-044680",
+    "free_text": "Incident Report #42: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "2",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-043",
+    "case_id": "DIS-038630",
+    "free_text": "Incident Report #43: We have detected an urgent disruption involving a Small Tier 1 supplier situated in South America. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Factory Incident at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-044",
+    "case_id": "DIS-067422",
+    "free_text": "Incident Report #44: We have detected an urgent disruption involving a Small Tier 3 supplier situated in Europe. The affected enterprise operates within the Aerospace domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Aerospace",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-045",
+    "case_id": "DIS-004771",
+    "free_text": "Incident Report #45: We have detected an urgent disruption involving a Small Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-046",
+    "case_id": "DIS-008000",
+    "free_text": "Incident Report #46: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Europe. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "3",
+      "industry": "Consumer Goods",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-047",
+    "case_id": "DIS-072566",
+    "free_text": "Incident Report #47: We have detected an urgent disruption involving a Large Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-048",
+    "case_id": "DIS-093501",
+    "free_text": "Incident Report #48: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Africa/Middle East. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Geopolitical at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "4",
+      "industry": "Electronics",
+      "supplier_region": "Africa/Middle East",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-049",
+    "case_id": "DIS-094839",
+    "free_text": "Incident Report #49: We have detected an urgent disruption involving a Small Tier 2 supplier situated in Europe. The affected enterprise operates within the Aerospace domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Natural Disaster at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "3",
+      "industry": "Aerospace",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-050",
+    "case_id": "DIS-009933",
+    "free_text": "Incident Report #50: We have detected an urgent disruption involving a Large Tier 2 supplier situated in Africa/Middle East. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Geopolitical at a 5 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "5",
+      "industry": "Consumer Goods",
+      "supplier_region": "Africa/Middle East",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-051",
+    "case_id": "DIS-094387",
+    "free_text": "Incident Report #51: We have detected an urgent disruption involving a Small Tier 2 supplier situated in South America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "2",
+      "industry": "Consumer Goods",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-052",
+    "case_id": "DIS-016396",
+    "free_text": "Incident Report #52: We have detected an urgent disruption involving a Large Tier 1 supplier situated in Europe. The affected enterprise operates within the Automotive domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "1",
+      "industry": "Automotive",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-053",
+    "case_id": "DIS-088303",
+    "free_text": "Incident Report #53: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Factory Incident at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-054",
+    "case_id": "DIS-002455",
+    "free_text": "Incident Report #54: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "1",
+      "industry": "Consumer Goods",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-055",
+    "case_id": "DIS-008141",
+    "free_text": "Incident Report #55: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "4",
+      "industry": "Consumer Goods",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-056",
+    "case_id": "DIS-029684",
+    "free_text": "Incident Report #56: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in North America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Consumer Goods",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-057",
+    "case_id": "DIS-018945",
+    "free_text": "Incident Report #57: We have detected an urgent disruption involving a Large Tier 1 supplier situated in Africa/Middle East. The affected enterprise operates within the Aerospace domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Factory Incident at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "3",
+      "industry": "Aerospace",
+      "supplier_region": "Africa/Middle East",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-058",
+    "case_id": "DIS-007451",
+    "free_text": "Incident Report #58: We have detected an urgent disruption involving a Small 4 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "4",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-059",
+    "case_id": "DIS-011328",
+    "free_text": "Incident Report #59: We have detected an urgent disruption involving a Small 4 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Natural Disaster at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "4",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "4",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-060",
+    "case_id": "DIS-080288",
+    "free_text": "Incident Report #60: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in North America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Geopolitical at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "2",
+      "industry": "Consumer Goods",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-061",
+    "case_id": "DIS-023264",
+    "free_text": "Incident Report #61: We have detected an urgent disruption involving a Small 4 supplier situated in Europe. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Geopolitical at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "2",
+      "industry": "Automotive",
+      "supplier_region": "Europe",
+      "supplier_tier": "4",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-062",
+    "case_id": "DIS-063467",
+    "free_text": "Incident Report #62: We have detected an urgent disruption involving a Small Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-063",
+    "case_id": "DIS-017080",
+    "free_text": "Incident Report #63: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Europe. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-064",
+    "case_id": "DIS-010990",
+    "free_text": "Incident Report #64: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in North America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Transportation Delay at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "1",
+      "industry": "Consumer Goods",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-065",
+    "case_id": "DIS-074204",
+    "free_text": "Incident Report #65: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in North America. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 5 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "5",
+      "industry": "Automotive",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-066",
+    "case_id": "DIS-022849",
+    "free_text": "Incident Report #66: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in North America. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Factory Incident at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-067",
+    "case_id": "DIS-030600",
+    "free_text": "Incident Report #67: We have detected an urgent disruption involving a Small Tier 1 supplier situated in Europe. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "3",
+      "industry": "Consumer Goods",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-068",
+    "case_id": "DIS-007477",
+    "free_text": "Incident Report #68: We have detected an urgent disruption involving a Large Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-069",
+    "case_id": "DIS-048781",
+    "free_text": "Incident Report #69: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-070",
+    "case_id": "DIS-073376",
+    "free_text": "Incident Report #70: We have detected an urgent disruption involving a Large Tier 2 supplier situated in Europe. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Consumer Goods",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-071",
+    "case_id": "DIS-073472",
+    "free_text": "Incident Report #71: We have detected an urgent disruption involving a Large Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-072",
+    "case_id": "DIS-012218",
+    "free_text": "Incident Report #72: We have detected an urgent disruption involving a Small Tier 2 supplier situated in South America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "3",
+      "industry": "Consumer Goods",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-073",
+    "case_id": "DIS-045652",
+    "free_text": "Incident Report #73: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-074",
+    "case_id": "DIS-086767",
+    "free_text": "Incident Report #74: We have detected an urgent disruption involving a Large Tier 3 supplier situated in North America. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-075",
+    "case_id": "DIS-049281",
+    "free_text": "Incident Report #75: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Geopolitical at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-076",
+    "case_id": "DIS-057983",
+    "free_text": "Incident Report #76: We have detected an urgent disruption involving a Small Tier 1 supplier situated in North America. The affected enterprise operates within the Aerospace domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Aerospace",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-077",
+    "case_id": "DIS-093771",
+    "free_text": "Incident Report #77: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Europe. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Factory Incident at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-078",
+    "case_id": "DIS-015284",
+    "free_text": "Incident Report #78: We have detected an urgent disruption involving a Small Tier 1 supplier situated in South America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Factory Incident at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "1",
+      "industry": "Consumer Goods",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-079",
+    "case_id": "DIS-038055",
+    "free_text": "Incident Report #79: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-080",
+    "case_id": "DIS-079361",
+    "free_text": "Incident Report #80: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Europe. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Geopolitical at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "3",
+      "industry": "Consumer Goods",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-081",
+    "case_id": "DIS-024507",
+    "free_text": "Incident Report #81: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-082",
+    "case_id": "DIS-092024",
+    "free_text": "Incident Report #82: We have detected an urgent disruption involving a Small Tier 2 supplier situated in Europe. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Natural Disaster at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "4",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-083",
+    "case_id": "DIS-020729",
+    "free_text": "Incident Report #83: We have detected an urgent disruption involving a Large Tier 3 supplier situated in Europe. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "4",
+      "industry": "Electronics",
+      "supplier_region": "Europe",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-084",
+    "case_id": "DIS-097956",
+    "free_text": "Incident Report #84: We have detected an urgent disruption involving a Large Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-085",
+    "case_id": "DIS-020781",
+    "free_text": "Incident Report #85: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Africa/Middle East. The affected enterprise operates within the Aerospace domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "4",
+      "industry": "Aerospace",
+      "supplier_region": "Africa/Middle East",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-086",
+    "case_id": "DIS-086551",
+    "free_text": "Incident Report #86: We have detected an urgent disruption involving a Small Tier 1 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 4 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "4",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-087",
+    "case_id": "DIS-087796",
+    "free_text": "Incident Report #87: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in Africa/Middle East. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Geopolitical at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Geopolitical",
+      "disruption_severity": "3",
+      "industry": "Electronics",
+      "supplier_region": "Africa/Middle East",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-088",
+    "case_id": "DIS-009233",
+    "free_text": "Incident Report #88: We have detected an urgent disruption involving a Large Tier 1 supplier situated in North America. The affected enterprise operates within the Automotive domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Automotive",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-089",
+    "case_id": "DIS-036516",
+    "free_text": "Incident Report #89: We have detected an urgent disruption involving a Small Tier 1 supplier situated in North America. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Factory Incident at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "2",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Small",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-090",
+    "case_id": "DIS-063946",
+    "free_text": "Incident Report #90: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in South America. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Automotive",
+      "supplier_region": "South America",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-091",
+    "case_id": "DIS-050127",
+    "free_text": "Incident Report #91: We have detected an urgent disruption involving a Medium Tier 2 supplier situated in North America. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Factory Incident at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "1",
+      "industry": "Consumer Goods",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-092",
+    "case_id": "DIS-075760",
+    "free_text": "Incident Report #92: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 5 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "5",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-093",
+    "case_id": "DIS-032171",
+    "free_text": "Incident Report #93: We have detected an urgent disruption involving a Large Tier 1 supplier situated in North America. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Natural Disaster at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Natural Disaster",
+      "disruption_severity": "1",
+      "industry": "Electronics",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-094",
+    "case_id": "DIS-066296",
+    "free_text": "Incident Report #94: We have detected an urgent disruption involving a Medium Tier 3 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 3",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-095",
+    "case_id": "DIS-026829",
+    "free_text": "Incident Report #95: We have detected an urgent disruption involving a Large 4 supplier situated in North America. The affected enterprise operates within the Pharmaceuticals domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Pharmaceuticals",
+      "supplier_region": "North America",
+      "supplier_tier": "4",
+      "supplier_size": "Large",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-096",
+    "case_id": "DIS-022271",
+    "free_text": "Incident Report #96: We have detected an urgent disruption involving a Large 4 supplier situated in Asia-Pacific. The affected enterprise operates within the Consumer Goods domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "3",
+      "industry": "Consumer Goods",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "4",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-097",
+    "case_id": "DIS-038715",
+    "free_text": "Incident Report #97: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in North America. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Factory Incident at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Factory Incident",
+      "disruption_severity": "3",
+      "industry": "Automotive",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-098",
+    "case_id": "DIS-097577",
+    "free_text": "Incident Report #98: We have detected an urgent disruption involving a Small Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Automotive domain. Backup supplier contract: True. Immediate operations report shows symptoms characteristic of Transportation Delay at a 3 severity level.",
+    "ground_truth": {
+      "disruption_type": "Transportation Delay",
+      "disruption_severity": "3",
+      "industry": "Automotive",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Small",
+      "has_backup_supplier": true
+    }
+  },
+  {
+    "id": "CLS-099",
+    "case_id": "DIS-031750",
+    "free_text": "Incident Report #99: We have detected an urgent disruption involving a Medium Tier 1 supplier situated in North America. The affected enterprise operates within the Automotive domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Cyber Attack at a 1 severity level.",
+    "ground_truth": {
+      "disruption_type": "Cyber Attack",
+      "disruption_severity": "1",
+      "industry": "Automotive",
+      "supplier_region": "North America",
+      "supplier_tier": "Tier 1",
+      "supplier_size": "Medium",
+      "has_backup_supplier": false
+    }
+  },
+  {
+    "id": "CLS-100",
+    "case_id": "DIS-089156",
+    "free_text": "Incident Report #100: We have detected an urgent disruption involving a Large Tier 2 supplier situated in Asia-Pacific. The affected enterprise operates within the Electronics domain. Backup supplier contract: False. Immediate operations report shows symptoms characteristic of Labor Strike at a 2 severity level.",
+    "ground_truth": {
+      "disruption_type": "Labor Strike",
+      "disruption_severity": "2",
+      "industry": "Electronics",
+      "supplier_region": "Asia-Pacific",
+      "supplier_tier": "Tier 2",
+      "supplier_size": "Large",
+      "has_backup_supplier": false
+    }
+  }
+]

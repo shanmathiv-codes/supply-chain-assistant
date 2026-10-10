@@ -1,0 +1,843 @@
+[
+  {
+    "question_id": "QA-001",
+    "question": "What response worked best for port closures in APAC with Tier-1 suppliers?",
+    "category": "response_planning",
+    "expected_aspects": [
+      "response_type",
+      "recovery_days",
+      "sample_size",
+      "uncertainty"
+    ],
+    "reference_metrics": {
+      "provenance": "No exact matches in train split"
+    },
+    "query_profile": {
+      "disruption_type": "Port Closure",
+      "supplier_region": "APAC",
+      "supplier_tier": "Tier 1"
+    }
+  },
+  {
+    "question_id": "QA-002",
+    "question": "How does backup supplier availability affect recovery time in high-severity disruptions?",
+    "category": "recovery_analysis",
+    "expected_aspects": [
+      "backup_benefit_delta_days",
+      "severity_stratification",
+      "associational_caveat"
+    ],
+    "reference_metrics": {
+      "median_recovery_with_backup_days": NaN,
+      "median_recovery_without_backup_days": NaN,
+      "delta_days": NaN,
+      "provenance": "Calculated via pandas median on high/critical train split"
+    },
+    "query_profile": {
+      "disruption_severity": "High",
+      "has_backup_supplier": "Yes"
+    }
+  },
+  {
+    "question_id": "QA-003",
+    "question": "What are the common recovery milestones for raw material shortages?",
+    "category": "milestones",
+    "expected_aspects": [
+      "response_time_days",
+      "partial_recovery_days",
+      "full_recovery_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 0,
+      "median_response_time_days": NaN,
+      "median_partial_recovery_days": NaN,
+      "median_full_recovery_days": NaN,
+      "provenance": "Calculated via pandas medians on Raw Material Shortage train split"
+    },
+    "query_profile": {
+      "disruption_type": "Raw Material Shortage"
+    }
+  },
+  {
+    "question_id": "QA-004",
+    "question": "What is the expected production impact and recovery duration for Geopolitical in the Electronics sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 4361,
+      "median_production_impact_pct": 33.1,
+      "median_full_recovery_days": 67.0,
+      "provenance": "Calculated via pandas medians on Geopolitical + Electronics train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Geopolitical",
+      "industry": "Electronics"
+    }
+  },
+  {
+    "question_id": "QA-005",
+    "question": "What is the expected production impact and recovery duration for Geopolitical in the Automotive sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 3570,
+      "median_production_impact_pct": 33.3,
+      "median_full_recovery_days": 67.0,
+      "provenance": "Calculated via pandas medians on Geopolitical + Automotive train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Geopolitical",
+      "industry": "Automotive"
+    }
+  },
+  {
+    "question_id": "QA-006",
+    "question": "What is the expected production impact and recovery duration for Geopolitical in the Pharmaceuticals sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2156,
+      "median_production_impact_pct": 33.1,
+      "median_full_recovery_days": 66.0,
+      "provenance": "Calculated via pandas medians on Geopolitical + Pharmaceuticals train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Geopolitical",
+      "industry": "Pharmaceuticals"
+    }
+  },
+  {
+    "question_id": "QA-007",
+    "question": "What is the expected production impact and recovery duration for Geopolitical in the Consumer Goods sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2924,
+      "median_production_impact_pct": 32.6,
+      "median_full_recovery_days": 66.0,
+      "provenance": "Calculated via pandas medians on Geopolitical + Consumer Goods train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Geopolitical",
+      "industry": "Consumer Goods"
+    }
+  },
+  {
+    "question_id": "QA-008",
+    "question": "What is the expected production impact and recovery duration for Geopolitical in the Aerospace sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 1457,
+      "median_production_impact_pct": 33.8,
+      "median_full_recovery_days": 67.0,
+      "provenance": "Calculated via pandas medians on Geopolitical + Aerospace train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Geopolitical",
+      "industry": "Aerospace"
+    }
+  },
+  {
+    "question_id": "QA-009",
+    "question": "What is the expected production impact and recovery duration for Natural Disaster in the Electronics sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 3532,
+      "median_production_impact_pct": 36.5,
+      "median_full_recovery_days": 77.0,
+      "provenance": "Calculated via pandas medians on Natural Disaster + Electronics train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Natural Disaster",
+      "industry": "Electronics"
+    }
+  },
+  {
+    "question_id": "QA-010",
+    "question": "What is the expected production impact and recovery duration for Natural Disaster in the Automotive sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2973,
+      "median_production_impact_pct": 36.6,
+      "median_full_recovery_days": 76.0,
+      "provenance": "Calculated via pandas medians on Natural Disaster + Automotive train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Natural Disaster",
+      "industry": "Automotive"
+    }
+  },
+  {
+    "question_id": "QA-011",
+    "question": "What is the expected production impact and recovery duration for Natural Disaster in the Pharmaceuticals sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 1801,
+      "median_production_impact_pct": 37.3,
+      "median_full_recovery_days": 77.0,
+      "provenance": "Calculated via pandas medians on Natural Disaster + Pharmaceuticals train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Natural Disaster",
+      "industry": "Pharmaceuticals"
+    }
+  },
+  {
+    "question_id": "QA-012",
+    "question": "What is the expected production impact and recovery duration for Natural Disaster in the Consumer Goods sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2512,
+      "median_production_impact_pct": 37.150000000000006,
+      "median_full_recovery_days": 77.0,
+      "provenance": "Calculated via pandas medians on Natural Disaster + Consumer Goods train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Natural Disaster",
+      "industry": "Consumer Goods"
+    }
+  },
+  {
+    "question_id": "QA-013",
+    "question": "What is the expected production impact and recovery duration for Natural Disaster in the Aerospace sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 1195,
+      "median_production_impact_pct": 36.3,
+      "median_full_recovery_days": 76.0,
+      "provenance": "Calculated via pandas medians on Natural Disaster + Aerospace train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Natural Disaster",
+      "industry": "Aerospace"
+    }
+  },
+  {
+    "question_id": "QA-014",
+    "question": "What is the expected production impact and recovery duration for Factory Incident in the Electronics sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2820,
+      "median_production_impact_pct": 28.5,
+      "median_full_recovery_days": 57.0,
+      "provenance": "Calculated via pandas medians on Factory Incident + Electronics train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Factory Incident",
+      "industry": "Electronics"
+    }
+  },
+  {
+    "question_id": "QA-015",
+    "question": "What is the expected production impact and recovery duration for Factory Incident in the Automotive sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2476,
+      "median_production_impact_pct": 28.1,
+      "median_full_recovery_days": 56.0,
+      "provenance": "Calculated via pandas medians on Factory Incident + Automotive train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Factory Incident",
+      "industry": "Automotive"
+    }
+  },
+  {
+    "question_id": "QA-016",
+    "question": "What is the expected production impact and recovery duration for Factory Incident in the Pharmaceuticals sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 1416,
+      "median_production_impact_pct": 29.1,
+      "median_full_recovery_days": 60.5,
+      "provenance": "Calculated via pandas medians on Factory Incident + Pharmaceuticals train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Factory Incident",
+      "industry": "Pharmaceuticals"
+    }
+  },
+  {
+    "question_id": "QA-017",
+    "question": "What is the expected production impact and recovery duration for Factory Incident in the Consumer Goods sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 1886,
+      "median_production_impact_pct": 28.3,
+      "median_full_recovery_days": 59.0,
+      "provenance": "Calculated via pandas medians on Factory Incident + Consumer Goods train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Factory Incident",
+      "industry": "Consumer Goods"
+    }
+  },
+  {
+    "question_id": "QA-018",
+    "question": "What is the expected production impact and recovery duration for Factory Incident in the Aerospace sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 904,
+      "median_production_impact_pct": 26.95,
+      "median_full_recovery_days": 55.0,
+      "provenance": "Calculated via pandas medians on Factory Incident + Aerospace train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Factory Incident",
+      "industry": "Aerospace"
+    }
+  },
+  {
+    "question_id": "QA-019",
+    "question": "What is the expected production impact and recovery duration for Transportation Delay in the Electronics sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 5949,
+      "median_production_impact_pct": 22.8,
+      "median_full_recovery_days": 47.0,
+      "provenance": "Calculated via pandas medians on Transportation Delay + Electronics train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Transportation Delay",
+      "industry": "Electronics"
+    }
+  },
+  {
+    "question_id": "QA-020",
+    "question": "What is the expected production impact and recovery duration for Transportation Delay in the Automotive sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 4984,
+      "median_production_impact_pct": 23.0,
+      "median_full_recovery_days": 47.0,
+      "provenance": "Calculated via pandas medians on Transportation Delay + Automotive train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Transportation Delay",
+      "industry": "Automotive"
+    }
+  },
+  {
+    "question_id": "QA-021",
+    "question": "What is the expected production impact and recovery duration for Transportation Delay in the Pharmaceuticals sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 3079,
+      "median_production_impact_pct": 22.5,
+      "median_full_recovery_days": 46.0,
+      "provenance": "Calculated via pandas medians on Transportation Delay + Pharmaceuticals train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Transportation Delay",
+      "industry": "Pharmaceuticals"
+    }
+  },
+  {
+    "question_id": "QA-022",
+    "question": "What is the expected production impact and recovery duration for Transportation Delay in the Consumer Goods sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 4022,
+      "median_production_impact_pct": 23.4,
+      "median_full_recovery_days": 45.0,
+      "provenance": "Calculated via pandas medians on Transportation Delay + Consumer Goods train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Transportation Delay",
+      "industry": "Consumer Goods"
+    }
+  },
+  {
+    "question_id": "QA-023",
+    "question": "What is the expected production impact and recovery duration for Transportation Delay in the Aerospace sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2060,
+      "median_production_impact_pct": 23.3,
+      "median_full_recovery_days": 45.0,
+      "provenance": "Calculated via pandas medians on Transportation Delay + Aerospace train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Transportation Delay",
+      "industry": "Aerospace"
+    }
+  },
+  {
+    "question_id": "QA-024",
+    "question": "What is the expected production impact and recovery duration for Cyber Attack in the Electronics sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 3545,
+      "median_production_impact_pct": 40.7,
+      "median_full_recovery_days": 84.0,
+      "provenance": "Calculated via pandas medians on Cyber Attack + Electronics train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Cyber Attack",
+      "industry": "Electronics"
+    }
+  },
+  {
+    "question_id": "QA-025",
+    "question": "What is the expected production impact and recovery duration for Cyber Attack in the Automotive sector?",
+    "category": "impact_assessment",
+    "expected_aspects": [
+      "production_impact_pct",
+      "full_recovery_days",
+      "revenue_loss_usd"
+    ],
+    "reference_metrics": {
+      "n_cases": 2930,
+      "median_production_impact_pct": 40.9,
+      "median_full_recovery_days": 83.0,
+      "provenance": "Calculated via pandas medians on Cyber Attack + Automotive train subset"
+    },
+    "query_profile": {
+      "disruption_type": "Cyber Attack",
+      "industry": "Automotive"
+    }
+  },
+  {
+    "question_id": "QA-026",
+    "question": "What is the typical time to full recovery for Tier 1 suppliers facing Geopolitical?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 4997,
+      "median_full_recovery_days": 62.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 1 + Geopolitical train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 1",
+      "disruption_type": "Geopolitical"
+    }
+  },
+  {
+    "question_id": "QA-027",
+    "question": "What is the typical time to full recovery for Tier 1 suppliers facing Natural Disaster?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 4145,
+      "median_full_recovery_days": 73.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 1 + Natural Disaster train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 1",
+      "disruption_type": "Natural Disaster"
+    }
+  },
+  {
+    "question_id": "QA-028",
+    "question": "What is the typical time to full recovery for Tier 1 suppliers facing Factory Incident?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 3315,
+      "median_full_recovery_days": 54.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 1 + Factory Incident train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 1",
+      "disruption_type": "Factory Incident"
+    }
+  },
+  {
+    "question_id": "QA-029",
+    "question": "What is the typical time to full recovery for Tier 1 suppliers facing Transportation Delay?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 7104,
+      "median_full_recovery_days": 44.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 1 + Transportation Delay train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 1",
+      "disruption_type": "Transportation Delay"
+    }
+  },
+  {
+    "question_id": "QA-030",
+    "question": "What is the typical time to full recovery for Tier 1 suppliers facing Cyber Attack?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 4239,
+      "median_full_recovery_days": 81.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 1 + Cyber Attack train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 1",
+      "disruption_type": "Cyber Attack"
+    }
+  },
+  {
+    "question_id": "QA-031",
+    "question": "What is the typical time to full recovery for Tier 1 suppliers facing Labor Strike?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 4178,
+      "median_full_recovery_days": 47.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 1 + Labor Strike train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 1",
+      "disruption_type": "Labor Strike"
+    }
+  },
+  {
+    "question_id": "QA-032",
+    "question": "What is the typical time to full recovery for Tier 2 suppliers facing Geopolitical?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 4315,
+      "median_full_recovery_days": 66.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 2 + Geopolitical train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 2",
+      "disruption_type": "Geopolitical"
+    }
+  },
+  {
+    "question_id": "QA-033",
+    "question": "What is the typical time to full recovery for Tier 2 suppliers facing Natural Disaster?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 3554,
+      "median_full_recovery_days": 76.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 2 + Natural Disaster train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 2",
+      "disruption_type": "Natural Disaster"
+    }
+  },
+  {
+    "question_id": "QA-034",
+    "question": "What is the typical time to full recovery for Tier 2 suppliers facing Factory Incident?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 2897,
+      "median_full_recovery_days": 56.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 2 + Factory Incident train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 2",
+      "disruption_type": "Factory Incident"
+    }
+  },
+  {
+    "question_id": "QA-035",
+    "question": "What is the typical time to full recovery for Tier 2 suppliers facing Transportation Delay?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 5994,
+      "median_full_recovery_days": 46.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 2 + Transportation Delay train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 2",
+      "disruption_type": "Transportation Delay"
+    }
+  },
+  {
+    "question_id": "QA-036",
+    "question": "What is the typical time to full recovery for Tier 2 suppliers facing Cyber Attack?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 3534,
+      "median_full_recovery_days": 85.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 2 + Cyber Attack train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 2",
+      "disruption_type": "Cyber Attack"
+    }
+  },
+  {
+    "question_id": "QA-037",
+    "question": "What is the typical time to full recovery for Tier 2 suppliers facing Labor Strike?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 3650,
+      "median_full_recovery_days": 49.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 2 + Labor Strike train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 2",
+      "disruption_type": "Labor Strike"
+    }
+  },
+  {
+    "question_id": "QA-038",
+    "question": "What is the typical time to full recovery for Tier 3 suppliers facing Geopolitical?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 3723,
+      "median_full_recovery_days": 71.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 3 + Geopolitical train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 3",
+      "disruption_type": "Geopolitical"
+    }
+  },
+  {
+    "question_id": "QA-039",
+    "question": "What is the typical time to full recovery for Tier 3 suppliers facing Natural Disaster?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 3058,
+      "median_full_recovery_days": 80.5,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 3 + Natural Disaster train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 3",
+      "disruption_type": "Natural Disaster"
+    }
+  },
+  {
+    "question_id": "QA-040",
+    "question": "What is the typical time to full recovery for Tier 3 suppliers facing Factory Incident?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 2385,
+      "median_full_recovery_days": 62.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 3 + Factory Incident train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 3",
+      "disruption_type": "Factory Incident"
+    }
+  },
+  {
+    "question_id": "QA-041",
+    "question": "What is the typical time to full recovery for Tier 3 suppliers facing Transportation Delay?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 5013,
+      "median_full_recovery_days": 50.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 3 + Transportation Delay train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 3",
+      "disruption_type": "Transportation Delay"
+    }
+  },
+  {
+    "question_id": "QA-042",
+    "question": "What is the typical time to full recovery for Tier 3 suppliers facing Cyber Attack?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 2958,
+      "median_full_recovery_days": 87.0,
+      "median_response_time_days": 3.0,
+      "provenance": "Calculated via pandas medians on Tier 3 + Cyber Attack train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 3",
+      "disruption_type": "Cyber Attack"
+    }
+  },
+  {
+    "question_id": "QA-043",
+    "question": "What is the typical time to full recovery for Tier 3 suppliers facing Labor Strike?",
+    "category": "tier_recovery",
+    "expected_aspects": [
+      "full_recovery_days",
+      "response_time_days"
+    ],
+    "reference_metrics": {
+      "n_cases": 2989,
+      "median_full_recovery_days": 52.0,
+      "median_response_time_days": 2.0,
+      "provenance": "Calculated via pandas medians on Tier 3 + Labor Strike train subset"
+    },
+    "query_profile": {
+      "supplier_tier": "Tier 3",
+      "disruption_type": "Labor Strike"
+    }
+  }
+]
