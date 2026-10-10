@@ -371,6 +371,60 @@
 **Open items for the user:**
 - None. Proceeding to Phase 9.
 
+---
+
+## Phase 9 Report: Streamlit User Interface and Operational Dashboards
+
+**Files created/modified:**
+- `ui/components/api_client.py`: UI API client communicating with FastAPI backend with timeout resilience and graceful offline fallbacks.
+- `ui/components/evidence_chips.py`: Evidence chips component rendering citation badges and expandable substrate passages with provenance badges.
+- `ui/components/charts.py`: Plotly chart generators rendering horizontal 80% conformal prediction intervals, feature attribution drivers, and priority gauge meters.
+- `ui/app.py`: Main Streamlit portal with persistent top operational banner (LLM mode, Synapt mode, Synthetic data notice, API health status), navigation, and capability cards.
+- `ui/pages/1_New_Disruption.py`: Disruption alert intake form with dynamic taxonomy selectors, free-text operator notes, real-time client validation, and direct trigger of the LangGraph multi-agent workflow.
+- `ui/pages/2_Analysis.py`: Full investigation report dashboard across 6 comprehensive tabs:
+  - *Summary:* Priority gauge meter, triage breakdown, and verified factual claims.
+  - *Similar Cases:* 4-signal hybrid retrieval ranks, match rationales, outcomes, and citation chips.
+  - *Predictions:* 80% conformal intervals, factor drivers, analog median/quantile comparison, and divergence alerts.
+  - *Grounded Recommendations:* SOP mitigation steps with evidence citations and uncertainty caveats.
+  - *Substrate Trace:* Full tool execution audit table with latencies and row counts.
+  - *Limitations & Disclaimers:* Knowledge gaps, mode disclosures, and non-causal language notices.
+  - Download buttons for JSON and printable Markdown reports.
+- `ui/pages/3_Queue.py`: Triage queue of active incidents ranked by priority score ($P = 100 \cdot (w_s S + w_p I + w_f F)$) with P1-P4 triage filtering and weight perturbation sensitivity table.
+- `ui/pages/4_Feedback.py`: Continuous improvement dashboard enabling operators to submit 1-5 star ratings, log corrections, and record actual post-incident outcomes into the human review queue.
+- `ui/pages/5_Quality.py`: System quality and scientific transparency dashboard displaying retrieval metrics, interactive Plotly ablation chart, DeepEval judge rubric scores, and honest boundary disclaimers.
+- `tests/ui/test_ui.py`: UI unit tests asserting clean imports and figure generation for all UI components and pages.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -c "... streamlit run ui/app.py ..."` -> PASS (Streamlit port 8501 responded HTTP 200 OK, cleanly terminated)
+- `& .venv\Scripts\python.exe -m pytest tests/ui` -> PASS (2 passed in 2.24s)
+- `& .venv\Scripts\python.exe -m pytest` -> PASS (57 passed in 7.20s)
+- `& .venv\Scripts\ruff.exe check .` -> PASS (All checks passed)
+
+### UI GATE VERIFICATION SUMMARY
+| Requirement | Implementation | Test / Check | Status |
+| :--- | :--- | :--- | :--- |
+| Streamlit Landing & Persistent Banner | `ui/app.py` | Headless port 8501 health probe | PASS |
+| New Disruption Intake Page | `ui/pages/1_New_Disruption.py` | `test_ui_pages_syntax_and_imports` | PASS |
+| Multi-Tab Analysis Dashboard | `ui/pages/2_Analysis.py` | `test_ui_pages_syntax_and_imports` | PASS |
+| Priority Triage Queue (P1-P4) | `ui/pages/3_Queue.py` | `test_ui_pages_syntax_and_imports` | PASS |
+| Operator Feedback & Outcomes Form | `ui/pages/4_Feedback.py` | `test_ui_pages_syntax_and_imports` | PASS |
+| Scientific Quality & Ablation Page | `ui/pages/5_Quality.py` | `test_ui_pages_syntax_and_imports` | PASS |
+| Evidence Chips & Expanders | `ui/components/evidence_chips.py` | `test_ui_components_import` | PASS |
+| Conformal Range & Priority Charts | `ui/components/charts.py` | `test_ui_components_import` | PASS |
+
+**Self-review findings:**
+- *Check 1 (Display-only UI):* UI contains zero business logic; strictly formats and presents API payloads.
+- *Check 2 (Resilient to downtime):* If backend API is offline, UI renders a friendly retry screen rather than crashing.
+- *Check 3 (Windows safe):* UTF-8 enforced, forward-slash imports, zero OS-specific paths.
+- *Check 4 (Tests):* Complete suite of 57 tests passing cleanly across all suites.
+
+**Deviations:**
+- None.
+
+**Open items for the user:**
+- None. Proceeding to Phase 10.
+
+
 
 
 
