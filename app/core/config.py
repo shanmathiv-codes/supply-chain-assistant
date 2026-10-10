@@ -1,4 +1,5 @@
 """Application configuration with Pydantic v2 settings, YAML loaders, and mode banner."""
+
 import os
 from pathlib import Path
 from typing import Any, Literal
@@ -46,21 +47,31 @@ class Settings(BaseSettings):
     openrouter_app_name: str = Field(default="scd-assistant", alias="OPENROUTER_APP_NAME")
 
     # Synapt Substrate Settings
-    synapt_mode: Literal["auto", "mcp", "replay", "mock"] = Field(default="auto", alias="SYNAPT_MODE")
-    synapt_mcp_url: str = Field(default="https://beta.synapt.ai/tristore/mcp/", alias="SYNAPT_MCP_URL")
-    synapt_auth_base: str = Field(default="https://beta.synapt.ai/auth_service/api/v1/auth/token", alias="SYNAPT_AUTH_BASE")
+    synapt_mode: Literal["auto", "mcp", "replay", "mock"] = Field(
+        default="auto", alias="SYNAPT_MODE"
+    )
+    synapt_mcp_url: str = Field(
+        default="https://beta.synapt.ai/tristore/mcp/", alias="SYNAPT_MCP_URL"
+    )
+    synapt_auth_base: str = Field(
+        default="https://beta.synapt.ai/auth_service/api/v1/auth/token", alias="SYNAPT_AUTH_BASE"
+    )
     synapt_username: str | None = Field(default=None, alias="SYNAPT_USERNAME")
     synapt_password: str | None = Field(default=None, alias="SYNAPT_PASSWORD")
     synapt_provider_id: str | None = Field(default=None, alias="SYNAPT_PROVIDER_ID")
     synapt_provider_eval_id: str | None = Field(default=None, alias="SYNAPT_PROVIDER_EVAL_ID")
     synapt_top_k: int = Field(default=5, alias="SYNAPT_TOP_K")
     synapt_graph_hops: int = Field(default=2, alias="SYNAPT_GRAPH_HOPS")
-    synapt_mcp_transport: Literal["auto", "streamable_http", "sse"] = Field(default="auto", alias="SYNAPT_MCP_TRANSPORT")
+    synapt_mcp_transport: Literal["auto", "streamable_http", "sse"] = Field(
+        default="auto", alias="SYNAPT_MCP_TRANSPORT"
+    )
     ingestion_state: Literal["agent_prepared", "user_preingested", "schema_only"] = Field(
         default="user_preingested", alias="INGESTION_STATE"
     )
     synapt_sample_size: int = Field(default=500, alias="SYNAPT_SAMPLE_SIZE")
-    synapt_sample_format: Literal["cards", "csv"] = Field(default="cards", alias="SYNAPT_SAMPLE_FORMAT")
+    synapt_sample_format: Literal["cards", "csv"] = Field(
+        default="cards", alias="SYNAPT_SAMPLE_FORMAT"
+    )
 
     # Service & API
     api_key: str | None = Field(default=None, alias="API_KEY")
@@ -69,7 +80,9 @@ class Settings(BaseSettings):
     api_base_url: str = Field(default="http://127.0.0.1:8000", alias="API_BASE_URL")
 
     # Dataset
-    dataset_source: Literal["auto", "real", "synthetic"] = Field(default="auto", alias="DATASET_SOURCE")
+    dataset_source: Literal["auto", "real", "synthetic"] = Field(
+        default="auto", alias="DATASET_SOURCE"
+    )
     kaggle_username: str | None = Field(default=None, alias="KAGGLE_USERNAME")
     kaggle_key: str | None = Field(default=None, alias="KAGGLE_KEY")
     dataset_kaggle_slug: str = Field(

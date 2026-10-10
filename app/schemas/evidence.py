@@ -1,4 +1,5 @@
 """Typed Evidence and Substrate Call schemas."""
+
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
@@ -16,12 +17,18 @@ class Evidence(BaseModel):
     node_id: str | None = Field(default=None, description="Graph node identifier")
     doc_id: str | None = Field(default=None, description="Source document identifier")
     chunk_id: str | None = Field(default=None, description="Text chunk identifier")
-    case_id: str | None = Field(default=None, description="Disruption ID associated with this evidence")
+    case_id: str | None = Field(
+        default=None, description="Disruption ID associated with this evidence"
+    )
     text_span: str | None = Field(default=None, description="Raw text quote or passage snippet")
     score: float | None = Field(default=None, description="Similarity or relevance score")
-    query_ref: str | None = Field(default=None, description="Query reference token for feedback tracking")
+    query_ref: str | None = Field(
+        default=None, description="Query reference token for feedback tracking"
+    )
     template: str | None = Field(default=None, description="Cypher template name if applicable")
-    metadata: dict[str, Any] = Field(default_factory=dict, description="Additional structured properties")
+    metadata: dict[str, Any] = Field(
+        default_factory=dict, description="Additional structured properties"
+    )
 
 
 class SubstrateCall(BaseModel):

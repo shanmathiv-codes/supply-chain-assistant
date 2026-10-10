@@ -1,4 +1,5 @@
 """Exploratory data analysis: signal check, baseline benchmark, and signal_check.md."""
+
 from pathlib import Path
 
 import pandas as pd
@@ -49,10 +50,12 @@ def run_signal_check(train_df: pd.DataFrame, val_df: pd.DataFrame, reports_dir: 
         dummy_mae = float(mean_absolute_error(y_val, dummy_pred))
 
         # Fast tree model: HistGradientBoosting
-        pipe = Pipeline([
-            ("pre", preprocessor),
-            ("model", HistGradientBoostingRegressor(max_iter=50, random_state=42)),
-        ])
+        pipe = Pipeline(
+            [
+                ("pre", preprocessor),
+                ("model", HistGradientBoostingRegressor(max_iter=50, random_state=42)),
+            ]
+        )
         pipe.fit(X_train, y_train)
         tree_pred = pipe.predict(X_val)
         tree_mae = float(mean_absolute_error(y_val, tree_pred))
@@ -86,12 +89,14 @@ def run_signal_check(train_df: pd.DataFrame, val_df: pd.DataFrame, reports_dir: 
             "Predictive features carry marginal signal relative to naive median baselines; predictions carry high epistemic uncertainty."
         )
 
-    md_lines.extend([
-        "",
-        "## Validation MAE Benchmark",
-        "| Target | Median Baseline MAE | Tree Model MAE | Improvement % | Beats Baseline? |",
-        "|---|---|---|---|---|",
-    ])
+    md_lines.extend(
+        [
+            "",
+            "## Validation MAE Benchmark",
+            "| Target | Median Baseline MAE | Tree Model MAE | Improvement % | Beats Baseline? |",
+            "|---|---|---|---|---|",
+        ]
+    )
     for tgt, res in results.items():
         beats_str = "YES" if res["beats_baseline"] else "NO"
         md_lines.append(

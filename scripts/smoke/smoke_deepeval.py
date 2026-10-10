@@ -1,7 +1,9 @@
 """Smoke test for DeepEval imports."""
+
 try:
     import deepeval
     from deepeval.test_case import LLMTestCase
+
     _ = LLMTestCase
     print(f"DeepEval smoke test passed: version {getattr(deepeval, '__version__', 'available')}")
 except ImportError as e:

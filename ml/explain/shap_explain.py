@@ -1,4 +1,5 @@
 """SHAP TreeExplainer module with seamless permutation importance fallback."""
+
 from typing import Any
 
 import numpy as np

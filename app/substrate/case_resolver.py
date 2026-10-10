@@ -1,4 +1,5 @@
 """Case resolver mapping raw graph nodes, passages, and records to disruption_id."""
+
 import re
 from typing import Any
 

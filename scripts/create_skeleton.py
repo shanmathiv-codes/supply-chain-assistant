@@ -1,4 +1,5 @@
 """Create repository directory skeleton and .gitkeep files."""
+
 from pathlib import Path
 
 dirs = [

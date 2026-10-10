@@ -1,4 +1,5 @@
 """Parquet I/O operations using pyarrow with snappy compression and schema metadata."""
+
 import json
 from pathlib import Path
 
@@ -16,9 +17,7 @@ def save_ledger_parquet(df: pd.DataFrame, target_path: Path) -> Path:
     pq.write_table(table, target_path, compression="snappy")
 
     # Export companion schema.json
-    schema_info = {
-        col: str(df[col].dtype) for col in df.columns
-    }
+    schema_info = {col: str(df[col].dtype) for col in df.columns}
     schema_path = target_path.parent / "schema.json"
     schema_path.write_text(json.dumps(schema_info, indent=2), encoding="utf-8")
 

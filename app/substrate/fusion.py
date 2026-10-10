@@ -1,4 +1,5 @@
 """Reciprocal Rank Fusion (RRF) combining graph and semantic retrieval signals."""
+
 from collections import defaultdict
 
 from app.core.config import load_yaml_config
@@ -7,12 +8,15 @@ from app.schemas.report import CaseSignals
 SYNAPT_CONFIG = load_yaml_config("synapt.yaml")
 FUSION_CONFIG = SYNAPT_CONFIG.get("fusion", {})
 K_DEFAULT = FUSION_CONFIG.get("reciprocal_rank_k", 60)
-WEIGHTS_DEFAULT = FUSION_CONFIG.get("weights", {
-    "cypher_overlap": 0.35,
-    "node_search": 0.25,
-    "chunk_search": 0.25,
-    "exact_lookup": 0.15,
-})
+WEIGHTS_DEFAULT = FUSION_CONFIG.get(
+    "weights",
+    {
+        "cypher_overlap": 0.35,
+        "node_search": 0.25,
+        "chunk_search": 0.25,
+        "exact_lookup": 0.15,
+    },
+)
 
 
 def fuse_signals(

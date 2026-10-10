@@ -1,4 +1,5 @@
 """Supply chain resilience estimation and conditional severity risk analysis."""
+
 import math
 
 from app.schemas.report import ResilienceEstimate

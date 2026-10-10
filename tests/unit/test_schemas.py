@@ -1,4 +1,5 @@
 """Unit tests for Pydantic domain models and schemas."""
+
 import pytest
 from pydantic import ValidationError
 
@@ -21,6 +22,7 @@ def test_evidence_model_valid():
     assert ev.evidence_id.startswith("EV-")
     assert ev.provenance_mode == "MOCK"
 
+
 def test_disruption_profile_validation():
     # Valid profile
     profile = DisruptionProfile(
@@ -35,6 +37,7 @@ def test_disruption_profile_validation():
     with pytest.raises(ValidationError):
         DisruptionProfile(production_impact_pct=150.0)
 
+
 def test_claim_model():
     claim = Claim(
         claim_id="CLM-01",
@@ -46,6 +49,7 @@ def test_claim_model():
     assert claim.kind == "HISTORICAL_FACT"
     assert "EV-01" not in claim.evidence_ids
     assert "EV-001" in claim.evidence_ids
+
 
 def test_error_response_format():
     err = ErrorResponse(

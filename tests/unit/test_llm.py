@@ -1,4 +1,5 @@
 """Unit tests for the LLM layer: FakeLLM, router, cache, limiter, structured parser."""
+
 import pytest
 from pydantic import BaseModel
 

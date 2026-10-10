@@ -1,4 +1,5 @@
 """Smoke test for LangGraph."""
+
 from typing import TypedDict
 
 from langgraph.graph import END, StateGraph
@@ -8,11 +9,14 @@ class SimpleState(TypedDict):
     step: str
     count: int
 
+
 def node_a(state: SimpleState) -> SimpleState:
     return {"step": "node_a", "count": state["count"] + 1}
 
+
 def node_b(state: SimpleState) -> SimpleState:
     return {"step": "node_b", "count": state["count"] + 2}
+
 
 def run_smoke():
     builder = StateGraph(SimpleState)
@@ -27,6 +31,7 @@ def run_smoke():
     assert res["count"] == 3
     assert res["step"] == "node_b"
     print("LangGraph smoke test passed: result count = 3")
+
 
 if __name__ == "__main__":
     run_smoke()

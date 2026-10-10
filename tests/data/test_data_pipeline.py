@@ -1,4 +1,5 @@
 """Tests for the data pipeline: cleaning, splits, cards, forbidden features, and manifest."""
+
 import json
 from pathlib import Path
 

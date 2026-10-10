@@ -1,4 +1,5 @@
 """Recommendation service generating grounded mitigation actions backed by procedures and outcomes."""
+
 from app.core.ids import generate_id
 from app.core.logging import logger
 from app.llm.fake import fake_llm
@@ -23,7 +24,11 @@ class RecommendationService:
         trace: list[SubstrateCall] | None = None,
     ) -> list[Recommendation]:
         case_ids = [c.case_id for c in similar_cases]
-        prov_mode = "MOCK" if self.gateway.mode == "mock" else ("REPLAY" if self.gateway.mode == "replay" else "MCP")
+        prov_mode = (
+            "MOCK"
+            if self.gateway.mode == "mock"
+            else ("REPLAY" if self.gateway.mode == "replay" else "MCP")
+        )
 
         # 1. Fetch relevant standard operating procedures
         procedures_text = ""
@@ -88,7 +93,10 @@ class RecommendationService:
                 prompt_name="response_plan",
                 role="reason",
                 messages=[
-                    {"role": "system", "content": "Generate grounded supply chain mitigation recommendations."},
+                    {
+                        "role": "system",
+                        "content": "Generate grounded supply chain mitigation recommendations.",
+                    },
                     {"role": "user", "content": f"Context: {context}"},
                 ],
                 context=context,
@@ -113,7 +121,8 @@ class RecommendationService:
                 source_type=r.get("source_type", "historical_case"),
                 expected_full_recovery_days=r.get("expected_full_recovery_days"),
                 historical_cases_count=r.get("historical_cases_count"),
-                caveats=r.get("caveats") or "Associated with historical observations; recovery durations vary with regional supplier conditions.",
+                caveats=r.get("caveats")
+                or "Associated with historical observations; recovery durations vary with regional supplier conditions.",
             )
             recommendations.append(rec)
 

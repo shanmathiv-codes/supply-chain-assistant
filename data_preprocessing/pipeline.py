@@ -1,4 +1,5 @@
 """End-to-end data pipeline orchestrator for Supply Chain Disruption Assistant."""
+
 import argparse
 import sys
 import time
@@ -53,9 +54,11 @@ def run_pipeline(source: str = "auto", force_splits: bool = False, sample_size: 
     # Step 1: Acquire
     print("\n[Stage 1/9] Acquiring dataset...")
     raw_path, source_type = acquire_dataset(source=source)
-    is_synthetic = (source_type == "synthetic")
+    is_synthetic = source_type == "synthetic"
     df_raw = pd.read_csv(raw_path)
-    print(f"Loaded raw dataset: {len(df_raw):,} rows, {len(df_raw.columns)} columns from {raw_path}")
+    print(
+        f"Loaded raw dataset: {len(df_raw):,} rows, {len(df_raw.columns)} columns from {raw_path}"
+    )
 
     # Step 2: Clean and Normalize
     print("\n[Stage 2/9] Cleaning, resolving columns, and validating schema...")

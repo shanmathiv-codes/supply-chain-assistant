@@ -1,4 +1,5 @@
 """Test suite for Machine Learning models, conformal intervals, explainability, and resilience."""
+
 import os
 
 import pytest
@@ -90,7 +91,9 @@ def test_analog_divergence_flag():
     }
 
     # Pass analog cases where recovery is very low or high
-    pred = model_registry.predict_target("full_recovery_days", profile, similar_case_ids=["DIS-000001", "DIS-000002"])
+    pred = model_registry.predict_target(
+        "full_recovery_days", profile, similar_case_ids=["DIS-000001", "DIS-000002"]
+    )
     assert pred is not None
     if pred.analog:
         assert pred.analog.n > 0

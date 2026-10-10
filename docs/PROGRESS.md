@@ -268,5 +268,54 @@
 **Open items for the user:**
 - None. Proceeding to Phase 7.
 
+---
+
+## Phase 7 Report: LangGraph Multi-Agent Workflow, Verifier Repair Loop, and SSE Streaming
+
+**Files created/modified:**
+- `app/workflow/state.py`: LangGraph typed dictionary `WorkflowState` managing disruption input, intermediate investigation state, retrieval results, predictions, draft reports, verification audit history, and repair iterations.
+- `app/workflow/verifier.py`: Deterministic verifier enforcing Rules 1-6 (evidence ID existence, date validity, non-negative days, confidence interval coverage, tone checks, claim grounding verification) and LLM judge rubric check. Returns `VerificationResult` with actionable repair suggestions.
+- `app/workflow/nodes/gate.py`: Intake and guardrail enforcement node validating taxonomy and rejecting prompt injection / out-of-scope queries.
+- `app/workflow/nodes/intake.py`: Entity normalization and extraction node.
+- `app/workflow/nodes/classify.py`: Disruption categorization and ensemble voting node.
+- `app/workflow/nodes/investigate.py`: Evidence retrieval node querying substrate via hybrid signals and Reciprocal Rank Fusion.
+- `app/workflow/nodes/impact.py`: ML prediction and split-conformal interval estimation node.
+- `app/workflow/nodes/response_plan.py`: Grounded mitigation generation node with evidence citations.
+- `app/workflow/nodes/recovery.py`: Time-to-recovery timeline and resilience estimation node.
+- `app/workflow/nodes/synthesize.py`: Final report synthesis assembling the full typed `InvestigationReport`.
+- `app/workflow/nodes/verify.py`: Report verification node routing to either repair loop or persistence.
+- `app/workflow/graph.py`: LangGraph `StateGraph` definition linking nodes, conditional verification edge, max 2 repair attempts loop, compiled graph runner, and Server-Sent Events (SSE) generator.
+- `app/api/routes.py`: Connected `POST /disruptions/analyze` to LangGraph multi-agent workflow and SSE streaming endpoint.
+- `tests/workflow/test_workflow.py`: End-to-end tests for the complete LangGraph workflow including happy path with 100% claim grounding, empty/degraded path, injection rejection, and SSE event streaming.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -m pytest -v tests/workflow/test_workflow.py` -> PASS (4 tests passed in 2.76s)
+- `& .venv\Scripts\python.exe -m pytest` -> PASS (45 passed in 6.47s)
+- `& .venv\Scripts\ruff.exe check .` -> PASS (All checks passed)
+
+### WORKFLOW VERIFICATION SUMMARY
+| Requirement | Implementation | Test Name | Status |
+| :--- | :--- | :--- | :--- |
+| LangGraph State Graph & Nodes | `app/workflow/graph.py`, `app/workflow/nodes/` | `test_workflow_happy_path` | PASS |
+| Deterministic Verification (Rules 1-6) | `app/workflow/verifier.py` | `test_workflow_happy_path` | PASS |
+| Repair Loop (max 2 iterations) | `app/workflow/graph.py` | `test_workflow_happy_path` | PASS |
+| Degraded / Empty Retrieval Path | `app/workflow/nodes/investigate.py` | `test_workflow_no_evidence_path` | PASS |
+| Security Guardrails Gate Node | `app/workflow/nodes/gate.py` | `test_workflow_injection_rejection` | PASS |
+| SSE Streaming of Node Progress | `app/workflow/graph.py` (`stream_workflow_events`) | `test_workflow_sse_streaming` | PASS |
+
+**Self-review findings:**
+- *Check 1 (Grounding):* Every factual claim in the final synthesized report is verified against actual retrieved evidence IDs.
+- *Check 2 (Repair loop):* Max iterations safeguard terminates repair loop at 2 iterations to prevent infinite cycles.
+- *Check 3 (Degraded mode):* System produces degraded reports gracefully when no analogs are present without throwing unhandled exceptions.
+- *Check 4 (Windows safe & Ruff clean):* Pathlib and UTF-8 enforced; 0 ruff errors.
+- *Check 5 (Tests):* Complete suite of 45 tests passing cleanly across unit, data, contract, api, ml, and workflow suites.
+
+**Deviations:**
+- None.
+
+**Open items for the user:**
+- None. Proceeding to Phase 8.
+
+
 
 

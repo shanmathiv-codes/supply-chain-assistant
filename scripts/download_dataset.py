@@ -1,4 +1,5 @@
 """Dataset acquisition: checks raw CSV, tries Kaggle API, or generates synthetic fallback."""
+
 import sys
 from pathlib import Path
 
@@ -32,6 +33,7 @@ def acquire_dataset(source: str = "auto") -> tuple[Path, str]:
         print("Attempting Kaggle API download...")
         try:
             import kaggle  # type: ignore
+
             kaggle.api.authenticate()
             kaggle.api.dataset_download_files(
                 settings.dataset_kaggle_slug,

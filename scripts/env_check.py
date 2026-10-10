@@ -1,4 +1,5 @@
 """Environment and dependency verification script."""
+
 import os
 import sys
 
@@ -33,6 +34,7 @@ PACKAGES = [
     ("ruff", "ruff"),
 ]
 
+
 def check_env():
     print(f"Python version: {sys.version.split()[0]}", flush=True)
     all_ok = True
@@ -41,6 +43,7 @@ def check_env():
             print(f"Checking {disp_name}...", end=" ", flush=True)
             if mod_name == "ruff":
                 import ruff
+
                 ver = getattr(ruff, "__version__", "installed")
             else:
                 mod = __import__(mod_name)
@@ -56,6 +59,7 @@ def check_env():
     else:
         print("\nSome dependencies failed to import.", flush=True)
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(check_env())

@@ -1,4 +1,5 @@
 """Token-bucket rate limiter with concurrency semaphores and daily quota controls."""
+
 import asyncio
 import time
 
@@ -33,7 +34,9 @@ class ProviderRateLimiter:
                 self._daily_count = 0
 
             if self._daily_count >= self.daily_quota:
-                raise RuntimeError(f"Daily quota ({self.daily_quota}) exhausted for {self.provider}.")
+                raise RuntimeError(
+                    f"Daily quota ({self.daily_quota}) exhausted for {self.provider}."
+                )
 
             elapsed = now - self._last_call_time
             if elapsed < self.interval:

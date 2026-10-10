@@ -1,4 +1,5 @@
 """Record substrate tool responses to fixtures directory for replay mode."""
+
 import asyncio
 import json
 import sys

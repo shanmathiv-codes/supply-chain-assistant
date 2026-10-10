@@ -1,4 +1,5 @@
 """Hybrid retrieval service orchestrating 4 Synapt signals, RRF fusion, relaxation ladder, and lane agreement."""
+
 from typing import Any
 
 from app.core.config import load_yaml_config
@@ -12,12 +13,15 @@ from app.substrate.fusion import fuse_signals
 from app.substrate.gateway import SynaptReadGateway
 
 SYNAPT_CONFIG = load_yaml_config("synapt.yaml")
-RELAXATION_ORDER = SYNAPT_CONFIG.get("relaxation_ladder", {}).get("order", [
-    "supplier_size",
-    "supplier_region",
-    "supplier_tier",
-    "industry",
-])
+RELAXATION_ORDER = SYNAPT_CONFIG.get("relaxation_ladder", {}).get(
+    "order",
+    [
+        "supplier_size",
+        "supplier_region",
+        "supplier_tier",
+        "industry",
+    ],
+)
 MIN_CASES_THRESHOLD = SYNAPT_CONFIG.get("relaxation_ladder", {}).get("min_cases_threshold", 5)
 
 
@@ -105,10 +109,15 @@ class RetrievalService:
 
         # 2. Graph Semantic Signal (trident_search over nodes)
         node_cases: list[str] = []
-        search_query = query_text or f"{profile.get('disruption_type', '')} {profile.get('industry', '')} {profile.get('disruption_severity', '')}".strip()
+        search_query = (
+            query_text
+            or f"{profile.get('disruption_type', '')} {profile.get('industry', '')} {profile.get('disruption_severity', '')}".strip()
+        )
         if search_query:
             try:
-                node_evs = await self.gateway.search_nodes(query=search_query, top_k=top_k * 2, trace=trace)
+                node_evs = await self.gateway.search_nodes(
+                    query=search_query, top_k=top_k * 2, trace=trace
+                )
                 for ev in node_evs:
                     cid = resolve_case_id(ev.text_span or ev.case_id or ev.node_id)
                     if cid and cid not in exclude_ids and cid not in node_cases:
@@ -121,7 +130,9 @@ class RetrievalService:
         chunk_cases: list[str] = []
         if search_query:
             try:
-                chunk_evs = await self.gateway.get_chunks(query=search_query, top_k=top_k * 2, trace=trace)
+                chunk_evs = await self.gateway.get_chunks(
+                    query=search_query, top_k=top_k * 2, trace=trace
+                )
                 for ev in chunk_evs:
                     cid = resolve_case_id(ev.text_span or ev.case_id)
                     if cid and cid not in exclude_ids and cid not in chunk_cases:
@@ -158,7 +169,9 @@ class RetrievalService:
         ask_cited_cases: list[str] = []
         if search_query:
             try:
-                ask_raw = await self.gateway.query(query_text=search_query, top_k=top_k, trace=trace)
+                ask_raw = await self.gateway.query(
+                    query_text=search_query, top_k=top_k, trace=trace
+                )
                 if isinstance(ask_raw, dict):
                     # Resolve cited cases from chunks/provenance
                     chunks = ask_raw.get("chunks", [])
@@ -186,7 +199,11 @@ class RetrievalService:
 
         # 7. Construct SimilarCase objects enriched with ledger attributes and outcomes
         similar_cases: list[SimilarCase] = []
-        prov_mode = "MOCK" if self.gateway.mode == "mock" else ("REPLAY" if self.gateway.mode == "replay" else "MCP")
+        prov_mode = (
+            "MOCK"
+            if self.gateway.mode == "mock"
+            else ("REPLAY" if self.gateway.mode == "replay" else "MCP")
+        )
 
         for rank_zero, (cid, fused_score, signals) in enumerate(fused[:top_k]):
             case_rec = ledger_service.get_case(cid) or {}

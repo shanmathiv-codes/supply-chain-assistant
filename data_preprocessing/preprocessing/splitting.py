@@ -1,4 +1,5 @@
 """Dataset splitting: 80/10/10 stratified train/val/test and 20% calibration slice."""
+
 import json
 from pathlib import Path
 
@@ -57,7 +58,11 @@ def create_stratified_splits(
     )
 
     # 3. Carve Calibration slice (20% of Train)
-    train_strata = train_df["disruption_type"].astype(str) + "___" + train_df["disruption_severity"].astype(str)
+    train_strata = (
+        train_df["disruption_type"].astype(str)
+        + "___"
+        + train_df["disruption_severity"].astype(str)
+    )
     train_counts = train_strata.value_counts()
     train_rare = train_counts[train_counts < 3].index
     train_strata_clean = train_strata.apply(lambda s: "other" if s in train_rare else s)

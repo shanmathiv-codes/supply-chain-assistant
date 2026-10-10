@@ -1,4 +1,5 @@
 """SQLite LLM response caching layer for reproducibility and quota protection."""
+
 import hashlib
 import json
 import sqlite3

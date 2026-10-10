@@ -1,4 +1,5 @@
 """Stratified Synapt sample builder: sample selection, card/csv batches, pilot, and checklist."""
+
 import hashlib
 import json
 from pathlib import Path
@@ -42,7 +43,11 @@ def select_stratified_sample_ids(
     remaining_needed = sample_size - len(selected_indices)
     if remaining_needed > 0:
         remaining_df = train_df.drop(index=list(selected_indices))
-        strata = remaining_df["disruption_type"].astype(str) + "___" + remaining_df["disruption_severity"].astype(str)
+        strata = (
+            remaining_df["disruption_type"].astype(str)
+            + "___"
+            + remaining_df["disruption_severity"].astype(str)
+        )
         # Sample proportionally
         proportional_sample = remaining_df.groupby(strata, group_keys=False).apply(
             lambda grp: grp.sample(
@@ -142,7 +147,9 @@ def build_synapt_sample_artifacts(
         diff = abs(tr_med - sp_med)
         rep_lines.append(f"| `{col}` | {tr_med:,.1f} | {sp_med:,.1f} | {diff:,.1f} |")
 
-    (reports_dir / "sample_representativeness.md").write_text("\n".join(rep_lines), encoding="utf-8")
+    (reports_dir / "sample_representativeness.md").write_text(
+        "\n".join(rep_lines), encoding="utf-8"
+    )
 
     return {
         "sample_size": len(sample_ids),

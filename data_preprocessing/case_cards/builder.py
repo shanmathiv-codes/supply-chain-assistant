@@ -1,4 +1,5 @@
 """Case card generator producing standardized, collision-free markdown cards."""
+
 import hashlib
 import json
 from pathlib import Path
@@ -14,20 +15,26 @@ def generate_case_narrative(row: dict) -> str:
     industry = row.get("industry", "industry")
     tier = row.get("supplier_tier", "supplier")
     region = row.get("supplier_region", "region")
-    backup = "with an existing alternate backup contract" if row.get("has_backup_supplier") else "without a secondary backup supplier"
+    backup = (
+        "with an existing alternate backup contract"
+        if row.get("has_backup_supplier")
+        else "without a secondary backup supplier"
+    )
     impact = row.get("production_impact_pct", 0.0)
     loss = row.get("revenue_loss_usd", 0.0)
     response = row.get("response_type", "standard response")
     rec_days = row.get("full_recovery_days", 0.0)
-    switch = "permanently replaced" if row.get("permanent_supplier_change") else "retained without permanent supplier change"
+    switch = (
+        "permanently replaced"
+        if row.get("permanent_supplier_change")
+        else "retained without permanent supplier change"
+    )
 
     s1 = (
         f"A {severity.lower()}-severity {d_type.lower()} event occurred in the {industry} sector, "
         f"impacting a {size.lower()}-sized {tier} supplier based in {region} {backup}."
     )
-    s2 = (
-        f"Initial operations suffered a {impact:.1f}% drop in production capacity with direct financial loss of ${loss:,.2f} USD."
-    )
+    s2 = f"Initial operations suffered a {impact:.1f}% drop in production capacity with direct financial loss of ${loss:,.2f} USD."
     s3 = (
         f"The operations team initiated '{response}', achieving full operational recovery in {rec_days:.1f} days, "
         f"after which the primary vendor was {switch}."

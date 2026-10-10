@@ -1,4 +1,5 @@
 """FastAPI Application entrypoint with middleware, error formatting, and routing."""
+
 import uuid
 from contextlib import asynccontextmanager
 
@@ -36,7 +37,12 @@ app = FastAPI(
 # CORS middleware (localhost allowed by default)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost", "http://127.0.0.1", "http://localhost:8501", "http://localhost:3000"],
+    allow_origins=[
+        "http://localhost",
+        "http://127.0.0.1",
+        "http://localhost:8501",
+        "http://localhost:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,7 +52,11 @@ app.add_middleware(
 @app.middleware("http")
 async def request_correlation_id_middleware(request: Request, call_next):
     """Assigns or propagates request correlation ID for end-to-end tracing."""
-    corr_id = request.headers.get("X-Correlation-ID") or request.headers.get("X-Request-ID") or str(uuid.uuid4())
+    corr_id = (
+        request.headers.get("X-Correlation-ID")
+        or request.headers.get("X-Request-ID")
+        or str(uuid.uuid4())
+    )
     token = correlation_id_ctx.set(corr_id)
     try:
         response = await call_next(request)
@@ -68,9 +78,7 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
         message = exc.detail.get("message", "An error occurred.")
         details = exc.detail.get("details")
 
-    err_payload = ErrorResponse(
-        error=ErrorDetail(code=code, message=message, details=details)
-    )
+    err_payload = ErrorResponse(error=ErrorDetail(code=code, message=message, details=details))
     return JSONResponse(status_code=exc.status_code, content=err_payload.model_dump())
 
 

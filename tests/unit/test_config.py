@@ -1,4 +1,5 @@
 """Unit tests for configuration loading and mode resolution."""
+
 from app.core.config import Settings, settings
 
 
@@ -9,6 +10,7 @@ def test_settings_default_modes():
     assert isinstance(settings.runtime_modes, dict)
     assert "llm_mode" in settings.runtime_modes
     assert "synapt_mode" in settings.runtime_modes
+
 
 def test_settings_missing_keys_never_crash():
     """Initializing Settings with empty environment should never crash."""
@@ -27,6 +29,7 @@ def test_settings_missing_keys_never_crash():
     assert empty_settings.effective_llm_mode == "fake"
     # Effective Synapt mode should degrade to mock because credentials are missing
     assert empty_settings.effective_synapt_mode == "mock"
+
 
 def test_startup_banner_contains_modes():
     """Startup banner should include active modes and notices."""

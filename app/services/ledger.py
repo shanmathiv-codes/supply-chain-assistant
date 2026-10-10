@@ -1,4 +1,5 @@
 """Local ledger service providing fast access to disruption cases and outcome aggregates."""
+
 import sqlite3
 from pathlib import Path
 from typing import Any
@@ -48,7 +49,9 @@ class LedgerService:
                 d = dict(row)
                 if "has_backup_supplier" in d and isinstance(d["has_backup_supplier"], int):
                     d["has_backup_supplier"] = bool(d["has_backup_supplier"])
-                if "permanent_supplier_change" in d and isinstance(d["permanent_supplier_change"], int):
+                if "permanent_supplier_change" in d and isinstance(
+                    d["permanent_supplier_change"], int
+                ):
                     d["permanent_supplier_change"] = bool(d["permanent_supplier_change"])
                 return d
         return None
@@ -77,9 +80,7 @@ class LedgerService:
             }
 
         recovery_days = [
-            float(c["full_recovery_days"])
-            for c in cases
-            if c.get("full_recovery_days") is not None
+            float(c["full_recovery_days"]) for c in cases if c.get("full_recovery_days") is not None
         ]
         if not recovery_days:
             return {
@@ -147,13 +148,15 @@ class LedgerService:
 
         results = []
         for _, row in grouped.iterrows():
-            results.append({
-                "response_type": str(row["response_type"]),
-                "n": int(row["n"]),
-                "median_full_recovery_days": round(float(row["median_recovery"]), 1),
-                "min_full_recovery_days": round(float(row["min_recovery"]), 1),
-                "max_full_recovery_days": round(float(row["max_recovery"]), 1),
-            })
+            results.append(
+                {
+                    "response_type": str(row["response_type"]),
+                    "n": int(row["n"]),
+                    "median_full_recovery_days": round(float(row["median_recovery"]), 1),
+                    "min_full_recovery_days": round(float(row["min_recovery"]), 1),
+                    "max_full_recovery_days": round(float(row["max_recovery"]), 1),
+                }
+            )
         return results
 
 

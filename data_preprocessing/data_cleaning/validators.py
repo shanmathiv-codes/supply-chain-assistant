@@ -1,4 +1,5 @@
 """Data validation rules, numeric range assertions, and rejected row capture."""
+
 from pathlib import Path
 
 import pandas as pd
@@ -22,11 +23,13 @@ def validate_and_filter_rows(
     if "disruption_id" in df.columns:
         dupes = df[df.duplicated(subset=["disruption_id"], keep="first")]
         for idx, row in dupes.iterrows():
-            rejected_records.append({
-                "row_index": idx,
-                "disruption_id": row.get("disruption_id"),
-                "reason": "Duplicate disruption_id (kept first occurrence)",
-            })
+            rejected_records.append(
+                {
+                    "row_index": idx,
+                    "disruption_id": row.get("disruption_id"),
+                    "reason": "Duplicate disruption_id (kept first occurrence)",
+                }
+            )
         df = df.drop_duplicates(subset=["disruption_id"], keep="first")
 
     # 2. Iterate and validate each row
@@ -75,11 +78,13 @@ def validate_and_filter_rows(
                 pass
 
         if reasons:
-            rejected_records.append({
-                "row_index": idx,
-                "disruption_id": row.get("disruption_id", f"row_{idx}"),
-                "reason": "; ".join(reasons),
-            })
+            rejected_records.append(
+                {
+                    "row_index": idx,
+                    "disruption_id": row.get("disruption_id", f"row_{idx}"),
+                    "reason": "; ".join(reasons),
+                }
+            )
         else:
             clean_indices.append(idx)
 

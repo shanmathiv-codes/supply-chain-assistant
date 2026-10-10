@@ -1,15 +1,24 @@
 """Application logging configuration with secret redaction and correlation IDs."""
+
 import contextvars
 import logging
 import re
 import sys
 
-correlation_id_ctx: contextvars.ContextVar[str] = contextvars.ContextVar("correlation_id", default="")
+correlation_id_ctx: contextvars.ContextVar[str] = contextvars.ContextVar(
+    "correlation_id", default=""
+)
 
 SECRET_PATTERNS = [
-    (re.compile(r"(?i)(api[_-]?key|password|token|secret|authorization)\s*[:=]\s*['\"]?([a-zA-Z0-9_\-\.]{8,})['\"]?"), r"\1: [REDACTED]"),
+    (
+        re.compile(
+            r"(?i)(api[_-]?key|password|token|secret|authorization)\s*[:=]\s*['\"]?([a-zA-Z0-9_\-\.]{8,})['\"]?"
+        ),
+        r"\1: [REDACTED]",
+    ),
     (re.compile(r"(?i)(Bearer)\s+([a-zA-Z0-9_\-\.]{15,})"), r"\1 [REDACTED]"),
 ]
+
 
 class RedactionFilter(logging.Filter):
     """Filter that masks sensitive strings and tokens from log messages."""
@@ -31,12 +40,14 @@ class RedactionFilter(logging.Filter):
             res = pat.sub(repl, res)
         return res
 
+
 class CorrelationIdFilter(logging.Filter):
     """Injects current correlation ID into log records."""
 
     def filter(self, record: logging.LogRecord) -> bool:
         record.correlation_id = correlation_id_ctx.get() or "none"
         return True
+
 
 def setup_logging(log_level: str = "INFO") -> logging.Logger:
     """Configure root logger with formatting, redaction, and correlation tracking."""
@@ -56,5 +67,6 @@ def setup_logging(log_level: str = "INFO") -> logging.Logger:
     logger.addHandler(handler)
     logger.propagate = False
     return logger
+
 
 logger = setup_logging()

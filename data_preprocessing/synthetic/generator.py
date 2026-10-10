@@ -7,6 +7,7 @@ Generating rules:
 4. response_time_days <= partial_recovery_days <= full_recovery_days.
 5. permanent_supplier_change is more probable for Critical/High severity events without backup suppliers.
 """
+
 import random
 from pathlib import Path
 
@@ -36,7 +37,13 @@ INDUSTRIES = [
 ]
 
 SUPPLIER_TIERS = ["Tier 1", "Tier 2", "Tier 3"]
-SUPPLIER_REGIONS = ["North America", "Europe", "Asia-Pacific", "Latin America", "Middle East & Africa"]
+SUPPLIER_REGIONS = [
+    "North America",
+    "Europe",
+    "Asia-Pacific",
+    "Latin America",
+    "Middle East & Africa",
+]
 SUPPLIER_SIZES = ["Small", "Medium", "Large"]
 SEVERITIES = ["Low", "Medium", "High", "Critical"]
 RESPONSE_TYPES = [
@@ -78,7 +85,11 @@ def generate_synthetic_dataset(n_rows: int = 3000, seed: int = 42) -> pd.DataFra
         prod_impact = float(np.clip(base_imp * backup_factor * size_factor + imp_noise, 1.0, 99.0))
 
         # Revenue loss USD (log-normal)
-        loss_mu = SEVERITY_LOSS_SCALE[severity] + (0.3 if not has_backup else -0.2) + (0.4 if size == "Large" else 0.0)
+        loss_mu = (
+            SEVERITY_LOSS_SCALE[severity]
+            + (0.3 if not has_backup else -0.2)
+            + (0.4 if size == "Large" else 0.0)
+        )
         loss_usd = float(np.random.lognormal(mean=loss_mu, sigma=0.6))
         loss_usd = max(1000.0, round(loss_usd, 2))
 
@@ -88,10 +99,22 @@ def generate_synthetic_dataset(n_rows: int = 3000, seed: int = 42) -> pd.DataFra
         resp_days = round(resp_days, 1)
 
         base_rec = SEVERITY_RECOVERY_BASE[severity]
-        full_rec = float(np.clip(base_rec * backup_factor + np.random.normal(0, base_rec * 0.2), resp_days + 5.0, 720.0))
+        full_rec = float(
+            np.clip(
+                base_rec * backup_factor + np.random.normal(0, base_rec * 0.2),
+                resp_days + 5.0,
+                720.0,
+            )
+        )
         full_rec = round(full_rec, 1)
 
-        partial_rec = float(np.clip(resp_days + (full_rec - resp_days) * np.random.uniform(0.3, 0.7), resp_days, full_rec))
+        partial_rec = float(
+            np.clip(
+                resp_days + (full_rec - resp_days) * np.random.uniform(0.3, 0.7),
+                resp_days,
+                full_rec,
+            )
+        )
         partial_rec = round(partial_rec, 1)
 
         # Permanent supplier change probability
@@ -104,23 +127,25 @@ def generate_synthetic_dataset(n_rows: int = 3000, seed: int = 42) -> pd.DataFra
             switch_prob += 0.10
         perm_change = bool(random.random() < min(0.75, switch_prob))
 
-        rows.append({
-            "disruption_id": case_id,
-            "disruption_type": d_type,
-            "industry": ind,
-            "supplier_tier": tier,
-            "supplier_region": region,
-            "supplier_size": size,
-            "has_backup_supplier": has_backup,
-            "disruption_severity": severity,
-            "production_impact_pct": round(prod_impact, 2),
-            "revenue_loss_usd": loss_usd,
-            "response_type": resp_type,
-            "response_time_days": resp_days,
-            "partial_recovery_days": partial_rec,
-            "full_recovery_days": full_rec,
-            "permanent_supplier_change": perm_change,
-        })
+        rows.append(
+            {
+                "disruption_id": case_id,
+                "disruption_type": d_type,
+                "industry": ind,
+                "supplier_tier": tier,
+                "supplier_region": region,
+                "supplier_size": size,
+                "has_backup_supplier": has_backup,
+                "disruption_severity": severity,
+                "production_impact_pct": round(prod_impact, 2),
+                "revenue_loss_usd": loss_usd,
+                "response_type": resp_type,
+                "response_time_days": resp_days,
+                "partial_recovery_days": partial_rec,
+                "full_recovery_days": full_rec,
+                "permanent_supplier_change": perm_change,
+            }
+        )
 
     df = pd.DataFrame(rows)
     return df

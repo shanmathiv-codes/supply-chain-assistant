@@ -1,4 +1,5 @@
 """Replay Substrate Adapter reading pre-recorded fixtures."""
+
 import hashlib
 import json
 from pathlib import Path
@@ -43,38 +44,68 @@ class ReplaySubstrateAdapter:
         return self._load_fixture("trident_get_schema", {"provider_id": provider_id})
 
     async def find_exact(self, label: str, provider_id: str = "") -> list[Evidence]:
-        data = self._load_fixture("trident_find_exact", {"label": label, "provider_id": provider_id})
+        data = self._load_fixture(
+            "trident_find_exact", {"label": label, "provider_id": provider_id}
+        )
         return [Evidence(**item) for item in data]
 
-    async def search_nodes(self, query: str, top_k: int = 5, provider_id: str = "") -> list[Evidence]:
-        data = self._load_fixture("trident_search", {"query": query, "top_k": top_k, "provider_id": provider_id})
+    async def search_nodes(
+        self, query: str, top_k: int = 5, provider_id: str = ""
+    ) -> list[Evidence]:
+        data = self._load_fixture(
+            "trident_search", {"query": query, "top_k": top_k, "provider_id": provider_id}
+        )
         return [Evidence(**item) for item in data]
 
     async def get_chunks(self, query: str, top_k: int = 5, provider_id: str = "") -> list[Evidence]:
-        data = self._load_fixture("trident_get_chunks", {"query": query, "top_k": top_k, "provider_id": provider_id})
+        data = self._load_fixture(
+            "trident_get_chunks", {"query": query, "top_k": top_k, "provider_id": provider_id}
+        )
         return [Evidence(**item) for item in data]
 
     async def query(self, query_text: str, top_k: int = 5, provider_id: str = "") -> dict[str, Any]:
-        res = self._load_fixture("trident_query", {"query": query_text, "top_k": top_k, "provider_id": provider_id})
+        res = self._load_fixture(
+            "trident_query", {"query": query_text, "top_k": top_k, "provider_id": provider_id}
+        )
         if "evidence" in res and isinstance(res["evidence"], list):
             res["evidence"] = [Evidence(**e) for e in res["evidence"]]
         return res
 
     async def label_ticket(self, ticket_text: str, provider_id: str = "") -> dict[str, Any]:
-        return self._load_fixture("trident_label_ticket", {"ticket_text": ticket_text, "provider_id": provider_id})
+        return self._load_fixture(
+            "trident_label_ticket", {"ticket_text": ticket_text, "provider_id": provider_id}
+        )
 
-    async def cypher(self, template_name: str, params: dict[str, Any], provider_id: str = "") -> list[dict[str, Any]]:
-        return self._load_fixture(f"cypher_{template_name}", {"params": params, "provider_id": provider_id})
+    async def cypher(
+        self, template_name: str, params: dict[str, Any], provider_id: str = ""
+    ) -> list[dict[str, Any]]:
+        return self._load_fixture(
+            f"cypher_{template_name}", {"params": params, "provider_id": provider_id}
+        )
 
     async def get_node(self, node_id: str, depth: int = 1, provider_id: str = "") -> dict[str, Any]:
-        return self._load_fixture("trident_get_node", {"node_id": node_id, "depth": depth, "provider_id": provider_id})
+        return self._load_fixture(
+            "trident_get_node", {"node_id": node_id, "depth": depth, "provider_id": provider_id}
+        )
 
-    async def traverse(self, start_node_id: str, edge_types: list[str], provider_id: str = "") -> list[dict[str, Any]]:
-        return self._load_fixture("trident_traverse", {"start_node_id": start_node_id, "edge_types": edge_types, "provider_id": provider_id})
+    async def traverse(
+        self, start_node_id: str, edge_types: list[str], provider_id: str = ""
+    ) -> list[dict[str, Any]]:
+        return self._load_fixture(
+            "trident_traverse",
+            {"start_node_id": start_node_id, "edge_types": edge_types, "provider_id": provider_id},
+        )
 
     async def get_procedures(self, query: str, provider_id: str = "") -> list[Evidence]:
-        data = self._load_fixture("trident_get_procedures", {"query": query, "provider_id": provider_id})
+        data = self._load_fixture(
+            "trident_get_procedures", {"query": query, "provider_id": provider_id}
+        )
         return [Evidence(**item) for item in data]
 
-    async def episodes(self, query: str | None = None, episode_id: str | None = None, provider_id: str = "") -> dict[str, Any]:
-        return self._load_fixture("trident_episodes", {"query": query, "episode_id": episode_id, "provider_id": provider_id})
+    async def episodes(
+        self, query: str | None = None, episode_id: str | None = None, provider_id: str = ""
+    ) -> dict[str, Any]:
+        return self._load_fixture(
+            "trident_episodes",
+            {"query": query, "episode_id": episode_id, "provider_id": provider_id},
+        )

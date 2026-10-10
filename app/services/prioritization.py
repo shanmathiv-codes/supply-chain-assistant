@@ -1,12 +1,17 @@
 """Disruption prioritization service computing triage score P1-P4 and sensitivity analysis."""
+
 import math
 
 from app.core.config import load_yaml_config
 from app.schemas.report import PriorityAssessment
 
 PRIORITY_CONFIG = load_yaml_config("priority.yaml")
-WEIGHTS = PRIORITY_CONFIG.get("weights", {"severity": 0.40, "production_impact": 0.35, "financial_loss": 0.25})
-SEVERITY_MAP = PRIORITY_CONFIG.get("severity_map", {"Low": 0.10, "Medium": 0.40, "High": 0.75, "Critical": 1.00})
+WEIGHTS = PRIORITY_CONFIG.get(
+    "weights", {"severity": 0.40, "production_impact": 0.35, "financial_loss": 0.25}
+)
+SEVERITY_MAP = PRIORITY_CONFIG.get(
+    "severity_map", {"Low": 0.10, "Medium": 0.40, "High": 0.75, "Critical": 1.00}
+)
 BANDS = PRIORITY_CONFIG.get("bands", {})
 DELTA = PRIORITY_CONFIG.get("sensitivity", {}).get("delta", 0.10)
 
@@ -16,12 +21,28 @@ class PrioritizationService:
 
     def _determine_band(self, score: float) -> tuple[str, str, str]:
         if score >= BANDS.get("P1", {}).get("min_score", 75.0):
-            return "P1", BANDS.get("P1", {}).get("label", "Critical Escalation"), BANDS.get("P1", {}).get("description", "")
+            return (
+                "P1",
+                BANDS.get("P1", {}).get("label", "Critical Escalation"),
+                BANDS.get("P1", {}).get("description", ""),
+            )
         if score >= BANDS.get("P2", {}).get("min_score", 55.0):
-            return "P2", BANDS.get("P2", {}).get("label", "High Priority"), BANDS.get("P2", {}).get("description", "")
+            return (
+                "P2",
+                BANDS.get("P2", {}).get("label", "High Priority"),
+                BANDS.get("P2", {}).get("description", ""),
+            )
         if score >= BANDS.get("P3", {}).get("min_score", 35.0):
-            return "P3", BANDS.get("P3", {}).get("label", "Medium Priority"), BANDS.get("P3", {}).get("description", "")
-        return "P4", BANDS.get("P4", {}).get("label", "Low Priority"), BANDS.get("P4", {}).get("description", "")
+            return (
+                "P3",
+                BANDS.get("P3", {}).get("label", "Medium Priority"),
+                BANDS.get("P3", {}).get("description", ""),
+            )
+        return (
+            "P4",
+            BANDS.get("P4", {}).get("label", "Low Priority"),
+            BANDS.get("P4", {}).get("description", ""),
+        )
 
     def calculate_priority(
         self,
@@ -67,10 +88,42 @@ class PrioritizationService:
 
         # Sensitivity analysis (+/- delta perturbation on weights)
         sensitivity = {
-            "severity_plus_10": round(100.0 * ((w_s + DELTA) * s_val + (w_p - DELTA / 2) * imp_val + (w_f - DELTA / 2) * loss_val), 1),
-            "severity_minus_10": round(100.0 * ((w_s - DELTA) * s_val + (w_p + DELTA / 2) * imp_val + (w_f + DELTA / 2) * loss_val), 1),
-            "impact_plus_10": round(100.0 * ((w_s - DELTA / 2) * s_val + (w_p + DELTA) * imp_val + (w_f - DELTA / 2) * loss_val), 1),
-            "loss_plus_10": round(100.0 * ((w_s - DELTA / 2) * s_val + (w_p - DELTA / 2) * imp_val + (w_f + DELTA) * loss_val), 1),
+            "severity_plus_10": round(
+                100.0
+                * (
+                    (w_s + DELTA) * s_val
+                    + (w_p - DELTA / 2) * imp_val
+                    + (w_f - DELTA / 2) * loss_val
+                ),
+                1,
+            ),
+            "severity_minus_10": round(
+                100.0
+                * (
+                    (w_s - DELTA) * s_val
+                    + (w_p + DELTA / 2) * imp_val
+                    + (w_f + DELTA / 2) * loss_val
+                ),
+                1,
+            ),
+            "impact_plus_10": round(
+                100.0
+                * (
+                    (w_s - DELTA / 2) * s_val
+                    + (w_p + DELTA) * imp_val
+                    + (w_f - DELTA / 2) * loss_val
+                ),
+                1,
+            ),
+            "loss_plus_10": round(
+                100.0
+                * (
+                    (w_s - DELTA / 2) * s_val
+                    + (w_p - DELTA / 2) * imp_val
+                    + (w_f + DELTA) * loss_val
+                ),
+                1,
+            ),
         }
 
         source_note = "predicted values" if based_on_predictions else "observed event data"

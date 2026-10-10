@@ -1,4 +1,5 @@
 """Real MCP Substrate Adapter using official mcp Python SDK."""
+
 from typing import Any
 
 import httpx
@@ -75,9 +76,13 @@ class McpSubstrateAdapter:
                 )
         return results
 
-    async def search_nodes(self, query: str, top_k: int = 5, provider_id: str = "") -> list[Evidence]:
+    async def search_nodes(
+        self, query: str, top_k: int = 5, provider_id: str = ""
+    ) -> list[Evidence]:
         p_id = provider_id or self.provider_id
-        res = await self.call_tool("trident_search", {"query": query, "top_k": top_k, "provider_id": p_id})
+        res = await self.call_tool(
+            "trident_search", {"query": query, "top_k": top_k, "provider_id": p_id}
+        )
         results = []
         if isinstance(res, list):
             for item in res:
@@ -97,7 +102,9 @@ class McpSubstrateAdapter:
 
     async def get_chunks(self, query: str, top_k: int = 5, provider_id: str = "") -> list[Evidence]:
         p_id = provider_id or self.provider_id
-        res = await self.call_tool("trident_get_chunks", {"query": query, "top_k": top_k, "provider_id": p_id})
+        res = await self.call_tool(
+            "trident_get_chunks", {"query": query, "top_k": top_k, "provider_id": p_id}
+        )
         results = []
         if isinstance(res, list):
             for item in res:
@@ -117,23 +124,38 @@ class McpSubstrateAdapter:
 
     async def query(self, query_text: str, top_k: int = 5, provider_id: str = "") -> dict[str, Any]:
         p_id = provider_id or self.provider_id
-        return await self.call_tool("trident_query", {"query": query_text, "top_k": top_k, "provider_id": p_id})
+        return await self.call_tool(
+            "trident_query", {"query": query_text, "top_k": top_k, "provider_id": p_id}
+        )
 
     async def label_ticket(self, ticket_text: str, provider_id: str = "") -> dict[str, Any]:
         p_id = provider_id or self.provider_id
-        return await self.call_tool("trident_label_ticket", {"ticket_text": ticket_text, "provider_id": p_id})
+        return await self.call_tool(
+            "trident_label_ticket", {"ticket_text": ticket_text, "provider_id": p_id}
+        )
 
-    async def cypher(self, template_name: str, params: dict[str, Any], provider_id: str = "") -> list[dict[str, Any]]:
+    async def cypher(
+        self, template_name: str, params: dict[str, Any], provider_id: str = ""
+    ) -> list[dict[str, Any]]:
         p_id = provider_id or self.provider_id
-        return await self.call_tool("trident_cypher", {"query": params.get("query"), "params": params, "provider_id": p_id})
+        return await self.call_tool(
+            "trident_cypher", {"query": params.get("query"), "params": params, "provider_id": p_id}
+        )
 
     async def get_node(self, node_id: str, depth: int = 1, provider_id: str = "") -> dict[str, Any]:
         p_id = provider_id or self.provider_id
-        return await self.call_tool("trident_get_node", {"node_id": node_id, "depth": depth, "provider_id": p_id})
+        return await self.call_tool(
+            "trident_get_node", {"node_id": node_id, "depth": depth, "provider_id": p_id}
+        )
 
-    async def traverse(self, start_node_id: str, edge_types: list[str], provider_id: str = "") -> list[dict[str, Any]]:
+    async def traverse(
+        self, start_node_id: str, edge_types: list[str], provider_id: str = ""
+    ) -> list[dict[str, Any]]:
         p_id = provider_id or self.provider_id
-        return await self.call_tool("trident_traverse", {"start_node_id": start_node_id, "edge_types": edge_types, "provider_id": p_id})
+        return await self.call_tool(
+            "trident_traverse",
+            {"start_node_id": start_node_id, "edge_types": edge_types, "provider_id": p_id},
+        )
 
     async def get_procedures(self, query: str, provider_id: str = "") -> list[Evidence]:
         p_id = provider_id or self.provider_id
@@ -154,7 +176,9 @@ class McpSubstrateAdapter:
                 )
         return results
 
-    async def episodes(self, query: str | None = None, episode_id: str | None = None, provider_id: str = "") -> dict[str, Any]:
+    async def episodes(
+        self, query: str | None = None, episode_id: str | None = None, provider_id: str = ""
+    ) -> dict[str, Any]:
         p_id = provider_id or self.provider_id
         args = {"provider_id": p_id}
         if query:

@@ -22,6 +22,7 @@ async def probe_single_model(model_name: str) -> tuple[bool, float]:
     """Send tiny JSON test request to candidate model measuring latency and validity."""
     provider = "gemini" if "gemini" in model_name else "openrouter"
     import litellm
+
     litellm.telemetry = False
 
     extra_kwargs = {}
@@ -45,7 +46,7 @@ async def probe_single_model(model_name: str) -> tuple[bool, float]:
         resp = await asyncio.wait_for(
             litellm.acompletion(
                 model=model_name,
-                messages=[{"role": "user", "content": "Return JSON: {\"status\": \"ok\"}"}],
+                messages=[{"role": "user", "content": 'Return JSON: {"status": "ok"}'}],
                 request_timeout=3.0,
                 **extra_kwargs,
             ),

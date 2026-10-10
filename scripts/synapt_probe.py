@@ -1,4 +1,5 @@
 """Probe script inspecting Synapt MCP endpoint, authentication, schema, and content state."""
+
 import asyncio
 import sys
 import time
@@ -84,19 +85,19 @@ async def run_probe():
     notes_content = f"""# Synapt Integration & Schema Probe Notes
 
 ## Probe Execution
-- **Timestamp:** {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
+- **Timestamp:** {time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
 - **Provider ID:** `{settings.synapt_provider_id}`
 - **Substrate Content State:** `{content_state}`
 - **Reported Cases:** {case_count}
 
 ## Node Types and Properties
-- **Node Labels:** {', '.join(schema.get('node_types', []))}
-- **Relationship Types:** {', '.join(schema.get('edge_types', []))}
-- **Properties Found:** {', '.join(schema.get('properties', []))}
+- **Node Labels:** {", ".join(schema.get("node_types", []))}
+- **Relationship Types:** {", ".join(schema.get("edge_types", []))}
+- **Properties Found:** {", ".join(schema.get("properties", []))}
 
 ## Ticket Store & Episode Capabilities
-- **Has Ticket Store:** {stats.get('has_ticket_store', False)}
-- **Episodes Health:** {episodes_data.get('status', 'unknown')}
+- **Has Ticket Store:** {stats.get("has_ticket_store", False)}
+- **Episodes Health:** {episodes_data.get("status", "unknown")}
 
 ## Graph Fidelity & Collision Analysis
 - **Medium Severity vs Medium Size:** Evaluated via composite keys `type:label`.

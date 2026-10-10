@@ -1,4 +1,5 @@
 """Typed Report, Claim, Prediction, and Assessment schemas."""
+
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field

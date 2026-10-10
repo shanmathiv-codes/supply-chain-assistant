@@ -1,4 +1,5 @@
 """Smoke test for LiteLLM imports and offline configuration."""
+
 import importlib.metadata
 import os
 
@@ -13,6 +14,7 @@ def run_smoke():
     litellm.drop_params = True
     ver = importlib.metadata.version("litellm")
     print(f"LiteLLM smoke test passed: version {ver}")
+
 
 if __name__ == "__main__":
     run_smoke()

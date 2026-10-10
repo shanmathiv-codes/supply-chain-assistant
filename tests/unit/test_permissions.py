@@ -1,4 +1,5 @@
 """Unit tests verifying tier permissions and import ban on SynaptAdminGateway."""
+
 import re
 from pathlib import Path
 

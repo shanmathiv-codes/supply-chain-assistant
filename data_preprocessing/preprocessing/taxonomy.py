@@ -1,4 +1,5 @@
 """Derive canonical categorical values from clean ledger and update taxonomy.yaml."""
+
 from pathlib import Path
 
 import pandas as pd

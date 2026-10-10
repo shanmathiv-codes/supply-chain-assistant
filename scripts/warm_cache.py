@@ -3,6 +3,7 @@
 Supports offline/no-keys execution via FakeLLM so demo and test runs
 in 'cache' mode always succeed deterministically.
 """
+
 import shutil
 import sqlite3
 import sys

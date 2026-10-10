@@ -1,4 +1,5 @@
 """Permutation feature importance fallback module."""
+
 from typing import Any
 
 import numpy as np

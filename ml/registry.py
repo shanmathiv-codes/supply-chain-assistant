@@ -1,4 +1,5 @@
 """Model registry managing trained artifacts, conformal intervals, version hashing, and predictions."""
+
 import hashlib
 import json
 from pathlib import Path
@@ -47,7 +48,9 @@ class ModelRegistry:
                         self.loaded_models[target_dir.name] = joblib.load(model_file)
                         self.versions[target_dir.name] = self._hash_file(model_file)
                         if card_file.exists():
-                            self.metadata[target_dir.name] = json.loads(card_file.read_text(encoding="utf-8"))
+                            self.metadata[target_dir.name] = json.loads(
+                                card_file.read_text(encoding="utf-8")
+                            )
                         else:
                             self.metadata[target_dir.name] = {}
                     except Exception as exc:

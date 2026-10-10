@@ -1,17 +1,22 @@
 """API and workflow input request models."""
+
 from pydantic import BaseModel, Field
 
 
 class DisruptionProfile(BaseModel):
     """Structured disruption attributes adhering to dataset taxonomy."""
 
-    disruption_id: str | None = Field(default=None, description="Optional ID if querying existing case")
+    disruption_id: str | None = Field(
+        default=None, description="Optional ID if querying existing case"
+    )
     disruption_type: str | None = Field(default=None, description="Type of disruption event")
     industry: str | None = Field(default=None, description="Target industry vertical")
     supplier_tier: str | None = Field(default=None, description="Supplier tier level")
     supplier_region: str | None = Field(default=None, description="Supplier geography")
     supplier_size: str | None = Field(default=None, description="Supplier organization size")
-    has_backup_supplier: bool | None = Field(default=None, description="Whether backup supplier exists")
+    has_backup_supplier: bool | None = Field(
+        default=None, description="Whether backup supplier exists"
+    )
     disruption_severity: str | None = Field(default=None, description="Severity rating")
     production_impact_pct: float | None = Field(
         default=None, ge=0.0, le=100.0, description="Observed or estimated production loss %"
@@ -19,7 +24,9 @@ class DisruptionProfile(BaseModel):
     revenue_loss_usd: float | None = Field(
         default=None, ge=0.0, description="Observed direct revenue loss in USD"
     )
-    response_type: str | None = Field(default=None, description="Response mitigation strategy if chosen")
+    response_type: str | None = Field(
+        default=None, description="Response mitigation strategy if chosen"
+    )
 
     model_config = {
         "json_schema_extra": {

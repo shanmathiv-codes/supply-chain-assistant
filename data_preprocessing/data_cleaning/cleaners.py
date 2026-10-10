@@ -1,4 +1,5 @@
 """Data cleaning functions, column normalization, and type coercion."""
+
 import json
 from pathlib import Path
 from typing import Any
@@ -62,6 +63,7 @@ def resolve_columns(df: pd.DataFrame, reports_dir: Path) -> pd.DataFrame:
 
 def parse_boolean_series(series: pd.Series) -> pd.Series:
     """Safely coerce series to boolean values."""
+
     def _parse_val(val: Any) -> bool | None:
         if pd.isna(val):
             return None
@@ -75,6 +77,7 @@ def parse_boolean_series(series: pd.Series) -> pd.Series:
         return None
 
     import numpy as np
+
     return series.apply(_parse_val)
 
 

@@ -1,4 +1,5 @@
 """Derived operational playbooks (SOPs) synthesized from full training dataset."""
+
 from pathlib import Path
 
 import pandas as pd

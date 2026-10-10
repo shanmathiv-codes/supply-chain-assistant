@@ -1,4 +1,5 @@
 """Authentication client for Synapt token acquisition and memory-only token cache."""
+
 import time
 from pathlib import Path
 from typing import Any
@@ -51,7 +52,11 @@ class SynaptAuthClient:
                 )
                 if resp.status_code == 200:
                     data = resp.json()
-                    tok = data.get("access_token") or data.get("token") or (data.get("data", {}).get("access_token"))
+                    tok = (
+                        data.get("access_token")
+                        or data.get("token")
+                        or (data.get("data", {}).get("access_token"))
+                    )
                     if tok:
                         self._save_auth_format("form_encoded")
                         return {"token": tok, "expires_in": data.get("expires_in", 3600)}
@@ -66,7 +71,11 @@ class SynaptAuthClient:
                 )
                 if resp.status_code == 200:
                     data = resp.json()
-                    tok = data.get("access_token") or data.get("token") or (data.get("data", {}).get("access_token"))
+                    tok = (
+                        data.get("access_token")
+                        or data.get("token")
+                        or (data.get("data", {}).get("access_token"))
+                    )
                     if tok:
                         self._save_auth_format("json_body")
                         return {"token": tok, "expires_in": data.get("expires_in", 3600)}

@@ -81,6 +81,7 @@ class LLMRouter:
                     await limiter.acquire()
 
                     import litellm
+
                     litellm.telemetry = False
 
                     # Prepare provider kwargs
@@ -110,7 +111,9 @@ class LLMRouter:
                     )
 
                     raw_content = resp.choices[0].message.content
-                    tokens = resp.usage.total_tokens if hasattr(resp, "usage") and resp.usage else 250
+                    tokens = (
+                        resp.usage.total_tokens if hasattr(resp, "usage") and resp.usage else 250
+                    )
                     if budget:
                         budget.record_usage(calls=1, tokens=tokens)
 
@@ -120,7 +123,9 @@ class LLMRouter:
                         llm_cache.put(role, cand, prompt_name, messages, temperature, data, tokens)
                         return data, validated
                     except Exception as parse_err:
-                        logger.warning(f"Initial JSON parse failed for {cand}: {parse_err}. Attempting 1 repair.")
+                        logger.warning(
+                            f"Initial JSON parse failed for {cand}: {parse_err}. Attempting 1 repair."
+                        )
                         # Attempt single-retry repair
                         repair_messages = list(messages) + [
                             {"role": "assistant", "content": raw_content},
@@ -141,7 +146,9 @@ class LLMRouter:
                         )
                         repair_content = repair_resp.choices[0].message.content
                         data, validated = parse_and_validate(repair_content, schema_cls)
-                        llm_cache.put(role, cand, prompt_name, messages, temperature, data, tokens + 100)
+                        llm_cache.put(
+                            role, cand, prompt_name, messages, temperature, data, tokens + 100
+                        )
                         return data, validated
 
             except Exception as exc:

@@ -1,4 +1,5 @@
 """API test suite covering endpoints, guardrails, error payloads, and basic requirements."""
+
 import os
 
 os.environ["SYNAPT_MODE"] = "mock"

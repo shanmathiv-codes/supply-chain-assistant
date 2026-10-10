@@ -1,4 +1,5 @@
 """Input validation, prompt injection prevention, off-topic detection, and PII redaction."""
+
 import re
 
 from app.core.config import load_yaml_config
@@ -7,21 +8,26 @@ GUARDRAIL_CONFIG = load_yaml_config("guardrails.yaml")
 TAXONOMY_CONFIG = load_yaml_config("taxonomy.yaml")
 
 INJECTION_PATTERNS = [
-    re.compile(pat) for pat in GUARDRAIL_CONFIG.get("injection_patterns", [
-        r"(?i)ignore\s+(all\s+)?(previous|above)\s+instructions",
-        r"(?i)system\s+prompt",
-        r"(?i)reveal\s+(the\s+)?(api[\s_-]*)?(keys|passwords|credentials|secrets|token)",
-        r"(?i)you\s+are\s+now\s+in\s+developer\s+mode",
-        r"(?i)<\s*script",
-        r"(?i)DAN\s+mode",
-        r"(?i)role\s*:\s*system",
-    ])
+    re.compile(pat)
+    for pat in GUARDRAIL_CONFIG.get(
+        "injection_patterns",
+        [
+            r"(?i)ignore\s+(all\s+)?(previous|above)\s+instructions",
+            r"(?i)system\s+prompt",
+            r"(?i)reveal\s+(the\s+)?(api[\s_-]*)?(keys|passwords|credentials|secrets|token)",
+            r"(?i)you\s+are\s+now\s+in\s+developer\s+mode",
+            r"(?i)<\s*script",
+            r"(?i)DAN\s+mode",
+            r"(?i)role\s*:\s*system",
+        ],
+    )
 ]
 
 OFF_TOPIC_KEYWORDS = set(
-    GUARDRAIL_CONFIG.get("off_topic_keywords", [
-        "recipe", "movie review", "poem", "sports score", "celebrity gossip", "horoscope"
-    ])
+    GUARDRAIL_CONFIG.get(
+        "off_topic_keywords",
+        ["recipe", "movie review", "poem", "sports score", "celebrity gossip", "horoscope"],
+    )
 )
 
 PII_PATTERNS = {
@@ -66,9 +72,7 @@ def redact_pii(text: str) -> str:
     return res
 
 
-def map_or_validate_category(
-    column_name: str, value: str | None
-) -> tuple[str | None, bool, bool]:
+def map_or_validate_category(column_name: str, value: str | None) -> tuple[str | None, bool, bool]:
     """Map a categorical value via synonyms, check taxonomy, or flag as novel.
     Returns: (canonical_value, is_valid, is_novel)
     """

@@ -1,4 +1,5 @@
 """SQLite I/O operations mirroring ledger and providing quick relational lookups."""
+
 import sqlite3
 from pathlib import Path
 

@@ -1,4 +1,5 @@
 """Ensemble disruption classification service combining ticket mining, neighbour voting, and LLM."""
+
 from collections import Counter
 from typing import Any
 
@@ -58,7 +59,9 @@ class ClassificationService:
             neighbor_cases = ledger_service.get_cases_batch(top_ids[:5])
             if neighbor_cases:
                 types = [c["disruption_type"] for c in neighbor_cases if c.get("disruption_type")]
-                sevs = [c["disruption_severity"] for c in neighbor_cases if c.get("disruption_severity")]
+                sevs = [
+                    c["disruption_severity"] for c in neighbor_cases if c.get("disruption_severity")
+                ]
                 if types:
                     vote_type = Counter(types).most_common(1)[0][0]
                     vote_sev = Counter(sevs).most_common(1)[0][0] if sevs else "Medium"
@@ -78,12 +81,20 @@ class ClassificationService:
                     {"role": "system", "content": "Classify disruption incident."},
                     {"role": "user", "content": f"Text: {text}\nProfile: {prof}"},
                 ],
-                context={"text": text, "disruption_type": prof.get("disruption_type"), "disruption_severity": prof.get("disruption_severity")},
+                context={
+                    "text": text,
+                    "disruption_type": prof.get("disruption_type"),
+                    "disruption_severity": prof.get("disruption_severity"),
+                },
             )
             if isinstance(llm_res, dict):
                 signal_votes["llm_mapping"] = {
-                    "disruption_type": llm_res.get("disruption_type", prof.get("disruption_type", "Operational Failure")),
-                    "disruption_severity": llm_res.get("disruption_severity", prof.get("disruption_severity", "Medium")),
+                    "disruption_type": llm_res.get(
+                        "disruption_type", prof.get("disruption_type", "Operational Failure")
+                    ),
+                    "disruption_severity": llm_res.get(
+                        "disruption_severity", prof.get("disruption_severity", "Medium")
+                    ),
                 }
         except Exception as exc:
             logger.warning(f"LLM classify call failed: {exc}")
@@ -106,7 +117,9 @@ class ClassificationService:
 
         # Ensemble resolution
         type_votes = [v["disruption_type"] for v in signal_votes.values() if "disruption_type" in v]
-        sev_votes = [v["disruption_severity"] for v in signal_votes.values() if "disruption_severity" in v]
+        sev_votes = [
+            v["disruption_severity"] for v in signal_votes.values() if "disruption_severity" in v
+        ]
 
         type_counts = Counter(type_votes)
         sev_counts = Counter(sev_votes)

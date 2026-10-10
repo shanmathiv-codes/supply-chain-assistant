@@ -1,4 +1,5 @@
 """JSON extraction, markdown cleanup, and single-retry repair logic."""
+
 import json
 import re
 from typing import Any, Type, TypeVar
@@ -43,7 +44,9 @@ def extract_json_from_text(raw_text: str) -> dict[str, Any]:
     raise ValueError("No JSON object structure found in response text.")
 
 
-def parse_and_validate(raw_text: str, schema_cls: Type[T] | None = None) -> tuple[dict[str, Any], T | None]:
+def parse_and_validate(
+    raw_text: str, schema_cls: Type[T] | None = None
+) -> tuple[dict[str, Any], T | None]:
     """Parse JSON and validate against Pydantic schema if provided."""
     data = extract_json_from_text(raw_text)
     if schema_cls:

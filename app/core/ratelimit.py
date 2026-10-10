@@ -1,4 +1,5 @@
 """In-memory rate limiter for service API protection."""
+
 import time
 from collections import defaultdict
 

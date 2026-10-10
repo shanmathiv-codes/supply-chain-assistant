@@ -1,4 +1,5 @@
 """Mock Substrate Adapter implementing all read tools on local ledger and cards."""
+
 from pathlib import Path
 from typing import Any
 
@@ -44,34 +45,58 @@ class MockSubstrateAdapter:
             "total_nodes": len(self._df) * 8 if self._df is not None else 0,
             "counts_by_label": {
                 "SupplyChainDisruption": len(self._df) if self._df is not None else 0,
-                "DisruptionType": len(self._df["disruption_type"].unique()) if self._df is not None and "disruption_type" in self._df else 0,
-                "Industry": len(self._df["industry"].unique()) if self._df is not None and "industry" in self._df else 0,
+                "DisruptionType": len(self._df["disruption_type"].unique())
+                if self._df is not None and "disruption_type" in self._df
+                else 0,
+                "Industry": len(self._df["industry"].unique())
+                if self._df is not None and "industry" in self._df
+                else 0,
             },
             "has_ticket_store": True,
-            "ticket_mining": {"accuracy": 0.88, "labels": ["disruption_type", "disruption_severity"]},
+            "ticket_mining": {
+                "accuracy": 0.88,
+                "labels": ["disruption_type", "disruption_severity"],
+            },
         }
 
     async def get_schema(self, provider_id: str = "") -> dict[str, Any]:
         return {
             "node_types": [
-                "SupplyChainDisruption", "DisruptionType", "Industry",
-                "SupplierTier", "SupplierRegion", "SupplierSize", "Severity", "Response", "Recovery"
+                "SupplyChainDisruption",
+                "DisruptionType",
+                "Industry",
+                "SupplierTier",
+                "SupplierRegion",
+                "SupplierSize",
+                "Severity",
+                "Response",
+                "Recovery",
             ],
             "edge_types": [
-                "HAS_TYPE", "AFFECTS_INDUSTRY", "HAS_SUPPLIER_TIER",
-                "HAS_SUPPLIER_REGION", "HAS_SUPPLIER_SIZE", "HAS_SEVERITY",
-                "HAS_RESPONSE", "HAS_RECOVERY"
+                "HAS_TYPE",
+                "AFFECTS_INDUSTRY",
+                "HAS_SUPPLIER_TIER",
+                "HAS_SUPPLIER_REGION",
+                "HAS_SUPPLIER_SIZE",
+                "HAS_SEVERITY",
+                "HAS_RESPONSE",
+                "HAS_RECOVERY",
             ],
-            "properties": ["disruption_id", "production_impact_pct", "revenue_loss_usd", "full_recovery_days"],
+            "properties": [
+                "disruption_id",
+                "production_impact_pct",
+                "revenue_loss_usd",
+                "full_recovery_days",
+            ],
         }
 
     async def find_exact(self, label: str, provider_id: str = "") -> list[Evidence]:
         results = []
         if self._df is not None and not self._df.empty:
             matches = self._df[
-                (self._df["disruption_id"].astype(str).str.lower() == label.lower()) |
-                (self._df["disruption_type"].astype(str).str.lower() == label.lower()) |
-                (self._df["industry"].astype(str).str.lower() == label.lower())
+                (self._df["disruption_id"].astype(str).str.lower() == label.lower())
+                | (self._df["disruption_type"].astype(str).str.lower() == label.lower())
+                | (self._df["industry"].astype(str).str.lower() == label.lower())
             ]
             for _, r in matches.head(5).iterrows():
                 results.append(
@@ -88,13 +113,21 @@ class MockSubstrateAdapter:
                 )
         return results
 
-    async def search_nodes(self, query: str, top_k: int = 5, provider_id: str = "") -> list[Evidence]:
+    async def search_nodes(
+        self, query: str, top_k: int = 5, provider_id: str = ""
+    ) -> list[Evidence]:
         results = []
         if self._df is not None and not self._df.empty:
             q_lower = query.lower()
             matched = self._df[
-                self._df["disruption_type"].astype(str).str.lower().apply(lambda x: x in q_lower or q_lower in x) |
-                self._df["industry"].astype(str).str.lower().apply(lambda x: x in q_lower or q_lower in x)
+                self._df["disruption_type"]
+                .astype(str)
+                .str.lower()
+                .apply(lambda x: x in q_lower or q_lower in x)
+                | self._df["industry"]
+                .astype(str)
+                .str.lower()
+                .apply(lambda x: x in q_lower or q_lower in x)
             ]
             if matched.empty:
                 matched = self._df.head(top_k)
@@ -153,7 +186,11 @@ class MockSubstrateAdapter:
     async def label_ticket(self, ticket_text: str, provider_id: str = "") -> dict[str, Any]:
         # Return predicted label from keyword heuristic
         lower_t = ticket_text.lower()
-        d_type = "Natural Disaster" if "flood" in lower_t or "storm" in lower_t else "Operational Failure"
+        d_type = (
+            "Natural Disaster"
+            if "flood" in lower_t or "storm" in lower_t
+            else "Operational Failure"
+        )
         sev = "High" if "severe" in lower_t or "critical" in lower_t else "Medium"
         return {
             "disruption_type": d_type,
@@ -162,7 +199,9 @@ class MockSubstrateAdapter:
             "exemplars": ["DIS-00001", "DIS-00002"],
         }
 
-    async def cypher(self, template_name: str, params: dict[str, Any], provider_id: str = "") -> list[dict[str, Any]]:
+    async def cypher(
+        self, template_name: str, params: dict[str, Any], provider_id: str = ""
+    ) -> list[dict[str, Any]]:
         if self._df is None or self._df.empty:
             return []
 
@@ -174,7 +213,9 @@ class MockSubstrateAdapter:
             if params.get("disruption_type"):
                 filtered = filtered[filtered["disruption_type"] == params["disruption_type"]]
             if params.get("disruption_severity"):
-                filtered = filtered[filtered["disruption_severity"] == params["disruption_severity"]]
+                filtered = filtered[
+                    filtered["disruption_severity"] == params["disruption_severity"]
+                ]
             if params.get("industry"):
                 filtered = filtered[filtered["industry"] == params["industry"]]
             return filtered[["disruption_id"]].head(limit).to_dict(orient="records")
@@ -185,13 +226,18 @@ class MockSubstrateAdapter:
             params.get("target_composite_keys", [])
             results = []
             for _, r in filtered.head(limit).iterrows():
-                why = [f"disruption_type:{r['disruption_type']}", f"disruption_severity:{r['disruption_severity']}"]
-                results.append({
-                    "case_id": r["disruption_id"],
-                    "disruption_id": r["disruption_id"],
-                    "shared_count": len(why),
-                    "why": why,
-                })
+                why = [
+                    f"disruption_type:{r['disruption_type']}",
+                    f"disruption_severity:{r['disruption_severity']}",
+                ]
+                results.append(
+                    {
+                        "case_id": r["disruption_id"],
+                        "disruption_id": r["disruption_id"],
+                        "shared_count": len(why),
+                        "why": why,
+                    }
+                )
             return results
 
         elif template_name == "outcomes_by_response":
@@ -199,13 +245,15 @@ class MockSubstrateAdapter:
             sub = self._df[self._df["disruption_id"].isin(c_ids)] if c_ids else self._df
             grouped = []
             for r_type, grp in sub.groupby("response_type"):
-                grouped.append({
-                    "response_type": r_type,
-                    "n": len(grp),
-                    "median_full_recovery": float(grp["full_recovery_days"].median()),
-                    "min_full_recovery": float(grp["full_recovery_days"].min()),
-                    "max_full_recovery": float(grp["full_recovery_days"].max()),
-                })
+                grouped.append(
+                    {
+                        "response_type": r_type,
+                        "n": len(grp),
+                        "median_full_recovery": float(grp["full_recovery_days"].median()),
+                        "min_full_recovery": float(grp["full_recovery_days"].min()),
+                        "max_full_recovery": float(grp["full_recovery_days"].max()),
+                    }
+                )
             return grouped[:limit]
 
         elif template_name == "distinct_attribute_values":
@@ -224,8 +272,16 @@ class MockSubstrateAdapter:
             "neighbors": [],
         }
 
-    async def traverse(self, start_node_id: str, edge_types: list[str], provider_id: str = "") -> list[dict[str, Any]]:
-        return [{"from": start_node_id, "edge": edge_types[0] if edge_types else "RELATED", "to": "target_node"}]
+    async def traverse(
+        self, start_node_id: str, edge_types: list[str], provider_id: str = ""
+    ) -> list[dict[str, Any]]:
+        return [
+            {
+                "from": start_node_id,
+                "edge": edge_types[0] if edge_types else "RELATED",
+                "to": "target_node",
+            }
+        ]
 
     async def get_procedures(self, query: str, provider_id: str = "") -> list[Evidence]:
         ev_list = []
@@ -259,7 +315,9 @@ class MockSubstrateAdapter:
             )
         return ev_list
 
-    async def episodes(self, query: str | None = None, episode_id: str | None = None, provider_id: str = "") -> dict[str, Any]:
+    async def episodes(
+        self, query: str | None = None, episode_id: str | None = None, provider_id: str = ""
+    ) -> dict[str, Any]:
         return {
             "status": "healthy",
             "episodes_count": 142,

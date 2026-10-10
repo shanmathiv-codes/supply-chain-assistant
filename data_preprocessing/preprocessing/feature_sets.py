@@ -1,4 +1,5 @@
 """Feature set loader and forbidden feature validator."""
+
 from typing import Literal
 
 from app.core.config import load_yaml_config
@@ -18,11 +19,14 @@ def get_feature_set(tier: Literal["T0", "T1", "T2"] = "T0") -> list[str]:
 def get_forbidden_columns(target_name: str | None = None) -> set[str]:
     """Return set of columns forbidden from outcome prediction feature sets."""
     forbidden = set(
-        FEATURES_CONFIG.get("forbidden_columns", {}).get("outcome_prediction", [
-            "partial_recovery_days",
-            "response_time_days",
-            "permanent_supplier_change",
-        ])
+        FEATURES_CONFIG.get("forbidden_columns", {}).get(
+            "outcome_prediction",
+            [
+                "partial_recovery_days",
+                "response_time_days",
+                "permanent_supplier_change",
+            ],
+        )
     )
     if target_name:
         forbidden.add(target_name)

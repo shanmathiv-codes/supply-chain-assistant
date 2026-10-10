@@ -1,4 +1,5 @@
 """Cypher template loader, identifier validator, and query renderer."""
+
 import re
 from pathlib import Path
 from typing import Any
@@ -36,7 +37,9 @@ def render_cypher_template(
 
     # Resolve safe structural placeholders
     sub_placeholders = {
-        "case_label": validate_identifier(SCHEMA_CONFIG.get("node_labels", {}).get("case", "SupplyChainDisruption")),
+        "case_label": validate_identifier(
+            SCHEMA_CONFIG.get("node_labels", {}).get("case", "SupplyChainDisruption")
+        ),
     }
     if placeholders:
         for k, v in placeholders.items():

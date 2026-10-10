@@ -1,4 +1,5 @@
 """Contract tests verifying SynaptReadGateway across mock and replay modes."""
+
 import pytest
 
 from app.schemas.evidence import SubstrateCall
@@ -11,6 +12,7 @@ async def test_read_gateway_contract(mode):
     # If replay fixtures not recorded yet, record them first
     if mode == "replay":
         from scripts.record_fixtures import record
+
         await record()
 
     gw = SynaptReadGateway(mode=mode)

@@ -1,4 +1,5 @@
 """Graph fidelity audit script comparing substrate attributes and metrics against ledger."""
+
 import asyncio
 import sys
 from pathlib import Path

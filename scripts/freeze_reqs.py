@@ -1,8 +1,10 @@
 """Freeze installed packages to lock files using standard library metadata."""
+
 import sys
 from pathlib import Path
 
 root = Path(__file__).resolve().parent.parent
+
 
 def freeze_venv(venv_path: Path, output_file: Path):
     # site-packages path
@@ -11,6 +13,7 @@ def freeze_venv(venv_path: Path, output_file: Path):
         raise FileNotFoundError(f"Site packages not found at {sp}")
 
     import importlib.metadata
+
     # Temporarily prepend site-packages to sys.path to read distributions
     old_path = list(sys.path)
     sys.path.insert(0, str(sp))
@@ -27,6 +30,7 @@ def freeze_venv(venv_path: Path, output_file: Path):
         print(f"{output_file.name} written with {len(sorted_lines)} packages.")
     finally:
         sys.path = old_path
+
 
 if __name__ == "__main__":
     freeze_venv(root / ".venv", root / "requirements.lock.txt")

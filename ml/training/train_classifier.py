@@ -1,4 +1,5 @@
 """Trains classification models for conditional severity risk and supplier change probability."""
+
 import argparse
 import json
 from pathlib import Path
@@ -99,7 +100,7 @@ def train_single_classifier(target_name: str, evaluate_final: bool = False):
     card_md = f"""# Model Card: {target_name}
 **Task:** Binary Classification
 **Algorithm:** HistGradientBoostingClassifier
-**Features:** {', '.join(features)}
+**Features:** {", ".join(features)}
 
 ## Validation Performance
 - Accuracy: {val_acc:.4f}
@@ -112,7 +113,9 @@ def train_single_classifier(target_name: str, evaluate_final: bool = False):
 
 def main():
     parser = argparse.ArgumentParser(description="Train classification models.")
-    parser.add_argument("--final", action="store_true", help="Evaluate final model once on test split")
+    parser.add_argument(
+        "--final", action="store_true", help="Evaluate final model once on test split"
+    )
     args = parser.parse_args()
 
     print("=== Training Supply Chain Disruption Classifiers ===")

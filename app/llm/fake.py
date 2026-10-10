@@ -1,4 +1,5 @@
 """Deterministic fake LLM engine generating schema-faithful mock outputs."""
+
 from typing import Any
 
 from app.core.guardrails import map_or_validate_category
@@ -22,7 +23,13 @@ class FakeLLM:
 
         # Regex heuristic
         d_type = None
-        for cand in ["natural disaster", "labor strike", "operational failure", "cyber incident", "bankruptcy"]:
+        for cand in [
+            "natural disaster",
+            "labor strike",
+            "operational failure",
+            "cyber incident",
+            "bankruptcy",
+        ]:
             if cand in lower:
                 d_type, _, _ = map_or_validate_category("disruption_type", cand)
                 break
@@ -124,7 +131,9 @@ class FakeLLM:
                 },
             ],
             "knowledge_gaps": ["No supplier balance sheet data available."],
-            "limitations": ["Analysis generated in FAKE LLM mode; verify recommendations before execution."],
+            "limitations": [
+                "Analysis generated in FAKE LLM mode; verify recommendations before execution."
+            ],
         }
 
     def _handle_judge(self, ctx: dict[str, Any]) -> dict[str, Any]:

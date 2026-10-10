@@ -1,4 +1,5 @@
 """Trains regression models for supply chain disruption outcome targets with CV and conformal calibration."""
+
 import argparse
 import json
 from pathlib import Path
@@ -36,7 +37,9 @@ def assert_no_forbidden_columns(feature_cols: list[str], target: str):
     """Enforce integrity rule: forbidden columns must never appear in feature set."""
     forbidden_used = set(feature_cols).intersection(FORBIDDEN)
     if forbidden_used:
-        raise ValueError(f"Forbidden columns {forbidden_used} detected in features for target {target}!")
+        raise ValueError(
+            f"Forbidden columns {forbidden_used} detected in features for target {target}!"
+        )
     if target in feature_cols:
         raise ValueError(f"Target column {target} cannot be inside its own feature set!")
 
@@ -120,10 +123,12 @@ def train_single_target(target: str, use_log1p: bool, evaluate_final: bool = Fal
 
     # 3. Train champion on all train_fit
     champion_model = candidates[best_candidate_name]
-    final_pipeline = Pipeline([
-        ("preprocessor", get_preprocessor(T0_FEATURES)),
-        ("model", champion_model),
-    ])
+    final_pipeline = Pipeline(
+        [
+            ("preprocessor", get_preprocessor(T0_FEATURES)),
+            ("model", champion_model),
+        ]
+    )
     final_pipeline.fit(X_train, y_train)
 
     # 4. Conformal Calibration on held-out calibration split
@@ -131,7 +136,9 @@ def train_single_target(target: str, use_log1p: bool, evaluate_final: bool = Fal
     conformal = SplitConformalPredictor(nominal_coverage=0.80)
     q_val = conformal.calibrate(y_cal, cal_preds)
     cal_coverage = conformal.evaluate_coverage(y_cal, cal_preds)
-    print(f"  Conformal Calibrated (80% nominal) -> q_val: {q_val:.4f}, Cal Coverage: {cal_coverage['empirical_coverage']:.1%}")
+    print(
+        f"  Conformal Calibrated (80% nominal) -> q_val: {q_val:.4f}, Cal Coverage: {cal_coverage['empirical_coverage']:.1%}"
+    )
 
     # Validate on validation set
     val_preds = final_pipeline.predict(X_val)
@@ -165,7 +172,9 @@ def train_single_target(target: str, use_log1p: bool, evaluate_final: bool = Fal
             "test_empirical_coverage": test_cov["empirical_coverage"],
             "test_mean_width": test_cov["mean_interval_width"],
         }
-        print(f"  [TEST SPLIT EVALUATION] MAE: {test_mae:.4f}, Coverage: {test_cov['empirical_coverage']:.1%}")
+        print(
+            f"  [TEST SPLIT EVALUATION] MAE: {test_mae:.4f}, Coverage: {test_cov['empirical_coverage']:.1%}"
+        )
 
     # 6. Save Model Artifacts
     target_dir = MODELS_DIR / target
@@ -205,7 +214,7 @@ def train_single_target(target: str, use_log1p: bool, evaluate_final: bool = Fal
     card_md = f"""# Model Card: {target}
 **Task:** Regression
 **Algorithm:** {best_candidate_name}
-**Feature Set:** T0 ({', '.join(T0_FEATURES)})
+**Feature Set:** T0 ({", ".join(T0_FEATURES)})
 **Log1p Transform:** {use_log1p}
 
 ## Metrics vs Baseline
@@ -215,7 +224,7 @@ def train_single_target(target: str, use_log1p: bool, evaluate_final: bool = Fal
 
 ## Conformal Uncertainty Calibration
 - Nominal Coverage: 80%
-- Empirical Coverage (Val): {val_coverage['empirical_coverage']:.1%}
+- Empirical Coverage (Val): {val_coverage["empirical_coverage"]:.1%}
 - Conformal Residual Radius (q): {q_val:.4f}
 
 ## Integrity Constraints
@@ -228,7 +237,9 @@ def train_single_target(target: str, use_log1p: bool, evaluate_final: bool = Fal
 
 def main():
     parser = argparse.ArgumentParser(description="Train outcome regression models.")
-    parser.add_argument("--final", action="store_true", help="Evaluate final model once on test split")
+    parser.add_argument(
+        "--final", action="store_true", help="Evaluate final model once on test split"
+    )
     args = parser.parse_args()
 
     print("=== Training Supply Chain Disruption Regressors ===")

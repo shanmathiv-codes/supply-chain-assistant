@@ -1,4 +1,5 @@
 """Substrate Gateway classes enforcing permission tiers, caching, traces, and resilience."""
+
 import hashlib
 import json
 import time
@@ -152,28 +153,86 @@ class SynaptReadGateway:
     async def health(self) -> dict[str, Any]:
         return await self.adapter.health()
 
-    async def get_stats(self, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> dict[str, Any]:
-        return await self._execute("trident_get_stats", "get_stats", {"provider_id": provider_id}, trace)
+    async def get_stats(
+        self, provider_id: str = "", trace: list[SubstrateCall] | None = None
+    ) -> dict[str, Any]:
+        return await self._execute(
+            "trident_get_stats", "get_stats", {"provider_id": provider_id}, trace
+        )
 
-    async def get_schema(self, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> dict[str, Any]:
-        return await self._execute("trident_get_schema", "get_schema", {"provider_id": provider_id}, trace)
+    async def get_schema(
+        self, provider_id: str = "", trace: list[SubstrateCall] | None = None
+    ) -> dict[str, Any]:
+        return await self._execute(
+            "trident_get_schema", "get_schema", {"provider_id": provider_id}, trace
+        )
 
-    async def find_exact(self, label: str, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> list[Evidence]:
-        return await self._execute("trident_find_exact", "find_exact", {"label": label, "provider_id": provider_id}, trace)
+    async def find_exact(
+        self, label: str, provider_id: str = "", trace: list[SubstrateCall] | None = None
+    ) -> list[Evidence]:
+        return await self._execute(
+            "trident_find_exact", "find_exact", {"label": label, "provider_id": provider_id}, trace
+        )
 
-    async def search_nodes(self, query: str, top_k: int = 5, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> list[Evidence]:
-        return await self._execute("trident_search", "search_nodes", {"query": query, "top_k": top_k, "provider_id": provider_id}, trace)
+    async def search_nodes(
+        self,
+        query: str,
+        top_k: int = 5,
+        provider_id: str = "",
+        trace: list[SubstrateCall] | None = None,
+    ) -> list[Evidence]:
+        return await self._execute(
+            "trident_search",
+            "search_nodes",
+            {"query": query, "top_k": top_k, "provider_id": provider_id},
+            trace,
+        )
 
-    async def get_chunks(self, query: str, top_k: int = 5, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> list[Evidence]:
-        return await self._execute("trident_get_chunks", "get_chunks", {"query": query, "top_k": top_k, "provider_id": provider_id}, trace)
+    async def get_chunks(
+        self,
+        query: str,
+        top_k: int = 5,
+        provider_id: str = "",
+        trace: list[SubstrateCall] | None = None,
+    ) -> list[Evidence]:
+        return await self._execute(
+            "trident_get_chunks",
+            "get_chunks",
+            {"query": query, "top_k": top_k, "provider_id": provider_id},
+            trace,
+        )
 
-    async def query(self, query_text: str, top_k: int = 5, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> dict[str, Any]:
-        return await self._execute("trident_query", "query", {"query_text": query_text, "top_k": top_k, "provider_id": provider_id}, trace)
+    async def query(
+        self,
+        query_text: str,
+        top_k: int = 5,
+        provider_id: str = "",
+        trace: list[SubstrateCall] | None = None,
+    ) -> dict[str, Any]:
+        return await self._execute(
+            "trident_query",
+            "query",
+            {"query_text": query_text, "top_k": top_k, "provider_id": provider_id},
+            trace,
+        )
 
-    async def label_ticket(self, ticket_text: str, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> dict[str, Any]:
-        return await self._execute("trident_label_ticket", "label_ticket", {"ticket_text": ticket_text, "provider_id": provider_id}, trace)
+    async def label_ticket(
+        self, ticket_text: str, provider_id: str = "", trace: list[SubstrateCall] | None = None
+    ) -> dict[str, Any]:
+        return await self._execute(
+            "trident_label_ticket",
+            "label_ticket",
+            {"ticket_text": ticket_text, "provider_id": provider_id},
+            trace,
+        )
 
-    async def cypher(self, template_name: str, params: dict[str, Any], provider_id: str = "", trace: list[SubstrateCall] | None = None) -> list[dict[str, Any]]:
+    async def cypher(
+        self,
+        template_name: str,
+        params: dict[str, Any],
+        provider_id: str = "",
+        trace: list[SubstrateCall] | None = None,
+    ) -> list[dict[str, Any]]:
         return await self._execute(
             "trident_cypher",
             "cypher",
@@ -182,17 +241,57 @@ class SynaptReadGateway:
             template_name=template_name,
         )
 
-    async def get_node(self, node_id: str, depth: int = 1, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> dict[str, Any]:
-        return await self._execute("trident_get_node", "get_node", {"node_id": node_id, "depth": depth, "provider_id": provider_id}, trace)
+    async def get_node(
+        self,
+        node_id: str,
+        depth: int = 1,
+        provider_id: str = "",
+        trace: list[SubstrateCall] | None = None,
+    ) -> dict[str, Any]:
+        return await self._execute(
+            "trident_get_node",
+            "get_node",
+            {"node_id": node_id, "depth": depth, "provider_id": provider_id},
+            trace,
+        )
 
-    async def traverse(self, start_node_id: str, edge_types: list[str], provider_id: str = "", trace: list[SubstrateCall] | None = None) -> list[dict[str, Any]]:
-        return await self._execute("trident_traverse", "traverse", {"start_node_id": start_node_id, "edge_types": edge_types, "provider_id": provider_id}, trace)
+    async def traverse(
+        self,
+        start_node_id: str,
+        edge_types: list[str],
+        provider_id: str = "",
+        trace: list[SubstrateCall] | None = None,
+    ) -> list[dict[str, Any]]:
+        return await self._execute(
+            "trident_traverse",
+            "traverse",
+            {"start_node_id": start_node_id, "edge_types": edge_types, "provider_id": provider_id},
+            trace,
+        )
 
-    async def get_procedures(self, query: str, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> list[Evidence]:
-        return await self._execute("trident_get_procedures", "get_procedures", {"query": query, "provider_id": provider_id}, trace)
+    async def get_procedures(
+        self, query: str, provider_id: str = "", trace: list[SubstrateCall] | None = None
+    ) -> list[Evidence]:
+        return await self._execute(
+            "trident_get_procedures",
+            "get_procedures",
+            {"query": query, "provider_id": provider_id},
+            trace,
+        )
 
-    async def episodes(self, query: str | None = None, episode_id: str | None = None, provider_id: str = "", trace: list[SubstrateCall] | None = None) -> dict[str, Any]:
-        return await self._execute("trident_episodes", "episodes", {"query": query, "episode_id": episode_id, "provider_id": provider_id}, trace)
+    async def episodes(
+        self,
+        query: str | None = None,
+        episode_id: str | None = None,
+        provider_id: str = "",
+        trace: list[SubstrateCall] | None = None,
+    ) -> dict[str, Any]:
+        return await self._execute(
+            "trident_episodes",
+            "episodes",
+            {"query": query, "episode_id": episode_id, "provider_id": provider_id},
+            trace,
+        )
 
 
 class SynaptFeedbackGateway:
@@ -215,5 +314,7 @@ class SynaptAdminGateway:
 
     async def ingest(self, spec: dict[str, Any]) -> str:
         req_id = f"req-ingest-{int(time.time())}"
-        print(f"[AdminGateway] Ingest submitted: connector={spec.get('connector_type')} -> {req_id}")
+        print(
+            f"[AdminGateway] Ingest submitted: connector={spec.get('connector_type')} -> {req_id}"
+        )
         return req_id

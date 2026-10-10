@@ -1,4 +1,5 @@
 """SQLite persistence store for disruption investigation runs and reports."""
+
 import json
 import sqlite3
 from pathlib import Path
