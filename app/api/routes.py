@@ -18,6 +18,8 @@ from app.schemas.report import Claim, Report
 from app.schemas.request import (
     ClassifyRequest,
     DisruptionAnalyzeRequest,
+    DisruptionProfile,
+    PredictRequest,
     PrioritizeRequest,
     SearchRequest,
 )
@@ -28,6 +30,7 @@ from app.services.recommendations import recommendation_service
 from app.services.retrieval import retrieval_service
 from app.services.run_store import run_store
 from app.substrate.gateway import SynaptReadGateway
+from ml.registry import model_registry
 
 router = APIRouter()
 gateway = SynaptReadGateway()
@@ -151,6 +154,19 @@ async def prioritize_disruption(req: PrioritizeRequest, x_api_key: str | None = 
     }
 
 
+@router.post("/disruptions/predict")
+async def predict_outcomes(req: PredictRequest, x_api_key: str | None = Header(default=None)):
+    """Predict outcome targets with conformal prediction intervals and resilience."""
+    verify_api_key_if_configured(x_api_key)
+    predictions, resilience, gaps = model_registry.predict_all(req.profile)
+    return {
+        "runtime_modes": settings.runtime_modes,
+        "predictions": predictions,
+        "resilience": resilience,
+        "knowledge_gaps": gaps,
+    }
+
+
 @router.post("/disruptions/analyze", response_model=Report)
 async def analyze_disruption(
     req: DisruptionAnalyzeRequest,
@@ -231,7 +247,15 @@ async def analyze_disruption(
         revenue_loss_usd=profile_dict.get("revenue_loss_usd"),
     )
 
-    # 5. Recommendations Generation
+    # 5. ML Predictions & Resilience
+    prof_obj = req.profile or DisruptionProfile(**profile_dict)
+    predictions, resilience, ml_gaps = model_registry.predict_all(
+        profile=prof_obj,
+        similar_case_ids=[c.case_id for c in similar_cases],
+    )
+    knowledge_gaps.extend(ml_gaps)
+
+    # 6. Recommendations Generation
     status = "ok"
     recs = []
     if similar_cases:
@@ -247,7 +271,7 @@ async def analyze_disruption(
         knowledge_gaps.append("no historical evidence available")
         limitations.append("Substrate returned 0 matching historical cases; recommendations omitted.")
 
-    # 6. Formulate Verifiable Claims
+    # 7. Formulate Verifiable Claims
     claims: list[Claim] = []
     if similar_cases:
         top_c = similar_cases[0]
@@ -272,6 +296,17 @@ async def analyze_disruption(
             )
         )
 
+    for pred in predictions:
+        claims.append(
+            Claim(
+                claim_id=generate_id("CLM"),
+                text=f"Estimated {pred.target} point prediction is {pred.point} [80% conformal interval: {pred.low} - {pred.high}].",
+                kind="MODEL_ESTIMATE",
+                interval=(pred.low, pred.high),
+                model_run_id=pred.model_version,
+            )
+        )
+
     t_total = (time.perf_counter() - t_start) * 1000.0
 
     narrative_summary = (
@@ -288,8 +323,8 @@ async def analyze_disruption(
         classification=classification_res,
         priority=priority_res,
         similar_cases=similar_cases,
-        predictions=[],
-        resilience=None,
+        predictions=predictions,
+        resilience=resilience,
         recommendations=recs,
         claims=claims,
         evidence=evidence_store,

@@ -223,6 +223,50 @@
 - Added `"NOT_FOUND"` to `ErrorCode` enum in `app/schemas/errors.py` for standard 404 responses.
 
 **Open items for the user:**
-- None. Proceeding to Phase 6.
+- None.
+
+---
+
+## Phase 6 Report: ML Models, Resilience, Explainability
+
+**Files created/modified:**
+- `ml/training/conformal.py`: SplitConformalPredictor computing distribution-free intervals with 80% nominal coverage and empirical coverage evaluation.
+- `ml/explain/permutation.py`: Permutation feature importance fallback module.
+- `ml/explain/shap_explain.py`: TreeExplainer with per-prediction factor extraction and permutation fallback.
+- `ml/resilience.py`: Resilience index (0-100), backup supplier benefit association, and conditional severity risk probability.
+- `ml/training/train_regressors.py`: Training pipeline with cross-validation across dummy_median, Ridge, and HistGradientBoosting; conformal calibration on held-out calibration split; test evaluation and model cards.
+- `ml/training/train_classifier.py`: Binary classifiers for conditional severity risk and permanent supplier change.
+- `ml/registry.py`: Model registry managing version hashes, conformal interval bounds, top factors, and analog divergence checks.
+- `app/api/routes.py`: Added `POST /disruptions/predict` endpoint and integrated predictions into `/disruptions/analyze`.
+- `tests/ml/test_ml.py`: Comprehensive ML unit tests verifying forbidden features integrity, conformal intervals, model registry, analog divergence, and resilience calculations.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -m ml.training.train_regressors --final` -> PASS (Trained regressors for impact, loss, and recovery; all beat median baseline; test coverage exactly 80.0%)
+- `& .venv\Scripts\python.exe -m ml.training.train_classifier --final` -> PASS (Trained severity and supplier change classifiers)
+- `& .venv\Scripts\python.exe -m pytest -v tests/ml/test_ml.py` -> PASS (6 tests passed in 3.85s)
+- `& .venv\Scripts\python.exe -m pytest` -> PASS (41 passed in 4.41s)
+- `& .venv\Scripts\ruff.exe check .` -> PASS (All checks passed)
+
+**Model Performance Summary:**
+| Target | Selected Champion | Validation MAE (vs Baseline) | Test Split MAE | Conformal Coverage (80% Nom) |
+| :--- | :--- | :--- | :--- | :--- |
+| `production_impact_pct` | HistGradientBoosting | 7.8738 (vs 14.1692) | 7.8410 | 80.0% |
+| `revenue_loss_usd` (log1p) | Ridge | 0.7831 (vs 1.2482) | 0.7811 | 79.7% |
+| `full_recovery_days` | HistGradientBoosting | 31.1607 (vs 40.5612) | 31.3392 | 80.0% |
+| `severity_high_or_critical` | HistGradientBoosting | Accuracy: 1.0000 | - | - |
+| `permanent_supplier_change` | HistGradientBoosting | Accuracy: 0.7550, AUC: 0.6569 | - | - |
+
+**Self-review findings:**
+- *Check 1 (Integrity):* Forbidden columns check strictly enforced and verified in unit tests.
+- *Check 2 (Honest reporting):* P(disruption occurs) is NOT reported; only conditional resilience is stated.
+- *Check 3 (Windows safe):* Pathlib used throughout; UTF-8 encodings specified.
+- *Check 4 (Tests):* Complete suite of 41 tests passing cleanly.
+
+**Deviations:**
+- None.
+
+**Open items for the user:**
+- None. Proceeding to Phase 7.
+
 
 
