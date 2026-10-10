@@ -1,0 +1,18 @@
+{
+  "provider_id": "mock-provider",
+  "provider_kind": "mock",
+  "total_nodes": 800000,
+  "counts_by_label": {
+    "SupplyChainDisruption": 100000,
+    "DisruptionType": 6,
+    "Industry": 5
+  },
+  "has_ticket_store": true,
+  "ticket_mining": {
+    "accuracy": 0.88,
+    "labels": [
+      "disruption_type",
+      "disruption_severity"
+    ]
+  }
+}

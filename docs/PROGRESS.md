@@ -103,3 +103,41 @@
 
 **Open items for the user:**
 - None. Continuing directly to Phase 3.
+
+
+## PHASE 3 REPORT
+**Built:**
+- Tier permissions and error models in `app/substrate/permissions.py`.
+- Security import ban test in `tests/unit/test_permissions.py` proving `SynaptAdminGateway` cannot be imported under `app/`.
+- Cypher template engine in `app/substrate/templates.py` with 5 validated parameterized queries in `app/substrate/cypher_templates/` (`attr_filter_all`, `attr_overlap_rank`, `outcomes_by_response`, `attr_value_collision_check`, `distinct_attribute_values`).
+- Case resolver in `app/substrate/case_resolver.py` supporting regex pattern matching, markdown headings, and entity labels.
+- Reciprocal rank fusion engine in `app/substrate/fusion.py` weighting 4 substrate signals (Cypher overlap, node search, chunk search, exact lookup).
+- Mock substrate adapter in `app/substrate/mock_adapter.py` providing in-memory TF-IDF semantic search, group-by pattern mining, playbook procedure lookup, and pandas Cypher execution with `provenance_mode="MOCK"`.
+- Replay substrate adapter in `app/substrate/replay_adapter.py` loading pre-recorded JSON tool responses.
+- Real MCP substrate adapter and memory-only token authentication client in `app/substrate/mcp_adapter.py` and `app/substrate/auth.py`.
+- Unified Gateway architecture in `app/substrate/gateway.py` with `SynaptReadGateway` (read tier with TTL cache, circuit breaker, and `SubstrateCall` tracing), `SynaptFeedbackGateway` (feedback tier), and `SynaptAdminGateway` (admin tier).
+- Probe tool in `scripts/synapt_probe.py` detecting provider content state (`cases_present`), updating `docs/SYNAPT_NOTES.md`.
+- Fixture recorder in `scripts/record_fixtures.py`, ingestion script in `scripts/ingest_to_synapt.py`, and graph fidelity audit script in `scripts/audit_graph.py`.
+- Contract test suite in `tests/contract/test_gateways.py`.
+
+**Commands run + result:**
+- `& .venv\Scripts\python.exe -m scripts.synapt_probe` -> PASS (Substrate Content State: CASES_PRESENT, docs/SYNAPT_NOTES.md written)
+- `& .venv\Scripts\python.exe -m scripts.ingest_to_synapt --what cards --dry-run` -> PASS (Dry-run plan verified)
+- `& .venv\Scripts\python.exe -m scripts.audit_graph` -> PASS (Match rate: 100.0%, 0 collisions)
+- `& .venv\Scripts\python.exe -m pytest tests/unit tests/data tests/contract` -> PASS (21 tests passed in 3.08s)
+- `& .venv\Scripts\python.exe -m ruff check app tests scripts data_preprocessing` -> PASS (All checks passed)
+
+**Self-review findings:**
+- *Check 1 (Constraints):* Synapt-first design. Substrate gateway abstracts all evidence retrieval. No vector database added.
+- *Check 2 (Degrade gracefully):* When live MCP endpoint is unreachable, probe and gateways degrade gracefully to mock substrate.
+- *Check 3 (Windows safe):* Pathlib used, UTF-8 encoded files.
+- *Check 4 (Secrets):* Tokens kept in memory only; secret redaction active.
+- *Check 5 (Missing configs):* Configs loaded with fallbacks.
+- *Check 6 (Tests):* Import ban test, mock contract, and replay contract all verified.
+- *Check 7 (Traceability):* Every gateway method emits typed `SubstrateCall` with latency and correlation ID.
+
+**Deviations (also in docs/DECISIONS.md):**
+- None.
+
+**Open items for the user:**
+- None. Proceeding to Phase 4.

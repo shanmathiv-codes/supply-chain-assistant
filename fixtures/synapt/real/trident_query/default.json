@@ -1,0 +1,12 @@
+{
+  "answer": "Historical disruptions associated with 'Natural disaster in automotive Tier 1 supplier' show typical recovery times between 20-60 days.",
+  "confidence": 0.78,
+  "query_ref": "qref-mock-5",
+  "cited_case_ids": [
+    "DIS-000001",
+    "DIS-000002",
+    "DIS-000003",
+    "DIS-000004",
+    "DIS-000005"
+  ]
+}

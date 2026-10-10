@@ -1,0 +1,29 @@
+{
+  "node_types": [
+    "SupplyChainDisruption",
+    "DisruptionType",
+    "Industry",
+    "SupplierTier",
+    "SupplierRegion",
+    "SupplierSize",
+    "Severity",
+    "Response",
+    "Recovery"
+  ],
+  "edge_types": [
+    "HAS_TYPE",
+    "AFFECTS_INDUSTRY",
+    "HAS_SUPPLIER_TIER",
+    "HAS_SUPPLIER_REGION",
+    "HAS_SUPPLIER_SIZE",
+    "HAS_SEVERITY",
+    "HAS_RESPONSE",
+    "HAS_RECOVERY"
+  ],
+  "properties": [
+    "disruption_id",
+    "production_impact_pct",
+    "revenue_loss_usd",
+    "full_recovery_days"
+  ]
+}
