@@ -1,0 +1,35 @@
+# ============================================================================
+# Trident MCP query agent (registered-agent flow).
+# Fill in your values after the `=` signs.
+# ============================================================================
+
+# --- Endpoints --------------------------------------------------------------
+
+# The registered-agent MCP base (guide section 3). Tool calls POST here and the
+# token endpoint is this + "/generate_token". Use it WITHOUT a trailing slash -
+# with one it 307-redirects.
+SYNAPT_MCP_URL=https://beta.synapt.ai/api/mcp
+
+# TLS: 'false' for a self-signed / TLS-inspecting chain, a CA-bundle path, or 'true'.
+SYNAPT_VERIFY_SSL=false
+
+# The knowledge base (provider_id) your grant covers.
+SYNAPT_PROVIDER_ID=ipl_demo_cp
+
+# --- Credential (issued to you at registration) -----------------------------
+SYNAPT_AGENT_CLIENT_ID=agent-test
+
+# Shown once at registration, cannot be recovered. Treat like a password: keep
+# it here (gitignored), never on a command line or in chat.
+SYNAPT_AGENT_CLIENT_SECRET=
+
+# --- Optional ---------------------------------------------------------------
+
+# Override the token endpoint only if it is not <SYNAPT_MCP_URL>/generate_token.
+#SYNAPT_AGENT_TOKEN_URL=
+
+# Alternative to the two credentials above: paste a session token from the
+# guide's /generate_token curl. Overrides the client_id/secret flow. It expires.
+#SYNAPT_AGENT_TOKEN=
+
+#SYNAPT_QUERY_TIMEOUT=120

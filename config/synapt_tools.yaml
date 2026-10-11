@@ -1,8 +1,8 @@
 tools:
   trident_query:
-    query: "query"
+    question: "question"
     top_k: "top_k"
-    hops: "hops"
+    graph_hops: "graph_hops"
   trident_label_ticket:
     ticket_text: "ticket_text"
   trident_get_stats:
@@ -21,7 +21,7 @@ tools:
     node_id: "node_id"
     depth: "depth"
   trident_traverse:
-    start_node_id: "start_node_id"
+    node_id: "node_id"
     edge_types: "edge_types"
   trident_get_chunks:
     query: "query"

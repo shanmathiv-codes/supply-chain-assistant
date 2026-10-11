@@ -55,12 +55,16 @@ class Settings(BaseSettings):
     synapt_mode: Literal["auto", "mcp", "replay", "mock"] = Field(
         default="auto", alias="SYNAPT_MODE"
     )
-    synapt_mcp_url: str = Field(
-        default="https://beta.synapt.ai/tristore/mcp/", alias="SYNAPT_MCP_URL"
-    )
+    synapt_mcp_url: str = Field(default="https://beta.synapt.ai/api/mcp", alias="SYNAPT_MCP_URL")
     synapt_auth_base: str = Field(
         default="https://beta.synapt.ai/auth_service/api/v1/auth/token", alias="SYNAPT_AUTH_BASE"
     )
+    synapt_agent_client_id: str | None = Field(default=None, alias="SYNAPT_AGENT_CLIENT_ID")
+    synapt_agent_client_secret: str | None = Field(default=None, alias="SYNAPT_AGENT_CLIENT_SECRET")
+    synapt_agent_token: str | None = Field(default=None, alias="SYNAPT_AGENT_TOKEN")
+    synapt_agent_token_url: str | None = Field(default=None, alias="SYNAPT_AGENT_TOKEN_URL")
+    synapt_verify_ssl: bool | str = Field(default=False, alias="SYNAPT_VERIFY_SSL")
+    synapt_query_timeout: float = Field(default=120.0, alias="SYNAPT_QUERY_TIMEOUT")
     synapt_username: str | None = Field(default=None, alias="SYNAPT_USERNAME")
     synapt_password: str | None = Field(default=None, alias="SYNAPT_PASSWORD")
     synapt_provider_id: str | None = Field(default=None, alias="SYNAPT_PROVIDER_ID")
@@ -100,10 +104,43 @@ class Settings(BaseSettings):
         return key.strip() if key and key.strip() else None
 
     @property
+    def effective_synapt_token_url(self) -> str:
+        """Resolve the S2S token endpoint URL."""
+        if self.synapt_agent_token_url and self.synapt_agent_token_url.strip():
+            return self.synapt_agent_token_url.strip()
+        return self.synapt_mcp_url.rstrip("/") + "/generate_token"
+
+    @property
+    def effective_synapt_verify(self) -> bool | str:
+        """Resolve TLS verification setting for Synapt endpoints."""
+        raw = str(self.synapt_verify_ssl).strip()
+        if not raw:
+            return False
+        if raw.lower() in {"false", "0", "no", "off"}:
+            return False
+        if raw.lower() in {"true", "1", "yes", "on"}:
+            return True
+        return raw
+
+    @property
     def effective_synapt_mode(self) -> Literal["mcp", "replay", "mock"]:
         """Resolve auto mode based on credential and configuration completeness."""
         if self.synapt_mode == "auto":
-            has_creds = bool(
+            has_client_creds = bool(
+                self.synapt_mcp_url
+                and self.synapt_provider_id
+                and self.synapt_provider_id.strip()
+                and (
+                    (self.synapt_agent_token and self.synapt_agent_token.strip())
+                    or (
+                        self.synapt_agent_client_id
+                        and self.synapt_agent_client_id.strip()
+                        and self.synapt_agent_client_secret
+                        and self.synapt_agent_client_secret.strip()
+                    )
+                )
+            )
+            has_user_creds = bool(
                 self.synapt_mcp_url
                 and self.synapt_username
                 and self.synapt_username.strip()
@@ -112,7 +149,7 @@ class Settings(BaseSettings):
                 and self.synapt_provider_id
                 and self.synapt_provider_id.strip()
             )
-            return "mcp" if has_creds else "mock"
+            return "mcp" if (has_client_creds or has_user_creds) else "mock"
         if self.synapt_mode in ("mcp", "replay", "mock"):
             return self.synapt_mode  # type: ignore
         return "mock"

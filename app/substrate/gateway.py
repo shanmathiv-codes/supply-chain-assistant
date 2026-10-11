@@ -299,10 +299,24 @@ class SynaptFeedbackGateway:
 
     def __init__(self, mode: str | None = None):
         self.mode = mode or settings.effective_synapt_mode
+        self._adapter: McpSubstrateAdapter | None = None
+
+    @property
+    def adapter(self) -> McpSubstrateAdapter | None:
+        if self.mode == "mcp":
+            if not isinstance(self._adapter, McpSubstrateAdapter):
+                self._adapter = McpSubstrateAdapter()
+            return self._adapter
+        return None
 
     async def feedback(self, query_ref: str, payload: dict[str, Any]) -> dict[str, Any]:
         if self.mode == "mock":
             return {"status": "recorded_mock", "query_ref": query_ref}
+        if self.mode == "mcp" and self.adapter:
+            try:
+                return await self.adapter.feedback(feedback_id=query_ref, **payload)
+            except Exception as e:
+                logger.warning(f"Live trident_feedback call failed: {e}")
         return {"status": "recorded", "query_ref": query_ref}
 
 

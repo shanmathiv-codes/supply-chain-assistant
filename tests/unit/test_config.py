@@ -37,3 +37,18 @@ def test_startup_banner_contains_modes():
     assert "AI-POWERED SUPPLY CHAIN DISRUPTION ASSISTANT" in banner
     assert "LLM Mode" in banner
     assert "Synapt Mode" in banner
+
+
+def test_settings_registered_agent_mode_resolution():
+    """Registered agent credentials should resolve effective mode to mcp."""
+    agent_settings = Settings(
+        _env_file=None,
+        SYNAPT_AGENT_CLIENT_ID="test-client",
+        SYNAPT_AGENT_CLIENT_SECRET="test-secret",
+        SYNAPT_PROVIDER_ID="test-provider",
+        SYNAPT_MODE="auto",
+    )
+    assert agent_settings.effective_synapt_mode == "mcp"
+    assert (
+        agent_settings.effective_synapt_token_url == "https://beta.synapt.ai/api/mcp/generate_token"
+    )
