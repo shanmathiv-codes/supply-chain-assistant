@@ -1,7 +1,5 @@
 """Supply Chain Disruption Assistant - Main Streamlit Application."""
 
-# import truststore
-# truststore.inject_into_ssl()
 from __future__ import annotations
 
 import truststore
@@ -11,10 +9,10 @@ truststore.inject_into_ssl()
 import streamlit as st
 
 from ui.components.api_client import api_client
+from ui.components.theme import apply_theme, status_badge
 
 st.set_page_config(
     page_title="Supply Chain Disruption Assistant",
-    page_icon="🚢",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -31,55 +29,59 @@ def render_runtime_modes_banner(health_data: dict) -> None:
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
+        variant = "sage" if api_status in ("HEALTHY", "OK") else "critical"
         st.markdown(
-            f"**API Status:** <span style='background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:600;'>● {api_status}</span>",
+            f"**API Status:** {status_badge(api_status, variant=variant)}",
             unsafe_allow_html=True,
         )
     with col2:
-        llm_color = "#dcfce7; color:#15803d" if llm_mode == "LIVE" else "#fef9c3; color:#854d0e"
+        variant = "sage" if llm_mode == "LIVE" else "cream"
         st.markdown(
-            f"**LLM Mode:** <span style='background:{llm_color}; padding:2px 8px; border-radius:12px; font-weight:600;'>{llm_mode}</span>",
+            f"**LLM Mode:** {status_badge(llm_mode, variant=variant)}",
             unsafe_allow_html=True,
         )
     with col3:
-        synapt_color = (
-            "#dcfce7; color:#15803d" if synapt_mode == "MCP" else "#ffedd5; color:#9a3412"
-        )
+        variant = "sage" if synapt_mode == "MCP" else "cream"
         st.markdown(
-            f"**Substrate:** <span style='background:{synapt_color}; padding:2px 8px; border-radius:12px; font-weight:600;'>{synapt_mode}</span>",
+            f"**Substrate:** {status_badge(synapt_mode, variant=variant)}",
             unsafe_allow_html=True,
         )
     with col4:
+        variant = "sage" if dataset_source == "REAL" else "cream"
         st.markdown(
-            f"**Dataset:** <span style='background:#fee2e2; color:#991b1b; padding:2px 8px; border-radius:12px; font-weight:600;'>{dataset_source} DATA</span>",
+            f"**Dataset:** {status_badge(f'{dataset_source} DATA', variant=variant)}",
             unsafe_allow_html=True,
         )
 
     if synapt_mode == "MOCK" or llm_mode == "FAKE":
-        st.info(
-            "ℹ️ **Development Notice:** The assistant is currently running with offline fallbacks "
-            "(Mock Substrate and Fake LLM). Historical evidence and predictions are deterministic simulations.",
-            icon="ℹ️",
+        st.markdown(
+            "<div style='background:#f7f0e5; border:1px solid #dcd5c9; border-radius:4px; padding:10px 14px; margin-top:12px; font-size:0.9rem; color:#58554e;'>"
+            "<strong>Development Notice:</strong> The assistant is running with offline fallbacks "
+            "(Mock Substrate and Fake LLM). Historical evidence and predictions are deterministic simulations."
+            "</div>",
+            unsafe_allow_html=True,
         )
     st.divider()
 
 
 def main() -> None:
+    apply_theme()
+
     # Check API health
     health = api_client.check_health()
 
     if health.get("status") == "offline":
         st.error(
-            f"⚠️ **FastAPI Backend Offline:** Unable to connect to `{api_client.base_url}`.\n\n"
+            f"FastAPI Backend Offline: Unable to connect to `{api_client.base_url}`.\n\n"
             f"Ensure the API service is running: `python -m scripts.dev api`"
         )
-        if st.button("🔄 Retry Connection"):
+        if st.button("Retry Connection"):
             st.rerun()
         st.stop()
 
     render_runtime_modes_banner(health)
 
-    st.title("🚢 Supply Chain Disruption Investigation System")
+    st.title("Supply Chain Disruption Investigation System")
     st.markdown(
         """
         Welcome to the **Synapt-Powered Multi-Agent Disruption Investigation Assistant**.
@@ -89,35 +91,59 @@ def main() -> None:
         """
     )
 
-    st.markdown("### 🧭 Available Capabilities")
+    st.markdown("### Operational Modules")
     col_a, col_b, col_c = st.columns(3)
 
     with col_a:
-        st.markdown("#### 1. Disruption Intake & Analysis")
         st.markdown(
-            "- **Intake:** Dynamic taxonomy selectors and unstructured narrative parser.\n"
-            "- **Multi-Agent Workflow:** 9-node LangGraph graph with deterministic verification.\n"
-            "- **Evidence Grounding:** 100% citation grounding against historical case cards."
+            """
+            <div class="custom-card">
+                <div class="custom-card-header">1. Disruption Intake & Analysis</div>
+                <p style="font-size:0.88rem; line-height:1.5; color:#58554e; margin-bottom:12px;">
+                    Structured taxonomic intake and narrative parsing feeding a 9-node multi-agent verification graph.
+                    Enforces strict citation grounding against historical case cards.
+                </p>
+                <div style="font-size:0.8rem; color:#58554e; font-weight:600;">
+                    Select <strong>New Disruption</strong> or <strong>Analysis</strong> in the sidebar.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
-        st.markdown("👉 *Navigate to **New Disruption** or **Analysis** in the sidebar.*")
 
     with col_b:
-        st.markdown("#### 2. ML Prediction & Prioritization")
         st.markdown(
-            "- **Split-Conformal Intervals:** 80% distribution-free coverage on Impact and Recovery.\n"
-            "- **P1-P4 Triage:** Formula-grounded score with sensitivity perturbation checks.\n"
-            "- **Explainability:** Top positive and negative feature impact attributions."
+            """
+            <div class="custom-card">
+                <div class="custom-card-header">2. ML Prediction & Prioritization</div>
+                <p style="font-size:0.88rem; line-height:1.5; color:#58554e; margin-bottom:12px;">
+                    Distribution-free split-conformal prediction intervals with 80% coverage guarantees.
+                    Includes deterministic P1-P4 triage scoring and permutation impact attributions.
+                </p>
+                <div style="font-size:0.8rem; color:#58554e; font-weight:600;">
+                    Select <strong>Queue</strong> in the sidebar to review active disruptions.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
-        st.markdown("👉 *Navigate to **Queue** to view prioritized active incidents.*")
 
     with col_c:
-        st.markdown("#### 3. Continuous Improvement & Audit")
         st.markdown(
-            "- **Human Review Loop:** User feedback rating and actual outcome recording.\n"
-            "- **Quality Benchmarks:** DeepEval scores, ablation comparison, and substrate trace.\n"
-            "- **Integrity:** Non-causal associations and transparent limitation reporting."
+            """
+            <div class="custom-card">
+                <div class="custom-card-header">3. Continuous Improvement & Audit</div>
+                <p style="font-size:0.88rem; line-height:1.5; color:#58554e; margin-bottom:12px;">
+                    Human-in-the-loop review queue for post-incident outcome logging.
+                    Transparent quality dashboards with DeepEval metrics, ablations, and substrate telemetry.
+                </p>
+                <div style="font-size:0.8rem; color:#58554e; font-weight:600;">
+                    Select <strong>Feedback</strong> or <strong>Quality</strong> in the sidebar.
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
-        st.markdown("👉 *Navigate to **Feedback** and **Quality** in the sidebar.*")
 
 
 if __name__ == "__main__":

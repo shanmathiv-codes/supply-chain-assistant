@@ -9,21 +9,24 @@ from __future__ import annotations
 import streamlit as st
 
 from ui.components.api_client import api_client
+from ui.components.theme import apply_theme
 
-st.set_page_config(page_title="Operator Feedback", page_icon="💬", layout="wide")
+st.set_page_config(page_title="Operator Feedback", layout="wide")
 
 
 def main() -> None:
-    st.title("💬 Operator Feedback & Actual Outcomes")
+    apply_theme()
+
+    st.title("Operator Feedback & Actual Outcomes")
     st.markdown(
         """
-        Record feedback to improve retrieval accuracy and submit verified post-incident outcomes.
+        Record operational feedback to refine retrieval accuracy and submit verified post-incident outcomes.
         All submissions enter a **Human Review Queue** and must be approved before triggering retraining.
         """
     )
 
     tab_rating, tab_outcome = st.tabs(
-        ["⭐ Investigation Rating & Corrections", "📈 Record Actual Incident Outcome"]
+        ["Investigation Rating & Corrections", "Record Actual Incident Outcome"]
     )
 
     with tab_rating:
@@ -54,7 +57,7 @@ def main() -> None:
                 placeholder="Explain why the recommended playbook or similar cases were helpful or inaccurate...",
             )
 
-            submitted = st.form_submit_button("📤 Submit Feedback")
+            submitted = st.form_submit_button("Submit Feedback", use_container_width=True)
 
         if submitted:
             payload = {
@@ -69,7 +72,7 @@ def main() -> None:
                 st.error(f"Failed to submit feedback: {resp['error']}")
             else:
                 st.success(
-                    f"✅ Feedback received! ID: `{resp.get('feedback_id')}` (Status: PENDING REVIEW)"
+                    f"Feedback received: ID `{resp.get('feedback_id')}` (Status: PENDING REVIEW)"
                 )
                 st.info(
                     "The submission has been logged into `review_queue` for administrative review."
@@ -119,7 +122,9 @@ def main() -> None:
 
             is_simulated = st.checkbox("Mark as Simulated Outcome (for benchmarking)", value=False)
 
-            oc_submitted = st.form_submit_button("💾 Record Observed Outcome")
+            oc_submitted = st.form_submit_button(
+                "Record Observed Outcome", use_container_width=True
+            )
 
         if oc_submitted:
             payload = {
@@ -133,7 +138,7 @@ def main() -> None:
                 st.error(f"Failed to log outcome: {resp['error']}")
             else:
                 st.success(
-                    f"✅ Actual outcome logged! ID: `{resp.get('feedback_id')}` (Status: PENDING REVIEW)"
+                    f"Actual outcome logged: ID `{resp.get('feedback_id')}` (Status: PENDING REVIEW)"
                 )
                 st.info(
                     "Review queue admin command: `python -m scripts.review_feedback approve --id <queue_id>`"

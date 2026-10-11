@@ -1,7 +1,7 @@
 """Disruption Triage Queue Page.
 
 Displays active disruption alerts ranked by formula-grounded priority score (P1-P4 triage).
-Includes sensitivity perturbation analysis and one-click drill down to investigation.
+Includes sensitivity perturbation analysis and aligned queue views.
 """
 
 from __future__ import annotations
@@ -9,7 +9,9 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Disruption Triage Queue", page_icon="🚦", layout="wide")
+from ui.components.theme import apply_theme
+
+st.set_page_config(page_title="Disruption Triage Queue", layout="wide")
 
 
 def get_mock_queue_items() -> list[dict]:
@@ -84,7 +86,9 @@ def get_mock_queue_items() -> list[dict]:
 
 
 def main() -> None:
-    st.title("🚦 Disruption Triage & Prioritization Queue")
+    apply_theme()
+
+    st.title("Disruption Triage & Prioritization Queue")
     st.markdown(
         """
         Ranked operational alerts based on formula-grounded priority:
@@ -96,7 +100,7 @@ def main() -> None:
     items = get_mock_queue_items()
     df = pd.DataFrame(items)
 
-    # Filter controls
+    # Filter controls aligned in 3 equal columns
     c1, c2, c3 = st.columns(3)
     with c1:
         sel_band = st.multiselect(
@@ -125,13 +129,13 @@ def main() -> None:
 
     st.markdown(f"### Active Alerts ({len(filtered_df)} matches)")
 
-    # Color highlight by band
+    # Color highlight by band using cohesive flat palette
     def color_band(val):
         color_map = {
-            "P1": "background-color: #fee2e2; color: #991b1b; font-weight: bold",
-            "P2": "background-color: #ffedd5; color: #9a3412; font-weight: bold",
-            "P3": "background-color: #fef9c3; color: #854d0e; font-weight: bold",
-            "P4": "background-color: #dcfce7; color: #166534; font-weight: bold",
+            "P1": "background-color: #f7eae8; color: #7c3226; font-weight: 600",
+            "P2": "background-color: #ede2d5; color: #6e4f2b; font-weight: 600",
+            "P3": "background-color: #f7f0e5; color: #58554e; font-weight: 600",
+            "P4": "background-color: #e3eee8; color: #2f4d3d; font-weight: 600",
         }
         return color_map.get(val, "")
 
@@ -143,7 +147,7 @@ def main() -> None:
 
     st.divider()
 
-    st.markdown("### ⚖️ Priority Weight Sensitivity Analysis")
+    st.markdown("### Priority Weight Sensitivity Analysis")
     st.caption(
         "Verifying triage stability under ±0.1 weight perturbations (Severity: 0.40 ± 0.10, Impact: 0.35 ± 0.10, Financial: 0.25 ± 0.10)."
     )

@@ -1,7 +1,7 @@
 """New Disruption Intake Page.
 
-Enables supply chain operators to submit structured or free-text disruption alerts
-for immediate multi-agent triage and investigation.
+Enforces structured or free-text disruption alerts for multi-agent triage
+and investigation.
 """
 
 from __future__ import annotations
@@ -9,17 +9,21 @@ from __future__ import annotations
 import streamlit as st
 
 from ui.components.api_client import api_client
+from ui.components.theme import apply_theme
 
-st.set_page_config(page_title="New Disruption Intake", page_icon="📝", layout="wide")
+st.set_page_config(page_title="New Disruption Intake", layout="wide")
 
 
 def main() -> None:
-    st.title("📝 New Disruption Intake & Triage")
+    apply_theme()
+
+    st.title("New Disruption Intake & Triage")
     st.markdown(
-        "Submit operational incident metadata and free-text notes for automated multi-agent analysis."
+        "Submit operational incident profile attributes and free-text narrative for automated multi-agent investigation."
     )
 
     with st.form("disruption_intake_form"):
+        st.markdown("##### Incident Profile Attributes")
         col1, col2 = st.columns(2)
 
         with col1:
@@ -79,17 +83,15 @@ def main() -> None:
                 horizontal=True,
             )
 
-        st.markdown("#### Incident Narrative & Operator Notes")
+        st.markdown("##### Incident Narrative & Operator Notes")
         free_text = st.text_area(
             "Free-text description (Optional - intake will extract missing attributes and cross-reference knowledge graph)",
             value="Urgent alert: Typhoon warning in East Asia causing port closure and halting container departures for Tier 1 supplier.",
-            height=100,
+            height=110,
             max_chars=2000,
         )
 
-        submitted = st.form_submit_button(
-            "🚀 Run Multi-Agent Investigation", use_container_width=True
-        )
+        submitted = st.form_submit_button("Run Multi-Agent Investigation", use_container_width=True)
 
     if submitted:
         payload = {
@@ -111,7 +113,7 @@ def main() -> None:
             resp = api_client.analyze_disruption(payload)
 
         if resp.get("status") == "offline" or resp.get("status") == "error":
-            st.error(f"❌ Analysis Failed: {resp.get('message', 'Unknown error')}")
+            st.error(f"Analysis Failed: {resp.get('message', 'Unknown error')}")
             if resp.get("error_code") == "INJECTION_SUSPECTED":
                 st.warning(
                     "Security Guardrail: Input text rejected due to suspected prompt injection."
@@ -123,10 +125,10 @@ def main() -> None:
         else:
             st.session_state["current_report"] = resp
             st.success(
-                f"✅ Investigation Complete! Report generated: `{resp.get('run_id')}` (Status: {resp.get('status', 'OK').upper()})"
+                f"Investigation Complete: Report generated `{resp.get('run_id')}` (Status: {resp.get('status', 'OK').upper()})"
             )
             st.info(
-                "💡 Switch to the **Analysis** page in the sidebar to view full evidence, conformal intervals, and response playbooks."
+                "Navigate to the **Analysis** page in the sidebar to review evidence citations, conformal intervals, and response playbooks."
             )
 
 

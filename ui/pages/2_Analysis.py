@@ -3,7 +3,7 @@
 Displays multi-agent disruption investigation reports across tabs:
 - Summary
 - Similar Cases (4 signals + evidence chips)
-- Predictions (split-conformal intervals & SHAP factors)
+- Predictions (split-conformal intervals & feature factors)
 - Grounded Recommendations (SOPs & response outcomes)
 - Substrate Trace & Fidelity
 - Limitations & Gaps
@@ -22,8 +22,9 @@ from ui.components.charts import (
     plot_priority_gauge,
 )
 from ui.components.evidence_chips import render_evidence_chips
+from ui.components.theme import apply_theme, status_badge
 
-st.set_page_config(page_title="Investigation Analysis", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Investigation Analysis", layout="wide")
 
 
 def get_demo_report() -> dict[str, Any]:
@@ -223,11 +224,13 @@ def generate_printable_markdown(report: dict[str, Any]) -> str:
 
 
 def main() -> None:
-    st.title("📊 Disruption Investigation Report")
+    apply_theme()
+
+    st.title("Disruption Investigation Report")
 
     report = st.session_state.get("current_report")
     if not report:
-        st.info("ℹ️ No active investigation report loaded. Displaying baseline demo scenario.")
+        st.info("No active investigation report loaded. Displaying baseline reference scenario.")
         report = get_demo_report()
 
     run_id = report.get("run_id", "UNKNOWN")
@@ -235,7 +238,7 @@ def main() -> None:
     priority = report.get("priority", {})
     evidence_store = report.get("evidence", {})
 
-    # Top header bar
+    # Top header bar aligned
     c1, c2, c3, c4 = st.columns([2, 1, 1, 1])
     with c1:
         st.subheader(f"Run ID: `{run_id}`")
@@ -248,16 +251,15 @@ def main() -> None:
             delta=f"Score: {priority.get('score', 0):.1f}",
         )
     with c4:
-        # Download buttons
         st.download_button(
-            "📥 JSON",
+            "Export JSON",
             data=json.dumps(report, indent=2),
             file_name=f"report_{run_id}.json",
             mime="application/json",
             use_container_width=True,
         )
         st.download_button(
-            "📄 Markdown",
+            "Export Markdown",
             data=generate_printable_markdown(report),
             file_name=f"report_{run_id}.md",
             mime="text/markdown",
@@ -266,12 +268,12 @@ def main() -> None:
 
     tab_summary, tab_cases, tab_preds, tab_recs, tab_trace, tab_limits = st.tabs(
         [
-            "📋 Summary",
-            "🔍 Similar Cases",
-            "📈 Predictions & Intervals",
-            "💡 Grounded Response",
-            "🛰️ Substrate Trace",
-            "⚠️ Limitations & Gaps",
+            "Summary",
+            "Similar Cases",
+            "Predictions & Intervals",
+            "Grounded Response",
+            "Substrate Trace",
+            "Limitations & Gaps",
         ]
     )
 
@@ -294,7 +296,7 @@ def main() -> None:
 
             st.markdown("#### Key Verified Claims")
             for claim in report.get("claims", []):
-                kind_badge = f"<span style='background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.8em; font-weight:600;'>{claim.get('kind')}</span>"
+                kind_badge = status_badge(claim.get("kind", "CLAIM"), variant="cream")
                 st.markdown(f"- {kind_badge} {claim.get('text')}", unsafe_allow_html=True)
                 render_evidence_chips(
                     claim.get("evidence_ids", []), evidence_store, key_prefix="sum"
@@ -363,12 +365,12 @@ def main() -> None:
                     analog = p.get("analog", {})
                     if analog:
                         st.caption(
-                            f"📊 Historical Analog Range (n={analog.get('n', 0)}): "
+                            f"Historical Analog Range (n={analog.get('n', 0)}): "
                             f"Median = {analog.get('median', 0):.1f}{unit} | P10-P90 = [{analog.get('p10', 0):.1f}, {analog.get('p90', 0):.1f}]"
                         )
                     if p.get("divergence"):
                         st.warning(
-                            "⚠️ **Analog Divergence Alert:** Model prediction deviates from historical analog distribution."
+                            "Analog Divergence Alert: Model prediction deviates from historical analog distribution."
                         )
 
                 with c_shap:
@@ -390,7 +392,7 @@ def main() -> None:
                     r.get("evidence_ids", []), evidence_store, key_prefix=f"rec_{idx}"
                 )
                 for cav in r.get("caveats", []):
-                    st.caption(f"⚠️ *Caveat:* {cav}")
+                    st.caption(f"*Caveat:* {cav}")
                 st.divider()
 
     # TAB 5: SUBSTRATE TRACE

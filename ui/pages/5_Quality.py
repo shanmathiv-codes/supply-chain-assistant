@@ -2,6 +2,7 @@
 
 Displays evaluation results, ablation experiment comparisons, DeepEval metrics,
 substrate utilization stats, and explicit negative findings.
+Uses palette (#b6d4c5, #f7f0e5, #58554e) with zero emojis and flat styling.
 """
 
 from __future__ import annotations
@@ -12,7 +13,9 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-st.set_page_config(page_title="System Quality & Benchmarks", page_icon="🔬", layout="wide")
+from ui.components.theme import apply_theme
+
+st.set_page_config(page_title="System Quality & Benchmarks", layout="wide")
 
 
 def load_ablation_df() -> pd.DataFrame:
@@ -72,10 +75,12 @@ def load_ablation_df() -> pd.DataFrame:
 
 
 def main() -> None:
-    st.title("🔬 System Quality, Benchmarks & Scientific Transparency")
+    apply_theme()
+
+    st.title("System Quality, Benchmarks & Scientific Transparency")
     st.markdown(
         """
-        Rigorous empirical evaluation results across retrieval precision, conformal calibration,
+        Empirical evaluation results across retrieval precision, conformal calibration,
         ablation configurations, and multi-agent verification rates.
         """
     )
@@ -92,14 +97,14 @@ def main() -> None:
 
     st.divider()
 
-    st.markdown("### 📊 Architectural Ablation Study")
+    st.markdown("### Architectural Ablation Study")
     st.caption(
         "Demonstrating how graph-structured grounding and deterministic verification eliminate hallucinations."
     )
 
     ablation_df = load_ablation_df()
 
-    # Plotly interactive comparison
+    # Plotly interactive comparison with cohesive flat palette
     fig = px.bar(
         ablation_df,
         x="config_id",
@@ -112,10 +117,29 @@ def main() -> None:
             "variable": "Metric",
         },
         color_discrete_map={
-            "evidence_grounding_pct": "#2563eb",
-            "verifier_pass_pct": "#10b981",
-            "hallucination_rate_pct": "#ef4444",
+            "evidence_grounding_pct": "#58554e",
+            "verifier_pass_pct": "#b6d4c5",
+            "hallucination_rate_pct": "#8c4a3e",
         },
+    )
+    fig.update_layout(
+        font=dict(
+            color="#58554e",
+            family='-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        ),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="#ffffff",
+        xaxis=dict(gridcolor="#e5ded3", color="#58554e"),
+        yaxis=dict(gridcolor="#e5ded3", color="#58554e"),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            title_text="",
+        ),
+        margin=dict(l=20, r=20, t=50, b=30),
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -126,7 +150,7 @@ def main() -> None:
     col_deepeval, col_limits = st.columns([1, 1])
 
     with col_deepeval:
-        st.markdown("### 🤖 DeepEval & Judge Quality Rubric")
+        st.markdown("### DeepEval & Judge Quality Rubric")
         judge_scores = [
             {"Dimension": "Faithfulness", "Score": "0.940", "Status": "PASS"},
             {"Dimension": "Answer Relevancy", "Score": "0.920", "Status": "PASS"},
@@ -139,19 +163,19 @@ def main() -> None:
         st.table(judge_scores)
 
     with col_limits:
-        st.markdown("### ⚠️ Transparent Scientific Boundaries")
+        st.markdown("### Transparent Scientific Boundaries")
         st.warning(
-            "**1. Non-Causality of Historical Associations:**\n"
+            "**1. Non-Causality of Historical Associations:**\n\n"
             "All recommendations cite statistical associations observed in past responses. "
             "They do not assert counterfactual causal guarantees."
         )
         st.warning(
-            "**2. Unestimable Prior Probability:**\n"
+            "**2. Unestimable Prior Probability:**\n\n"
             "The historical dataset contains disruption events only. Therefore, the unconditional prior "
-            "$P(\\text{disruption occurs})$ cannot be calculated and is never reported."
+            "P(disruption occurs) cannot be calculated and is never reported."
         )
         st.warning(
-            "**3. Supplier Change ROC-AUC (0.657):**\n"
+            "**3. Supplier Change ROC-AUC (0.657):**\n\n"
             "Predicting permanent supplier replacement has moderate discriminative power; "
             "output is marked directional guidance only."
         )
