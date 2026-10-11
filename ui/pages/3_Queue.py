@@ -99,14 +99,28 @@ def main() -> None:
     # Filter controls
     c1, c2, c3 = st.columns(3)
     with c1:
-        sel_band = st.multiselect("Filter by Triage Band", options=["P1", "P2", "P3", "P4"], default=["P1", "P2", "P3", "P4"])
+        sel_band = st.multiselect(
+            "Filter by Triage Band",
+            options=["P1", "P2", "P3", "P4"],
+            default=["P1", "P2", "P3", "P4"],
+        )
     with c2:
-        sel_region = st.multiselect("Filter by Region", options=list(df["region"].unique()), default=list(df["region"].unique()))
+        sel_region = st.multiselect(
+            "Filter by Region",
+            options=list(df["region"].unique()),
+            default=list(df["region"].unique()),
+        )
     with c3:
-        sel_industry = st.multiselect("Filter by Industry", options=list(df["industry"].unique()), default=list(df["industry"].unique()))
+        sel_industry = st.multiselect(
+            "Filter by Industry",
+            options=list(df["industry"].unique()),
+            default=list(df["industry"].unique()),
+        )
 
     filtered_df = df[
-        df["band"].isin(sel_band) & df["region"].isin(sel_region) & df["industry"].isin(sel_industry)
+        df["band"].isin(sel_band)
+        & df["region"].isin(sel_region)
+        & df["industry"].isin(sel_industry)
     ].sort_values("priority_score", ascending=False)
 
     st.markdown(f"### Active Alerts ({len(filtered_df)} matches)")
@@ -130,14 +144,46 @@ def main() -> None:
     st.divider()
 
     st.markdown("### ⚖️ Priority Weight Sensitivity Analysis")
-    st.caption("Verifying triage stability under ±0.1 weight perturbations (Severity: 0.40 ± 0.10, Impact: 0.35 ± 0.10, Financial: 0.25 ± 0.10).")
+    st.caption(
+        "Verifying triage stability under ±0.1 weight perturbations (Severity: 0.40 ± 0.10, Impact: 0.35 ± 0.10, Financial: 0.25 ± 0.10)."
+    )
 
     sens_data = [
-        {"Alert ID": "ALT-2026-081", "Baseline Band": "P1", "P_High (0.50 S)": "P1", "P_Low (0.30 S)": "P1", "Stability": "Stable (100%)"},
-        {"Alert ID": "ALT-2026-082", "Baseline Band": "P2", "P_High (0.50 S)": "P2", "P_Low (0.30 S)": "P2", "Stability": "Stable (100%)"},
-        {"Alert ID": "ALT-2026-083", "Baseline Band": "P2", "P_High (0.50 S)": "P2", "P_Low (0.30 S)": "P3", "Stability": "Boundary (85%)"},
-        {"Alert ID": "ALT-2026-084", "Baseline Band": "P3", "P_High (0.50 S)": "P3", "P_Low (0.30 S)": "P3", "Stability": "Stable (100%)"},
-        {"Alert ID": "ALT-2026-085", "Baseline Band": "P4", "P_High (0.50 S)": "P4", "P_Low (0.30 S)": "P4", "Stability": "Stable (100%)"},
+        {
+            "Alert ID": "ALT-2026-081",
+            "Baseline Band": "P1",
+            "P_High (0.50 S)": "P1",
+            "P_Low (0.30 S)": "P1",
+            "Stability": "Stable (100%)",
+        },
+        {
+            "Alert ID": "ALT-2026-082",
+            "Baseline Band": "P2",
+            "P_High (0.50 S)": "P2",
+            "P_Low (0.30 S)": "P2",
+            "Stability": "Stable (100%)",
+        },
+        {
+            "Alert ID": "ALT-2026-083",
+            "Baseline Band": "P2",
+            "P_High (0.50 S)": "P2",
+            "P_Low (0.30 S)": "P3",
+            "Stability": "Boundary (85%)",
+        },
+        {
+            "Alert ID": "ALT-2026-084",
+            "Baseline Band": "P3",
+            "P_High (0.50 S)": "P3",
+            "P_Low (0.30 S)": "P3",
+            "Stability": "Stable (100%)",
+        },
+        {
+            "Alert ID": "ALT-2026-085",
+            "Baseline Band": "P4",
+            "P_High (0.50 S)": "P4",
+            "P_Low (0.30 S)": "P4",
+            "Stability": "Stable (100%)",
+        },
     ]
     st.table(sens_data)
 

@@ -1,15 +1,18 @@
 import os
 
+import truststore
+
+truststore.inject_into_ssl()
+
 os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
 os.environ["LITELLM_DISABLE_TELEMETRY"] = "True"
 
 import asyncio
-from pathlib import Path
 from typing import Any, Literal, Type, TypeVar
 
 from pydantic import BaseModel
 
-from app.core.config import load_yaml_config, settings
+from app.core.config import CONFIG_DIR, load_yaml_config, settings
 from app.core.logging import logger
 from app.llm.cache import llm_cache
 from app.llm.fake import fake_llm
@@ -18,12 +21,29 @@ from app.llm.structured import parse_and_validate
 from app.workflow.budget import RunBudget
 
 T = TypeVar("T", bound=BaseModel)
-MODELS_CONFIG = load_yaml_config("models.yaml")
-RESOLVED_PATH = Path("config/models.resolved.yaml")
-if RESOLVED_PATH.exists():
-    RESOLVED_CONFIG = load_yaml_config("models.resolved.yaml")
-else:
-    RESOLVED_CONFIG = MODELS_CONFIG
+
+
+def load_runtime_models() -> tuple[dict[str, Any], dict[str, Any]]:
+    """Load base models.yaml and resolved models.resolved.yaml, verifying freshness."""
+    base_cfg = load_yaml_config("models.yaml")
+    resolved_path = CONFIG_DIR / "models.resolved.yaml"
+    base_path = CONFIG_DIR / "models.yaml"
+
+    if not resolved_path.exists():
+        return base_cfg, base_cfg
+
+    try:
+        # If models.resolved.yaml is older than models.yaml, candidates are stale
+        if base_path.exists() and resolved_path.stat().st_mtime < base_path.stat().st_mtime:
+            logger.info(
+                "config/models.resolved.yaml is older than config/models.yaml; ignoring stale resolved configuration."
+            )
+            return base_cfg, base_cfg
+    except Exception:
+        pass
+
+    resolved_cfg = load_yaml_config("models.resolved.yaml")
+    return base_cfg, resolved_cfg
 
 
 class LLMRouter:
@@ -33,8 +53,17 @@ class LLMRouter:
         self.mode = settings.effective_llm_mode
 
     def _get_candidates_for_role(self, role: str) -> list[str]:
-        role_cfg = RESOLVED_CONFIG.get("roles", {}).get(role, {})
-        return list(role_cfg.get("candidates", []))
+        base_cfg, resolved_cfg = load_runtime_models()
+        configured = base_cfg.get("roles", {}).get(role, {}).get("candidates", [])
+        resolved = resolved_cfg.get("roles", {}).get(role, {}).get("candidates", [])
+
+        # Filter resolved candidates so only currently configured candidates are retained
+        valid_resolved = [c for c in resolved if c in configured]
+        if valid_resolved:
+            return valid_resolved
+
+        # Fallback to configured candidates from models.yaml
+        return list(configured)
 
     async def complete_structured(
         self,
@@ -56,8 +85,11 @@ class LLMRouter:
                 budget.record_usage(calls=1, tokens=150)
             return res_dict, validated
 
+        base_cfg, _ = load_runtime_models()
         candidates = self._get_candidates_for_role(role)
-        temperature = MODELS_CONFIG.get("roles", {}).get(role, {}).get("temperature", 0.0)
+        role_cfg = base_cfg.get("roles", {}).get(role, {})
+        temperature = float(role_cfg.get("temperature", 0.0))
+        timeout_seconds = float(role_cfg.get("timeout_seconds", 30))
 
         # 2. Check Cache
         for cand in candidates:
@@ -75,6 +107,14 @@ class LLMRouter:
         for cand in candidates:
             provider = "gemini" if "gemini" in cand else "openrouter"
             limiter = gemini_limiter if provider == "gemini" else openrouter_limiter
+
+            # Pre-flight check: skip candidates whose provider key is not configured
+            if provider == "gemini" and not settings.get_effective_gemini_key():
+                logger.debug(f"Candidate {cand} skipped: no Gemini API key configured.")
+                continue
+            if provider == "openrouter" and not settings.openrouter_api_key:
+                logger.debug(f"Candidate {cand} skipped: no OpenRouter API key configured.")
+                continue
 
             try:
                 async with concurrency_controller:
@@ -98,19 +138,19 @@ class LLMRouter:
                             "X-Title": settings.openrouter_app_name,
                         }
 
-                    litellm.request_timeout = 30.0
+                    litellm.request_timeout = timeout_seconds
                     resp = await asyncio.wait_for(
                         litellm.acompletion(
                             model=cand,
                             messages=messages,
                             temperature=temperature,
-                            request_timeout=30.0,
+                            request_timeout=timeout_seconds,
                             **extra_kwargs,
                         ),
-                        timeout=30.0,
+                        timeout=timeout_seconds,
                     )
 
-                    raw_content = resp.choices[0].message.content
+                    raw_content = resp.choices[0].message.content or ""
                     tokens = (
                         resp.usage.total_tokens if hasattr(resp, "usage") and resp.usage else 250
                     )
@@ -134,17 +174,18 @@ class LLMRouter:
                                 "content": f"The response was not valid JSON conforming to schema: {parse_err}. Fix and return ONLY valid JSON.",
                             },
                         ]
+                        repair_timeout = min(20.0, timeout_seconds)
                         repair_resp = await asyncio.wait_for(
                             litellm.acompletion(
                                 model=cand,
                                 messages=repair_messages,
                                 temperature=0.0,
-                                request_timeout=20.0,
+                                request_timeout=repair_timeout,
                                 **extra_kwargs,
                             ),
-                            timeout=20.0,
+                            timeout=repair_timeout,
                         )
-                        repair_content = repair_resp.choices[0].message.content
+                        repair_content = repair_resp.choices[0].message.content or ""
                         data, validated = parse_and_validate(repair_content, schema_cls)
                         llm_cache.put(
                             role, cand, prompt_name, messages, temperature, data, tokens + 100
@@ -152,7 +193,20 @@ class LLMRouter:
                         return data, validated
 
             except Exception as exc:
-                logger.warning(f"Candidate model {cand} failed: {exc}. Trying next candidate.")
+                clean_err = str(exc)
+                gemini_key = settings.get_effective_gemini_key()
+                if gemini_key:
+                    clean_err = clean_err.replace(gemini_key, "[REDACTED_GEMINI_KEY]")
+                if settings.openrouter_api_key:
+                    clean_err = clean_err.replace(
+                        settings.openrouter_api_key, "[REDACTED_OPENROUTER_KEY]"
+                    )
+                clean_err = " ".join(clean_err.replace("\n", " ").split())
+                if len(clean_err) > 160:
+                    clean_err = clean_err[:157] + "..."
+                logger.warning(
+                    f"Candidate model {cand} failed: {clean_err}. Trying next candidate."
+                )
                 continue
 
         logger.error(f"All live candidates exhausted for role {role}. Falling back to FakeLLM.")

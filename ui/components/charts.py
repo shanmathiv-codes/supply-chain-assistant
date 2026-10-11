@@ -9,6 +9,7 @@ Provides interactive charts for:
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
 import plotly.graph_objects as go
@@ -63,16 +64,28 @@ def plot_conformal_interval(
     return fig
 
 
-def plot_feature_factors(factors: list[dict[str, Any]], target_name: str) -> go.Figure:
+def plot_feature_factors(factors: list[dict[str, Any] | str], target_name: str) -> go.Figure:
     """Horizontal bar chart of top positive and negative predictive drivers."""
     if not factors:
         fig = go.Figure()
         fig.update_layout(title="No factor attribution available", height=150)
         return fig
 
-    feature_names = [f.get("feature", f"Factor {i}") for i, f in enumerate(factors)]
-    importances = [f.get("importance", 0.0) for f in factors]
-    colors = ["#ef4444" if v > 0 else "#10b981" for v in importances]
+    feature_names = []
+    importances = []
+    for i, factor in enumerate(factors):
+        if isinstance(factor, str):
+            feature_names.append(factor)
+            match = re.search(r"(?:importance:\s*|estimate by\s*)(-?\d+(?:\.\d+)?)", factor)
+            importance = float(match.group(1)) if match else 0.0
+            if "reduces estimate by" in factor:
+                importance = -abs(importance)
+            importances.append(importance)
+        else:
+            feature_names.append(factor.get("feature", f"Factor {i}"))
+            importances.append(factor.get("importance", 0.0))
+
+    colors = ["#ef4444" if v > 0 else "#10b981" if v < 0 else "#94a3b8" for v in importances]
 
     fig = go.Figure(
         go.Bar(

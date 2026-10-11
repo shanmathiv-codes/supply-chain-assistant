@@ -20,10 +20,12 @@ def render_evidence_chips(
         st.caption("No specific substrate citations associated.")
         return
 
-    chips_html = " ".join([
-        f"<span style='background:#e0e7ff; color:#3730a3; padding:2px 8px; border-radius:12px; font-size:0.85em; font-weight:600;'>📎 {eid}</span>"
-        for eid in evidence_ids
-    ])
+    chips_html = " ".join(
+        [
+            f"<span style='background:#e0e7ff; color:#3730a3; padding:2px 8px; border-radius:12px; font-size:0.85em; font-weight:600;'>📎 {eid}</span>"
+            for eid in evidence_ids
+        ]
+    )
     st.markdown(chips_html, unsafe_allow_html=True)
 
     with st.expander("🔍 View Cited Substrate Evidence", expanded=False):
@@ -38,7 +40,9 @@ def render_evidence_chips(
                 f"<span style='background:{badge_color}; color:white; padding:2px 6px; border-radius:4px; font-size:0.75em;'>{prov}</span>",
                 unsafe_allow_html=True,
             )
-            text_span = ev_data.get("text_span") or ev_data.get("content") or "No text span captured."
+            text_span = (
+                ev_data.get("text_span") or ev_data.get("content") or "No text span captured."
+            )
             st.info(f'"{text_span}"')
             if ev_data.get("node_id"):
                 st.caption(f"Graph Node ID: `{ev_data.get('node_id')}`")

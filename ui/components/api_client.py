@@ -15,10 +15,7 @@ class UIAPIClient:
     """HTTP Client for Streamlit UI to connect with FastAPI backend."""
 
     def __init__(self, base_url: str | None = None, timeout: float = 25.0) -> None:
-        self.base_url = (
-            base_url
-            or os.getenv("API_BASE_URL", "http://127.0.0.1:8000").rstrip("/")
-        )
+        self.base_url = base_url or os.getenv("API_BASE_URL", "http://127.0.0.1:8000").rstrip("/")
         self.timeout = timeout
 
     def check_health(self) -> dict[str, Any]:
@@ -41,7 +38,11 @@ class UIAPIClient:
             )
             if resp.status_code == 200:
                 return resp.json()
-            err_data = resp.json() if resp.headers.get("content-type", "").startswith("application/json") else {}
+            err_data = (
+                resp.json()
+                if resp.headers.get("content-type", "").startswith("application/json")
+                else {}
+            )
             return {
                 "status": "error",
                 "error_code": err_data.get("detail", {}).get("code", f"HTTP_{resp.status_code}"),

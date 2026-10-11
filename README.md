@@ -125,6 +125,7 @@ python3 -m scripts.dev setup
 & .venv\Scripts\python.exe -m scripts.dev ui
 ```
 - Dashboard: `http://localhost:8501`
+- The project launcher adds the repository root to `PYTHONPATH` so UI package imports work.
 
 ---
 

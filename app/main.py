@@ -1,5 +1,8 @@
 """FastAPI Application entrypoint with middleware, error formatting, and routing."""
 
+import truststore
+
+truststore.inject_into_ssl()
 import uuid
 from contextlib import asynccontextmanager
 

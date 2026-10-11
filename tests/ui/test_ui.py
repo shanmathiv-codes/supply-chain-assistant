@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import os
 
 import pytest
 
@@ -25,9 +26,35 @@ def test_ui_components_import():
 
     fig_shap = plot_feature_factors([{"feature": "tier=1", "importance": 2.5}], "Test Target")
     assert fig_shap is not None
+    fig_text_factors = plot_feature_factors(
+        ["tier=1 (elevates estimate by 2.5)", "supplier_region (reduces estimate by 1.2)"],
+        "Test Target",
+    )
+    assert list(fig_text_factors.data[0].x) == [2.5, -1.2]
+    assert list(fig_text_factors.data[0].y) == [
+        "tier=1 (elevates estimate by 2.5)",
+        "supplier_region (reduces estimate by 1.2)",
+    ]
 
     fig_gauge = plot_priority_gauge(78.0, "P2")
     assert fig_gauge is not None
+
+
+def test_ui_launcher_adds_project_root_to_pythonpath(monkeypatch):
+    from scripts import dev
+
+    captured = {}
+
+    def fake_run_cmd(cmd, cwd=dev.ROOT_DIR, env=None):
+        captured["env"] = env
+        return 0
+
+    monkeypatch.setattr(dev, "run_cmd", fake_run_cmd)
+    monkeypatch.setenv("PYTHONPATH", "existing-path")
+
+    assert dev.cmd_ui(None) == 0
+    assert str(dev.ROOT_DIR) in captured["env"]["PYTHONPATH"].split(os.pathsep)
+    assert "existing-path" in captured["env"]["PYTHONPATH"].split(os.pathsep)
 
 
 def test_ui_pages_syntax_and_imports():

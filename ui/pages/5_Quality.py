@@ -20,13 +20,55 @@ def load_ablation_df() -> pd.DataFrame:
     csv_path = Path("artifacts/reports/ablation_results.csv")
     if csv_path.exists():
         return pd.read_csv(csv_path)
-    return pd.DataFrame([
-        {"config_id": "Config A", "name": "LLM Only", "precision_at_5": 0.00, "recall_at_5": 0.00, "evidence_grounding_pct": 0.0, "verifier_pass_pct": 12.5, "hallucination_rate_pct": 87.5},
-        {"config_id": "Config B", "name": "Chunks Only", "precision_at_5": 0.42, "recall_at_5": 0.38, "evidence_grounding_pct": 68.0, "verifier_pass_pct": 54.0, "hallucination_rate_pct": 32.0},
-        {"config_id": "Config B2", "name": "Ask Lane Alone", "precision_at_5": 0.58, "recall_at_5": 0.51, "evidence_grounding_pct": 82.0, "verifier_pass_pct": 73.0, "hallucination_rate_pct": 18.0},
-        {"config_id": "Config C", "name": "Inspect Lane + SOPs", "precision_at_5": 0.81, "recall_at_5": 0.76, "evidence_grounding_pct": 94.0, "verifier_pass_pct": 88.0, "hallucination_rate_pct": 6.0},
-        {"config_id": "Config D", "name": "Full Multi-Agent Workflow", "precision_at_5": 0.94, "recall_at_5": 0.89, "evidence_grounding_pct": 100.0, "verifier_pass_pct": 98.0, "hallucination_rate_pct": 0.0},
-    ])
+    return pd.DataFrame(
+        [
+            {
+                "config_id": "Config A",
+                "name": "LLM Only",
+                "precision_at_5": 0.00,
+                "recall_at_5": 0.00,
+                "evidence_grounding_pct": 0.0,
+                "verifier_pass_pct": 12.5,
+                "hallucination_rate_pct": 87.5,
+            },
+            {
+                "config_id": "Config B",
+                "name": "Chunks Only",
+                "precision_at_5": 0.42,
+                "recall_at_5": 0.38,
+                "evidence_grounding_pct": 68.0,
+                "verifier_pass_pct": 54.0,
+                "hallucination_rate_pct": 32.0,
+            },
+            {
+                "config_id": "Config B2",
+                "name": "Ask Lane Alone",
+                "precision_at_5": 0.58,
+                "recall_at_5": 0.51,
+                "evidence_grounding_pct": 82.0,
+                "verifier_pass_pct": 73.0,
+                "hallucination_rate_pct": 18.0,
+            },
+            {
+                "config_id": "Config C",
+                "name": "Inspect Lane + SOPs",
+                "precision_at_5": 0.81,
+                "recall_at_5": 0.76,
+                "evidence_grounding_pct": 94.0,
+                "verifier_pass_pct": 88.0,
+                "hallucination_rate_pct": 6.0,
+            },
+            {
+                "config_id": "Config D",
+                "name": "Full Multi-Agent Workflow",
+                "precision_at_5": 0.94,
+                "recall_at_5": 0.89,
+                "evidence_grounding_pct": 100.0,
+                "verifier_pass_pct": 98.0,
+                "hallucination_rate_pct": 0.0,
+            },
+        ]
+    )
 
 
 def main() -> None:
@@ -51,7 +93,9 @@ def main() -> None:
     st.divider()
 
     st.markdown("### 📊 Architectural Ablation Study")
-    st.caption("Demonstrating how graph-structured grounding and deterministic verification eliminate hallucinations.")
+    st.caption(
+        "Demonstrating how graph-structured grounding and deterministic verification eliminate hallucinations."
+    )
 
     ablation_df = load_ablation_df()
 
@@ -62,7 +106,11 @@ def main() -> None:
         y=["evidence_grounding_pct", "verifier_pass_pct", "hallucination_rate_pct"],
         barmode="group",
         title="Ablation Comparison Across System Configurations",
-        labels={"value": "Percentage (%)", "config_id": "System Configuration", "variable": "Metric"},
+        labels={
+            "value": "Percentage (%)",
+            "config_id": "System Configuration",
+            "variable": "Metric",
+        },
         color_discrete_map={
             "evidence_grounding_pct": "#2563eb",
             "verifier_pass_pct": "#10b981",

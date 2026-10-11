@@ -22,7 +22,9 @@ def main() -> None:
         """
     )
 
-    tab_rating, tab_outcome = st.tabs(["⭐ Investigation Rating & Corrections", "📈 Record Actual Incident Outcome"])
+    tab_rating, tab_outcome = st.tabs(
+        ["⭐ Investigation Rating & Corrections", "📈 Record Actual Incident Outcome"]
+    )
 
     with tab_rating:
         with st.form("feedback_rating_form"):
@@ -34,10 +36,18 @@ def main() -> None:
 
             kind = st.selectbox(
                 "Feedback Category",
-                options=["relevance", "usefulness", "missing_evidence", "incorrect_fact", "general"],
+                options=[
+                    "relevance",
+                    "usefulness",
+                    "missing_evidence",
+                    "incorrect_fact",
+                    "general",
+                ],
             )
 
-            rating_val = st.slider("Quality Score (1-5)", min_value=1.0, max_value=5.0, value=4.5, step=0.5)
+            rating_val = st.slider(
+                "Quality Score (1-5)", min_value=1.0, max_value=5.0, value=4.5, step=0.5
+            )
 
             comment = st.text_area(
                 "Operator Comments / Corrections",
@@ -58,12 +68,18 @@ def main() -> None:
             if "error" in resp:
                 st.error(f"Failed to submit feedback: {resp['error']}")
             else:
-                st.success(f"✅ Feedback received! ID: `{resp.get('feedback_id')}` (Status: PENDING REVIEW)")
-                st.info("The submission has been logged into `review_queue` for administrative review.")
+                st.success(
+                    f"✅ Feedback received! ID: `{resp.get('feedback_id')}` (Status: PENDING REVIEW)"
+                )
+                st.info(
+                    "The submission has been logged into `review_queue` for administrative review."
+                )
 
     with tab_outcome:
         st.markdown("#### Post-Incident Operational Outcome Log")
-        st.caption("Once an incident concludes, record observed metrics to validate conformal intervals and update model cards.")
+        st.caption(
+            "Once an incident concludes, record observed metrics to validate conformal intervals and update model cards."
+        )
 
         with st.form("feedback_outcome_form"):
             oc_run_id = st.text_input(
@@ -74,15 +90,31 @@ def main() -> None:
 
             c1, c2, c3 = st.columns(3)
             with c1:
-                act_impact = st.number_input("Actual Production Impact (%)", min_value=0.0, max_value=100.0, value=25.0, step=0.5)
+                act_impact = st.number_input(
+                    "Actual Production Impact (%)",
+                    min_value=0.0,
+                    max_value=100.0,
+                    value=25.0,
+                    step=0.5,
+                )
             with c2:
-                act_loss = st.number_input("Actual Revenue Loss ($)", min_value=0.0, value=350000.0, step=10000.0)
+                act_loss = st.number_input(
+                    "Actual Revenue Loss ($)", min_value=0.0, value=350000.0, step=10000.0
+                )
             with c3:
-                act_recovery = st.number_input("Actual Full Recovery Days", min_value=0.0, value=22.0, step=1.0)
+                act_recovery = st.number_input(
+                    "Actual Full Recovery Days", min_value=0.0, value=22.0, step=1.0
+                )
 
             act_response = st.selectbox(
                 "Actual Primary Response Executed",
-                options=["Dual Sourcing", "Expedited Freight", "Inventory Buffer", "Supplier Assistance", "Production Re-routing"],
+                options=[
+                    "Dual Sourcing",
+                    "Expedited Freight",
+                    "Inventory Buffer",
+                    "Supplier Assistance",
+                    "Production Re-routing",
+                ],
             )
 
             is_simulated = st.checkbox("Mark as Simulated Outcome (for benchmarking)", value=False)
@@ -100,8 +132,12 @@ def main() -> None:
             if "error" in resp:
                 st.error(f"Failed to log outcome: {resp['error']}")
             else:
-                st.success(f"✅ Actual outcome logged! ID: `{resp.get('feedback_id')}` (Status: PENDING REVIEW)")
-                st.info("Review queue admin command: `python -m scripts.review_feedback approve --id <queue_id>`")
+                st.success(
+                    f"✅ Actual outcome logged! ID: `{resp.get('feedback_id')}` (Status: PENDING REVIEW)"
+                )
+                st.info(
+                    "Review queue admin command: `python -m scripts.review_feedback approve --id <queue_id>`"
+                )
 
 
 if __name__ == "__main__":

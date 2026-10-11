@@ -1,5 +1,9 @@
 """Cross-platform development and orchestration CLI for Supply Chain Disruption Assistant."""
 
+import truststore
+
+truststore.inject_into_ssl()
+
 import argparse
 import os
 import subprocess
@@ -136,7 +140,12 @@ def cmd_ui(args):
         cmd = [str(VENV_PYTHON), "-m", "streamlit", "run", "ui/app.py"]
     else:
         cmd = [str(streamlit_bin), "run", "ui/app.py"]
-    return run_cmd(cmd)
+    python_path = os.environ.get("PYTHONPATH")
+    if python_path:
+        python_path = os.pathsep.join([str(ROOT_DIR), python_path])
+    else:
+        python_path = str(ROOT_DIR)
+    return run_cmd(cmd, env={"PYTHONPATH": python_path})
 
 
 def cmd_probe_models(args):

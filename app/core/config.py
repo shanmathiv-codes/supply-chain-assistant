@@ -1,6 +1,11 @@
 """Application configuration with Pydantic v2 settings, YAML loaders, and mode banner."""
 
 import os
+
+import truststore
+
+truststore.inject_into_ssl()
+
 from pathlib import Path
 from typing import Any, Literal
 

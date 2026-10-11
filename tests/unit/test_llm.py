@@ -127,3 +127,46 @@ async def test_router_fake_mode_with_budget():
     assert "disruption_type" in res_dict
     assert budget.calls_made == 1
     assert budget.tokens_used > 0
+
+
+def test_router_candidate_resolution(monkeypatch):
+    """Verify router candidate filtering preserves only valid configured candidates."""
+    from app.llm.router import LLMRouter
+
+    router = LLMRouter()
+    candidates = router._get_candidates_for_role("fast")
+    assert isinstance(candidates, list)
+    assert len(candidates) > 0
+    # Every resolved candidate must be present in models.yaml configured candidates
+    from app.core.config import load_yaml_config
+
+    configured = (
+        load_yaml_config("models.yaml").get("roles", {}).get("fast", {}).get("candidates", [])
+    )
+    for c in candidates:
+        assert c in configured
+
+
+def test_probe_exception_classifier_and_redaction():
+    """Verify probe exception classifier redacts secrets and categorizes failure types."""
+    import asyncio
+
+    from scripts.probe_models import classify_and_sanitize_exception
+
+    # 1. 404 / Unavailable model
+    cat_404, msg_404 = classify_and_sanitize_exception(
+        Exception("litellm.NotFoundError: 404 model models/gemini-2.5-flash is no longer available")
+    )
+    assert cat_404 == "UNAVAILABLE_MODEL"
+
+    # 2. Timeout
+    cat_to, _ = classify_and_sanitize_exception(asyncio.TimeoutError())
+    assert cat_to == "TIMEOUT"
+
+    # 3. Rate limit
+    cat_rl, _ = classify_and_sanitize_exception(Exception("429 RESOURCE_EXHAUSTED quota exceeded"))
+    assert cat_rl == "RATE_LIMIT_OR_QUOTA"
+
+    # 4. Auth
+    cat_auth, _ = classify_and_sanitize_exception(Exception("401 Unauthorized: invalid_api_key"))
+    assert cat_auth == "AUTHENTICATION_ERROR"

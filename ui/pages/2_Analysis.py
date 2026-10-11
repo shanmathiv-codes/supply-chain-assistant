@@ -127,7 +127,9 @@ def get_demo_report() -> dict[str, Any]:
                 "action": "Activate pre-contracted secondary supplier in APAC lane",
                 "rationale": "Historical analogs activating secondary sourcing recovered 8.5 days faster than freight rerouting alone.",
                 "evidence_ids": ["EVD-001"],
-                "caveats": ["Associational historical pattern; actual performance contingent on supplier line availability."],
+                "caveats": [
+                    "Associational historical pattern; actual performance contingent on supplier line availability."
+                ],
             },
             {
                 "id": "REC-002",
@@ -191,13 +193,13 @@ def generate_printable_markdown(report: dict[str, Any]) -> str:
 
     md = f"""# Supply Chain Disruption Investigation Report: {run_id}
 
-**Status:** {status} | **Priority:** {prio.get('band', 'N/A')} (Score: {prio.get('score', 0):.1f})
-**Classification:** {clf.get('disruption_severity', 'N/A')} {clf.get('disruption_type', 'N/A')} (Confidence: {clf.get('confidence', 0):.2f})
+**Status:** {status} | **Priority:** {prio.get("band", "N/A")} (Score: {prio.get("score", 0):.1f})
+**Classification:** {clf.get("disruption_severity", "N/A")} {clf.get("disruption_type", "N/A")} (Confidence: {clf.get("confidence", 0):.2f})
 
 ---
 
 ## 1. Executive Summary
-{prio.get('reason', 'Operational disruption triage summary.')}
+{prio.get("reason", "Operational disruption triage summary.")}
 
 ## 2. Predictions & Conformal Intervals (80% Nominal Coverage)
 """
@@ -240,7 +242,11 @@ def main() -> None:
     with c2:
         st.metric("Status", status)
     with c3:
-        st.metric("Triage Priority", priority.get("band", "N/A"), delta=f"Score: {priority.get('score', 0):.1f}")
+        st.metric(
+            "Triage Priority",
+            priority.get("band", "N/A"),
+            delta=f"Score: {priority.get('score', 0):.1f}",
+        )
     with c4:
         # Download buttons
         st.download_button(
@@ -258,14 +264,16 @@ def main() -> None:
             use_container_width=True,
         )
 
-    tab_summary, tab_cases, tab_preds, tab_recs, tab_trace, tab_limits = st.tabs([
-        "📋 Summary",
-        "🔍 Similar Cases",
-        "📈 Predictions & Intervals",
-        "💡 Grounded Response",
-        "🛰️ Substrate Trace",
-        "⚠️ Limitations & Gaps",
-    ])
+    tab_summary, tab_cases, tab_preds, tab_recs, tab_trace, tab_limits = st.tabs(
+        [
+            "📋 Summary",
+            "🔍 Similar Cases",
+            "📈 Predictions & Intervals",
+            "💡 Grounded Response",
+            "🛰️ Substrate Trace",
+            "⚠️ Limitations & Gaps",
+        ]
+    )
 
     # TAB 1: SUMMARY
     with tab_summary:
@@ -279,14 +287,18 @@ def main() -> None:
         with col_details:
             st.markdown(f"**Triage Rationale:** {priority.get('reason', 'Standard triage')}")
             clf = report.get("classification", {})
-            st.markdown(f"- **Classified Profile:** {clf.get('disruption_severity')} {clf.get('disruption_type')}")
+            st.markdown(
+                f"- **Classified Profile:** {clf.get('disruption_severity')} {clf.get('disruption_type')}"
+            )
             st.markdown(f"- **Classification Confidence:** {clf.get('confidence', 0.0) * 100:.1f}%")
 
             st.markdown("#### Key Verified Claims")
             for claim in report.get("claims", []):
                 kind_badge = f"<span style='background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.8em; font-weight:600;'>{claim.get('kind')}</span>"
                 st.markdown(f"- {kind_badge} {claim.get('text')}", unsafe_allow_html=True)
-                render_evidence_chips(claim.get("evidence_ids", []), evidence_store, key_prefix="sum")
+                render_evidence_chips(
+                    claim.get("evidence_ids", []), evidence_store, key_prefix="sum"
+                )
 
     # TAB 2: SIMILAR CASES
     with tab_cases:
@@ -299,18 +311,30 @@ def main() -> None:
                 with st.container():
                     col_info, col_outcomes = st.columns([2, 1])
                     with col_info:
-                        st.markdown(f"#### Rank #{c.get('rank')} — Case `{c.get('case_id')}` (Fused Score: {c.get('fused_score', 0):.2f})")
+                        st.markdown(
+                            f"#### Rank #{c.get('rank')} — Case `{c.get('case_id')}` (Fused Score: {c.get('fused_score', 0):.2f})"
+                        )
                         st.caption("Why Matched: " + " • ".join(c.get("why", [])))
                         attrs = c.get("attributes", {})
-                        st.write(f"**Profile:** {attrs.get('supplier_tier')} | {attrs.get('supplier_region')} | {attrs.get('industry')}")
-                        render_evidence_chips(c.get("evidence_ids", []), evidence_store, key_prefix=f"case_{c.get('case_id')}")
+                        st.write(
+                            f"**Profile:** {attrs.get('supplier_tier')} | {attrs.get('supplier_region')} | {attrs.get('industry')}"
+                        )
+                        render_evidence_chips(
+                            c.get("evidence_ids", []),
+                            evidence_store,
+                            key_prefix=f"case_{c.get('case_id')}",
+                        )
 
                     with col_outcomes:
                         st.markdown("**Historical Outcomes:**")
                         out = c.get("outcomes", {})
-                        st.markdown(f"- Production Impact: **{out.get('production_impact_pct', 'N/A')}%**")
+                        st.markdown(
+                            f"- Production Impact: **{out.get('production_impact_pct', 'N/A')}%**"
+                        )
                         st.markdown(f"- Revenue Loss: **${out.get('revenue_loss_usd', 0):,.0f}**")
-                        st.markdown(f"- Full Recovery: **{out.get('full_recovery_days', 'N/A')} days**")
+                        st.markdown(
+                            f"- Full Recovery: **{out.get('full_recovery_days', 'N/A')} days**"
+                        )
                         st.markdown(f"- Response Used: `{out.get('response_type', 'N/A')}`")
                     st.divider()
 
@@ -343,7 +367,9 @@ def main() -> None:
                             f"Median = {analog.get('median', 0):.1f}{unit} | P10-P90 = [{analog.get('p10', 0):.1f}, {analog.get('p90', 0):.1f}]"
                         )
                     if p.get("divergence"):
-                        st.warning("⚠️ **Analog Divergence Alert:** Model prediction deviates from historical analog distribution.")
+                        st.warning(
+                            "⚠️ **Analog Divergence Alert:** Model prediction deviates from historical analog distribution."
+                        )
 
                 with c_shap:
                     fig_factors = plot_feature_factors(p.get("top_factors", []), tgt)
@@ -360,7 +386,9 @@ def main() -> None:
             for idx, r in enumerate(recs, 1):
                 st.markdown(f"#### {idx}. {r.get('action')}")
                 st.markdown(f"**Rationale:** {r.get('rationale')}")
-                render_evidence_chips(r.get("evidence_ids", []), evidence_store, key_prefix=f"rec_{idx}")
+                render_evidence_chips(
+                    r.get("evidence_ids", []), evidence_store, key_prefix=f"rec_{idx}"
+                )
                 for cav in r.get("caveats", []):
                     st.caption(f"⚠️ *Caveat:* {cav}")
                 st.divider()

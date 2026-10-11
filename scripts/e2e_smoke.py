@@ -138,7 +138,11 @@ def run_e2e_smoke_test() -> bool:
         # Assert Report Contract
         assert "run_id" in report, "Missing run_id in report"
         assert report["status"] in ("ok", "degraded"), f"Invalid status: {report.get('status')}"
-        logger.info("Report generated successfully (Run ID: %s, Status: %s)", report["run_id"], report["status"])
+        logger.info(
+            "Report generated successfully (Run ID: %s, Status: %s)",
+            report["run_id"],
+            report["status"],
+        )
 
         # Assert 100% Evidence Coverage on Historical Facts
         evidence_dict = report.get("evidence", {})
@@ -150,7 +154,9 @@ def run_e2e_smoke_test() -> bool:
             ev_ids = claim.get("evidence_ids", [])
             assert len(ev_ids) > 0, f"Claim '{claim.get('text')}' has no evidence citations"
             for eid in ev_ids:
-                assert eid in evidence_dict, f"Evidence ID '{eid}' cited but not present in report evidence"
+                assert eid in evidence_dict, (
+                    f"Evidence ID '{eid}' cited but not present in report evidence"
+                )
         logger.info("100% Historical Claim Evidence Grounding ASSERTED!")
 
         # Assert Limitations mention active runtime modes

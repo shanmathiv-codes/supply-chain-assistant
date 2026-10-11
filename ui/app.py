@@ -1,6 +1,12 @@
 """Supply Chain Disruption Assistant - Main Streamlit Application."""
 
+# import truststore
+# truststore.inject_into_ssl()
 from __future__ import annotations
+
+import truststore
+
+truststore.inject_into_ssl()
 
 import streamlit as st
 
@@ -36,7 +42,9 @@ def render_runtime_modes_banner(health_data: dict) -> None:
             unsafe_allow_html=True,
         )
     with col3:
-        synapt_color = "#dcfce7; color:#15803d" if synapt_mode == "MCP" else "#ffedd5; color:#9a3412"
+        synapt_color = (
+            "#dcfce7; color:#15803d" if synapt_mode == "MCP" else "#ffedd5; color:#9a3412"
+        )
         st.markdown(
             f"**Substrate:** <span style='background:{synapt_color}; padding:2px 8px; border-radius:12px; font-weight:600;'>{synapt_mode}</span>",
             unsafe_allow_html=True,

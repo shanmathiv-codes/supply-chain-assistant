@@ -15,7 +15,9 @@ st.set_page_config(page_title="New Disruption Intake", page_icon="📝", layout=
 
 def main() -> None:
     st.title("📝 New Disruption Intake & Triage")
-    st.markdown("Submit operational incident metadata and free-text notes for automated multi-agent analysis.")
+    st.markdown(
+        "Submit operational incident metadata and free-text notes for automated multi-agent analysis."
+    )
 
     with st.form("disruption_intake_form"):
         col1, col2 = st.columns(2)
@@ -85,7 +87,9 @@ def main() -> None:
             max_chars=2000,
         )
 
-        submitted = st.form_submit_button("🚀 Run Multi-Agent Investigation", use_container_width=True)
+        submitted = st.form_submit_button(
+            "🚀 Run Multi-Agent Investigation", use_container_width=True
+        )
 
     if submitted:
         payload = {
@@ -101,19 +105,29 @@ def main() -> None:
             "free_text": free_text.strip() if free_text else None,
         }
 
-        with st.spinner("Executing LangGraph investigation nodes (Intake -> Classify -> Retrieval -> ML -> Verification)..."):
+        with st.spinner(
+            "Executing LangGraph investigation nodes (Intake -> Classify -> Retrieval -> ML -> Verification)..."
+        ):
             resp = api_client.analyze_disruption(payload)
 
         if resp.get("status") == "offline" or resp.get("status") == "error":
             st.error(f"❌ Analysis Failed: {resp.get('message', 'Unknown error')}")
             if resp.get("error_code") == "INJECTION_SUSPECTED":
-                st.warning("Security Guardrail: Input text rejected due to suspected prompt injection.")
+                st.warning(
+                    "Security Guardrail: Input text rejected due to suspected prompt injection."
+                )
             elif resp.get("error_code") == "OFF_TOPIC":
-                st.warning("Security Guardrail: Input text rejected as out-of-scope for supply chain operations.")
+                st.warning(
+                    "Security Guardrail: Input text rejected as out-of-scope for supply chain operations."
+                )
         else:
             st.session_state["current_report"] = resp
-            st.success(f"✅ Investigation Complete! Report generated: `{resp.get('run_id')}` (Status: {resp.get('status', 'OK').upper()})")
-            st.info("💡 Switch to the **Analysis** page in the sidebar to view full evidence, conformal intervals, and response playbooks.")
+            st.success(
+                f"✅ Investigation Complete! Report generated: `{resp.get('run_id')}` (Status: {resp.get('status', 'OK').upper()})"
+            )
+            st.info(
+                "💡 Switch to the **Analysis** page in the sidebar to view full evidence, conformal intervals, and response playbooks."
+            )
 
 
 if __name__ == "__main__":
