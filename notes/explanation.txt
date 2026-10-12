@@ -1,0 +1,1481 @@
+I’ll trace the architecture across the workflow, retrieval/tool gateway, and data/model/UI layers, using the current code rather than relying only on the diagram. I’ll keep this read-only.
+
+Delegated task
+
+Delegated task
+
+Delegated task
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\architecture_diagram.txt"
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\main.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 235
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\api\\routes.py",
+  "view_range": [
+    1,
+    235
+  ]
+}
+
+Read , lines 1 to 190
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\graph.py",
+  "view_range": [
+    1,
+    190
+  ]
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\state.py"
+}
+
+Read , lines 126 to 175
+Completed with input: {
+  "path": "D:\\supply-chain-project\\PROJECT_BRIEF.md",
+  "view_range": [
+    126,
+    175
+  ]
+}
+
+Read , lines 85 to 155
+Completed with input: {
+  "path": "D:\\supply-chain-project\\README.md",
+  "view_range": [
+    85,
+    155
+  ]
+}
+
+Find files matching `app/workflow/nodes/*.py`
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\retrieval.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 430
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mcp_adapter.py",
+  "view_range": [
+    1,
+    430
+  ]
+}
+
+Read , lines 1 to 340
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\gateway.py",
+  "view_range": [
+    1,
+    340
+  ]
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\synapt.yaml"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\synapt_tools.yaml"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\models.yaml"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\guardrails.yaml"
+}
+
+Search for `StateGraph|langgraph|LANGCHAIN|Agent`
+
+Search for `@dataclass|TypedDict|BaseModel|pydantic|MessagesState|Annotated`
+
+Search for `MCP|Model Context Protocol|hybrid retrieval|RRF|reciprocal|circuit breaker|mo...`
+
+Find files matching `**/*{retrieval,mcp,tool,adapter,cache,cache_service,vector,search}*`
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\gate.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\intake.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\classify.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\investigate.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\impact.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\response_plan.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\recovery.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\synthesize.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\verify.py"
+}
+
+Find files matching `app/prompts/**/*`
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\retrieval.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mcp_adapter.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mock_adapter.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\replay_adapter.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 240
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\cache.py",
+  "view_range": [
+    1,
+    240
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\synapt_tools.yaml",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 200
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow",
+  "view_range": [
+    1,
+    200
+  ]
+}
+
+Search for `class .*Agent|def .*agent|Agent\(`
+
+Read , lines 1 to 200
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes",
+  "view_range": [
+    1,
+    200
+  ]
+}
+
+Read , lines 150 to 265
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\retrieval.py",
+  "view_range": [
+    150,
+    265
+  ]
+}
+
+Search for `^    async def |^class `
+
+Read , lines 1 to 150
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\classification.py",
+  "view_range": [
+    1,
+    150
+  ]
+}
+
+Read , lines 1 to 170
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\recommendations.py",
+  "view_range": [
+    1,
+    170
+  ]
+}
+
+Read , lines 1 to 180
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\verifier.py",
+  "view_range": [
+    1,
+    180
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml\\registry.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Search for `@router\.(get|post)`
+
+Search for `add_argument\(|add_parser\(`
+
+Search for `CircuitBreaker|circuit breaker|circuit_breaker|rate_limit|retry`
+
+Search for `class SynaptReadGateway|class .*Gateway|list_tools\(|cypher\(|search_nodes\(|...`
+
+Search for `FastAPI|APIRouter|@app\.|@router\.|include_router|/investigate|/disruption`
+
+Search for `build_workflow_graph|WorkflowState|verify\(|repair|max_2|attempt`
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\gateway.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\fusion.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\schemas\\evidence.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\graph.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\state.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\gate.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\intake.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\classify.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Ran terminal command: python - <<'PY'
+from pathlib import Path
+files=[
+  'D:/supply-chain-project/app/services/retrieval.py',
+  'D:/supply-chain-project/app/substrate/gateway.py',
+  'D:/supply-chain-project/app/substrate/mcp_adapter.py',
+  'D:/supply-chain-project/app/substrate/mock_adapter.py',
+  'D:/supply-chain-project/app/substrate/replay_adapter.py',
+  'D:/supply-chain-project/app/substrate/fusion.py',
+  'D:/supply-chain-project/app/schemas/evidence.py',
+  'D:/supply-chain-project/config/synapt_tools.yaml',
+  'D:/supply-chain-project/app/llm/cache.py',
+]
+for fp in files:
+    print(f'===== {fp} =====')
+    p = Path(fp)
+    for i,line in enumerate(p.read_text(encoding='utf-8').splitlines(),1):
+        if i<=260:
+            print(f'{i:4}: {line}')
+    print()
+PY
+Tool execution failed with exit code 1
+
+Search for `\.get_stats\(|\.get_schema\(|\.traverse\(|\.episodes\(|\.label_ticket\(|\.fee...`
+
+Read , lines 214 to 430
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mcp_adapter.py",
+  "view_range": [
+    214,
+    430
+  ]
+}
+
+Read , lines 230 to 340
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\gateway.py",
+  "view_range": [
+    230,
+    340
+  ]
+}
+
+Read , lines 150 to 245
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\graph.py",
+  "view_range": [
+    150,
+    245
+  ]
+}
+
+Read , lines 185 to 285
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\api\\routes.py",
+  "view_range": [
+    185,
+    285
+  ]
+}
+
+Read , lines 1 to 115
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\core\\config.py",
+  "view_range": [
+    1,
+    115
+  ]
+}
+
+Search for `prompt_name|role=\"fast\"|role=\"reasoning\"|role=\"judge\"|role=\"planner\"|...`
+
+Search for `class .*Service|def .*classify_disruption|def .*investigate|def .*verify|def ...`
+
+Ran terminal command: python -c "from pathlib import Path; files=['D:/supply-chain-project/app/services/retrieval.py','D:/supply-chain-project/app/substrate/gateway.py','D:/supply-chain-project/app/substrate/mcp_adapter.py','D:/supply-chain-project/app/substrate/mock_adapter.py','D:/supply-chain-project/app/substrate/replay_adapter.py','D:/supply-chain-project/app/substrate/fusion.py','D:/supply-chain-project/app/schemas/evidence.py','D:/supply-chain-project/config/synapt_tools.yaml','D:/supply-chain-project/app/llm/cache.py'];
+for fp in files:
+ print('===== %s =====' % fp)
+ p=Path(fp)
+ for i,line in enumerate(p.read_text(encoding='utf-8').splitlines(),1):
+  if i<=260: print(f'{i:4}: {line}')
+ print()"
+Tool execution failed with exit code 1
+
+Ran terminal command: python -c "from pathlib import Path; files=['D:/supply-chain-project/app/services/retrieval.py','D:/supply-chain-project/app/substrate/gateway.py','D:/supply-chain-project/app/substrate/mcp_adapter.py','D:/supply-chain-project/app/substrate/mock_adapter.py','D:/supply-chain-project/app/substrate/replay_adapter.py','D:/supply-chain-project/app/substrate/fusion.py','D:/supply-chain-project/app/schemas/evidence.py','D:/supply-chain-project/config/synapt_tools.yaml','D:/supply-chain-project/app/llm/cache.py'];
+for fp in files:
+ print('===== %s =====' % fp)
+ p=Path(fp)
+ for i,line in enumerate(p.read_text(encoding='utf-8').splitlines(),1):
+  if i<=260: print(f'{i:4}: {line}')
+ print()"
+Tool execution failed with exit code 1
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\router.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 240
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\verifier.py",
+  "view_range": [
+    1,
+    240
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\investigate.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\impact.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\response_plan.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 90
+Completed with input: {
+  "path": "D:\\supply-chain-project\\docs\\ARCHITECTURE.md",
+  "view_range": [
+    1,
+    90
+  ]
+}
+
+Read , lines 51 to 72
+Completed with input: {
+  "path": "D:\\supply-chain-project\\PROJECT_BRIEF.md",
+  "view_range": [
+    51,
+    72
+  ]
+}
+
+Read , lines 1 to 135
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\schemas\\request.py",
+  "view_range": [
+    1,
+    135
+  ]
+}
+
+Read , lines 1 to 160
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\schemas\\report.py",
+  "view_range": [
+    1,
+    160
+  ]
+}
+
+Read , lines 1 to 115
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ui\\components\\api_client.py",
+  "view_range": [
+    1,
+    115
+  ]
+}
+
+Search for `feature_sets:|T0:|T1:|T2:|forbidden_columns`
+
+Read , lines 150 to 219
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\router.py",
+  "view_range": [
+    150,
+    219
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\recovery.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\synthesize.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\workflow\\nodes\\verify.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\models.yaml",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\prompts\\intake_v1.md",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\prompts\\classify_v1.md",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\prompts\\judge_v1.md",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\prompts\\synthesize_v1.md",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 395 to 420
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mcp_adapter.py",
+  "view_range": [
+    395,
+    420
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\prompts\\response_v1.md",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\prompts\\recovery_v1.md",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\classification.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\retrieval.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\recommendations.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 150
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\core\\guardrails.py",
+  "view_range": [
+    1,
+    150
+  ]
+}
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\api\\routes.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read agent `Trace data model and interfaces`
+Completed with input: {
+  "agent_id": "3d78f673-89fa-44c2-8a79-65bcd9f3596f",
+  "wait": true,
+  "timeout": 180
+}
+
+Ran terminal command: $files = @(
+'D:\supply-chain-project\app\main.py',
+'D:\supply-chain-project\app\api\routes.py',
+'D:\supply-chain-project\app\workflow\graph.py',
+'D:\supply-chain-project\app\workflow\state.py',
+'D:\supply-chain-project\app\workflow\verifier.py',
+'D:\supply-chain-project\app\llm\router.py',
+'D:\supply-chain-project\app\llm\prompts\intake_v1.md',
+'D:\supply-chain-project\app\llm\prompts\classify_v1.md',
+'D:\supply-chain-project\app\llm\prompts\response_v1.md',
+'D:\supply-chain-project\app\llm\prompts\recovery_v1.md',
+'D:\supply-chain-project\app\llm\prompts\synthesize_v1.md',
+'D:\supply-chain-project\app\llm\prompts\judge_v1.md',
+'D:\supply-chain-project\config\models.yaml',
+'D:\supply-chain-project\app\workflow\nodes\gate.py',
+'D:\supply-chain-project\app\workflow\nodes\intake.py',
+'D:\supply-chain-project\app\workflow\nodes\classify.py',
+'D:\supply-chain-project\app\workflow\nodes\investigate.py',
+'D:\supply-chain-project\app\workflow\nodes\impact.py',
+'D:\supply-chain-project\app\workflow\nodes\response_plan.py',
+'D:\supply-chain-project\app\workflow\nodes\recovery.py',
+'D:\supply-chain-project\app\workflow\nodes\synthesize.py',
+'D:\supply-chain-project\app\workflow\nodes\verify.py',
+'D:\supply-chain-project\app\services\classification.py',
+'D:\supply-chain-project\app\services\retrieval.py',
+'D:\supply-chain-project\app\services\recommendations.py'
+)
+foreach ($f in $files) {
+  Write-Host "===== $f =====";
+  $lines = Get-Content -Path $f;
+  for ($i=0; $i -lt $lines.Count; $i++) { $idx = $i+1; Write-Host ("{0,4}: {1}" -f $idx,$lines[$i]); }
+  Write-Host "";
+}
+
+
+Search for `class RetrievalService|async def retrieve_similar_cases|ask_lane|fuse_signals...`
+
+Search for `class CircuitBreaker|class SynaptReadGateway|def _execute|def _hash_call|asyn...`
+
+Search for `class McpSubstrateAdapter|class MCPError|async def connect|async def call_too...`
+
+Search for `class ReplaySubstrateAdapter|async def health|async def find_exact|async def ...`
+
+Search for `class MockSubstrateAdapter|async def health|async def find_exact|async def se...`
+
+Ran terminal command: python - <<'PY'
+from pathlib import Path
+files = [
+    ('D:/supply-chain-project/app/main.py', [1,220]),
+    ('D:/supply-chain-project/app/api/routes.py', [1,220]),
+    ('D:/supply-chain-project/app/workflow/graph.py', [1,220]),
+    ('D:/supply-chain-project/app/workflow/state.py', [1,120]),
+]
+for fp, rng in files:
+    print(f'===== {fp} =====')
+    lines = Path(fp).read_text(encoding='utf-8').splitlines()
+    start, end = rng
+    for i in range(start-1, min(end, len(lines))):
+        print(f'{i+1:4d}: {lines[i]}')
+    print()
+PY
+Tool execution failed with exit code 1
+
+Read , lines 100 to 254
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\retrieval.py",
+  "view_range": [
+    100,
+    254
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mcp_adapter.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\gateway.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 220 to 413
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mcp_adapter.py",
+  "view_range": [
+    220,
+    413
+  ]
+}
+
+Read , lines 180 to 240
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mcp_adapter.py",
+  "view_range": [
+    180,
+    240
+  ]
+}
+
+Read , lines 1 to 120
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\synapt_tools.yaml",
+  "view_range": [
+    1,
+    120
+  ]
+}
+
+Ran terminal command: @'
+from pathlib import Path
+files = [
+    ('D:/supply-chain-project/app/main.py', (1,220)),
+    ('D:/supply-chain-project/app/api/routes.py', (1,220)),
+    ('D:/supply-chain-project/app/workflow/graph.py', (1,220)),
+    ('D:/supply-chain-project/app/workflow/state.py', (1,120)),
+]
+for fp, rng in files:
+    print(f'===== {fp} =====')
+    lines = Path(fp).read_text(encoding='utf-8').splitlines()
+    start, end = rng
+    for i in range(start-1, min(end, len(lines))):
+        print(f'{i+1:4d}: {lines[i]}')
+    print()
+'@ | python -
+Tool execution failed with exit code 1
+
+Search for `effective_synapt_mode|synapt_mcp_url|synapt_provider_id|effective_synapt_veri...`
+
+Read , lines 1 to 140
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\core\\config.py",
+  "view_range": [
+    1,
+    140
+  ]
+}
+
+Read , lines 140 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\core\\config.py",
+  "view_range": [
+    140,
+    220
+  ]
+}
+
+Search for `class AskLaneResult|class SimilarCase|class CaseSignals`
+
+Read , lines 1 to 180
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\schemas\\report.py",
+  "view_range": [
+    1,
+    180
+  ]
+}
+
+Ran terminal command: python - <<'PY'
+from pathlib import Path
+files = [
+    ('D:/supply-chain-project/app/main.py', [1,220]),
+    ('D:/supply-chain-project/app/api/routes.py', [1,220]),
+    ('D:/supply-chain-project/app/workflow/graph.py', [1,220]),
+    ('D:/supply-chain-project/app/workflow/state.py', [1,120]),
+]
+for fp, rng in files:
+    print(f'===== {fp} =====')
+    lines = Path(fp).read_text(encoding='utf-8').splitlines()
+    start, end = rng
+    for i in range(start-1, min(end, len(lines))):
+        print(f'{i+1:4d}: {lines[i]}')
+    print()
+PY
+Tool execution failed with exit code 1
+
+Ran terminal command: @'
+from pathlib import Path
+files = [
+    ('D:/supply-chain-project/app/main.py', (1,220)),
+    ('D:/supply-chain-project/app/api/routes.py', (1,220)),
+    ('D:/supply-chain-project/app/workflow/graph.py', (1,220)),
+    ('D:/supply-chain-project/app/workflow/state.py', (1,120)),
+]
+for fp, rng in files:
+    print(f'===== {fp} =====')
+    lines = Path(fp).read_text(encoding='utf-8').splitlines()
+    start, end = rng
+    for i in range(start-1, min(end, len(lines))):
+        print(f'{i+1:4d}: {lines[i]}')
+    print()
+'@ | python -
+
+Read , lines 1 to 180
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\auth.py",
+  "view_range": [
+    1,
+    180
+  ]
+}
+
+Read , lines 180 to 333
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\mock_adapter.py",
+  "view_range": [
+    180,
+    333
+  ]
+}
+
+Search for `revision`
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\main.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+"Search" failed
+Tool execution failed: rg: regex parse error:
+    (?:retrieve_similar_cases\(|retrieval_service\.|SynaptReadGateway\())
+                                                                        ^
+error: unopened group
+
+Search for `retrieve_similar_cases|retrieval_service|SynaptReadGateway`
+
+Read , lines 1 to 140
+Completed with input: {
+  "path": "D:\\supply-chain-project\\PROJECT_BRIEF.md",
+  "view_range": [
+    1,
+    140
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\api\\routes.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Search for `Agents are|LLM for language only|Deterministic tool orchestration`
+
+Background agent `Trace retrieval and tools` is complete
+
+Read agent `Trace retrieval and tools`
+Completed with input: {
+  "agent_id": "ea49e9dd-f97d-41ae-a4fa-0f041d6f4063",
+  "since_turn": 0
+}
+
+Background agent `Trace workflow and agents` is complete
+
+Read agent `Trace workflow and agents`
+Completed with input: {
+  "agent_id": "2d3fedca-8bfe-488c-8920-628750808ddf",
+  "since_turn": 0
+}
+
+Read 
+
+Read 
+
+Read agent `Trace data model and interfaces`
+Completed with input: {
+  "agent_id": "3d78f673-89fa-44c2-8a79-65bcd9f3596f",
+  "wait": true,
+  "timeout": 180
+}
+
+Search for `FastAPI|Streamlit|sqlite|SQLite|parquet|case card|case_card|feedback|train|pr...`
+
+Write to agent `Trace data model and interfaces`
+Completed with input: {
+  "agent_id": "3d78f673-89fa-44c2-8a79-65bcd9f3596f",
+  "message": "Please stop expanding exploration and return your concise findings based on what you have, citing files/line ranges. No more searches needed."
+}
+
+Read agent `Trace data model and interfaces`
+Completed with input: {
+  "agent_id": "3d78f673-89fa-44c2-8a79-65bcd9f3596f",
+  "wait": true,
+  "timeout": 180,
+  "since_turn": 1
+}
+
+Read , lines 1 to 250
+Completed with input: {
+  "path": "D:\\supply-chain-project",
+  "view_range": [
+    1,
+    250
+  ]
+}
+
+Read , lines 1 to 250
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app",
+  "view_range": [
+    1,
+    250
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\README.md",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\api",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ui",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\scripts",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\api\\routes.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ui\\app.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\scripts\\dev.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 220 to 420
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\api\\routes.py",
+  "view_range": [
+    220,
+    420
+  ]
+}
+
+Search for `run_store|FeedbackStore|sqlite|parquet|case card|case_card|case_cards|sqlite3...`
+
+Search for `model_registry|predict_all|classify_disruption|calculate_priority|stream_work...`
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\core\\config.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\run_store.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\feedback\\store.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml\\registry.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\pipeline.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Search for `case cards|case_cards|build_case_cards|CaseCard|playbook`
+
+Search for `sqlite|parquet|mirror_ledger_to_sqlite|save_ledger_parquet|to_parquet|read_sq...`
+
+Search for `train_classifier|train_regressors|final|conformal|model_card|joblib|sklearn`
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\case_cards\\builder.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\data_storing\\sqlite_io.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\data_storing\\parquet_io.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 260
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml\\training\\train_regressors.py",
+  "view_range": [
+    1,
+    260
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml\\training\\train_classifier.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\main.py",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\docker-compose.yml",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+Read , lines 1 to 220
+Completed with input: {
+  "path": "D:\\supply-chain-project\\Dockerfile",
+  "view_range": [
+    1,
+    220
+  ]
+}
+
+# Architecture overview
+
+This is a Python application with two user-facing processes: a **Streamlit dashboard** and a **FastAPI backend**. The dashboard sends HTTP requests to the backend; the backend validates them, runs the analysis workflow, and returns a typed report. Alongside that live path, separate scripts prepare data, train models, evaluate results, and administer Synapt ingestion.
+
+```text
+Operator
+  → Streamlit UI
+  → FastAPI endpoint
+  → LangGraph workflow
+      → LLM tasks via LiteLLM
+      → historical-case tools via Synapt MCP
+      → local ML models and ledger
+  → verified report
+  → SQLite run store
+  → Streamlit displays results
+```
+
+The project’s architectural design is documented in `docs/ARCHITECTURE.md` and `PROJECT_BRIEF.md`. I’ve also checked the implementation: some behavior differs from the diagrams or the intended design, which I call out below.
+
+## 1. How a user request reaches the code
+
+The app can be started through the developer CLI in `scripts/dev.py`. It launches the API and UI as separate processes. The UI uses an HTTP client in `ui/components/api_client.py` to call backend endpoints.
+
+**FastAPI** is the HTTP server framework. It handles requests and responses, exposes API documentation, and lets the UI communicate with the backend over HTTP. **Pydantic** models define the expected request and report shapes and validate data. For example, a full analysis request uses `DisruptionAnalyzeRequest` and `DisruptionProfile` in `app/schemas/request.py`.
+
+For a full investigation, the UI sends `POST /disruptions/analyze`. The route in `app/api/routes.py` checks configured API-key authentication, sanitizes the free-text input, checks for suspicious prompt instructions and off-topic requests, and validates profile categories. It then calls the workflow. The API also has separate endpoints for health, search, classification, prioritization, prediction, case lookup, stored runs, feedback, and evaluations.
+
+The middleware in `app/main.py` adds a **correlation ID** to help connect a request to its log messages, configures cross-origin access for local UI clients, and standardizes API errors. **CORS** is a browser security mechanism that controls which web origins may make requests to a server.
+
+## 2. What the workflow does
+
+The workflow is built as a **LangGraph `StateGraph`** in `app/workflow/graph.py`. LangGraph represents work as named nodes
+
+Ran terminal command: python - <<'PY'
+from pathlib import Path
+files = [
+    ('D:/supply-chain-project/app/api/routes.py', (1,260)),
+    ('D:/supply-chain-project/app/main.py', (1,180)),
+    ('D:/supply-chain-project/ui/app.py', (1,180)),
+    ('D:/supply-chain-project/app/services/run_store.py', (1,220)),
+    ('D:/supply-chain-project/app/feedback/store.py', (1,220)),
+    ('D:/supply-chain-project/data_preprocessing/pipeline.py', (1,220)),
+    ('D:/supply-chain-project/data_preprocessing/case_cards/builder.py', (1,220)),
+    ('D:/supply-chain-project/data_preprocessing/data_storing/parquet_io.py', (1,160)),
+    ('D:/supply-chain-project/data_preprocessing/data_storing/sqlite_io.py', (1,160)),
+    ('D:/supply-chain-project/ml/registry.py', (1,220)),
+    ('D:/supply-chain-project/ml/training/train_regressors.py', (1,260)),
+    ('D:/supply-chain-project/ml/training/train_classifier.py', (1,220)),
+    ('D:/supply-chain-project/scripts/dev.py', (1,240)),
+    ('D:/supply-chain-project/docker-compose.yml', (1,180)),
+    ('D:/supply-chain-project/Dockerfile', (1,180)),
+]
+for fp, (s,e) in files:
+    p = Path(fp)
+    print(f'===== {p} ({s}-{e}) =====')
+    lines = p.read_text(encoding='utf-8').splitlines()
+    for i in range(s-1, min(len(lines), e)):
+        print(f'{i+1:4}: {lines[i]}')
+    print()
+PY
+Tool execution failed with exit code 1
+
+ connected by explicit edges. Here, it is used to keep the investigation sequence and a bounded verification/revision loop visible in code, rather than letting an LLM decide the whole process or choose tools.
+
+The shared data passed through those nodes is a `WorkflowState`, defined in `app/workflow/state.py`. It holds the run ID, input profile, classification, evidence, similar cases, predictions, recommendations, verification fixes, and other intermediate results.
+
+The intended full request path is:
+
+1. **Gate — check and normalize the input.** The gate node in `app/workflow/nodes/gate.py` checks free text for prompt-injection patterns and off-topic terms, redacts some common personal information, and validates profile categories against the configured taxonomy. Invalid or suspicious inputs are rejected.
+
+2. **Intake — extract fields from narrative text.** If the user supplies free text, `app/workflow/nodes/intake.py` asks a fast LLM role to extract structured attributes such as disruption type, severity, or supplier region. It uses extracted values to fill gaps in the supplied profile.
+
+3. **Classify — combine classification signals.** `app/workflow/nodes/classify.py` calls the classification service in `app/services/classification.py`. That service is designed to combine a Synapt ticket-label result, historical-neighbor votes from the ledger, and an LLM result, then resolve the votes into a category and confidence.
+
+4. **Investigate — find historical analogs.** `app/workflow/nodes/investigate.py` calls `app/services/retrieval.py` with the profile and any incident text. That service queries multiple search paths, ranks matching case IDs, retrieves ledger details for them, and attaches evidence IDs.
+
+5. **Impact — calculate estimates and priority.** `app/workflow/nodes/impact.py` calls deterministic prioritization, the trained ML model registry, and the local ledger. Priority is calculated by code; models estimate outcomes; the ledger provides statistics for retrieved cases.
+
+6. **Response plan — suggest mitigations.** If historical cases were found, `app/workflow/nodes/response_plan.py` calls `app/services/recommendations.py`. That service looks for relevant procedures, computes observed outcomes by response type from the local ledger, and asks a reasoning-role LLM to format recommendations using that context.
+
+7. **Recovery — discuss historical recovery patterns.** `app/workflow/nodes/recovery.py` skips its LLM call when there are no similar cases. Otherwise, it asks the reasoning role for a recovery analysis based on a compact context containing the disruption type, number of analog cases, and backup-supplier status.
+
+8. **Synthesize — create claims and a summary.** `app/workflow/nodes/synthesize.py` builds typed claims for historical facts, model estimates, and recommendations, then asks a reasoning-role LLM for a narrative summary.
+
+9. **Verify — check the result.** `app/workflow/nodes/verify.py` calls deterministic verifier checks and a judge-role LLM through `app/workflow/verifier.py`. Checks include whether historical claims cite known evidence, model-estimate claims include intervals, mentioned case IDs exist in the ledger, and the narrative avoids certain causal or guarantee phrases.
+
+10. **Persist and return.** The workflow creates a typed `Report` and saves it through `app/services/run_store.py`. The UI then renders the returned report.
+
+## 3. “Agents”: what is and is not autonomous
+
+The project calls its workflow a **multi-agent** system, but the code does not run a collection of independent AI processes that choose their own plans or tools. It defines ordinary Python workflow nodes, and some of those nodes make LLM calls for specific jobs.
+
+The LLM-backed jobs are:
+
+| LLM role | Use in the workflow |
+|---|---|
+| `fast` | Narrative intake and a classification vote |
+| `reason` | Mitigation recommendations, recovery analysis, and report summary |
+| `judge` | A quality review of the generated report |
+
+Their candidate model IDs and temperatures are configured in `config/models.yaml`. The shared router in `app/llm/router.py` tries model candidates, checks/caches responses, parses structured JSON, can attempt one JSON-repair request, and falls back to `FakeLLM` when live candidates are exhausted. **LiteLLM** is used to call multiple model providers through one integration.
+
+The other workflow nodes are predominantly deterministic orchestration or calculations. For example, the gate applies rules, investigation chooses and calls retrieval methods, and impact calculation uses code and stored models. In keeping with the stated design, Python—not an LLM—chooses the Synapt tools and their parameters.
+
+## 4. How Synapt retrieval tools are called
+
+**MCP**, or Model Context Protocol, is the protocol this project uses to communicate with Synapt’s tools. The MCP client in `app/substrate/mcp_adapter.py` connects to Synapt using Streamable HTTP, obtains a token, initializes an MCP session, and calls tools. The `SynaptReadGateway` in `app/substrate/gateway.py` selects the real MCP, replay, or mock adapter based on runtime mode, records call traces, and provides caching and a circuit breaker.
+
+In the main investigation path, the retrieval service is designed to use these methods:
+
+| Tool | Intended purpose |
+|---|---|
+| `trident_cypher` | Structured graph search for cases matching profile attributes, such as disruption type, severity, and region |
+| `trident_search` | Semantic search over graph nodes |
+| `trident_get_chunks` | Semantic search over text passages |
+| `trident_find_exact` | Exact label lookup |
+| `trident_query` | A separate “ask lane” that asks Synapt a question and returns an answer with cited chunks and confidence |
+| `trident_get_procedures` | Find procedures relevant to a disruption type for response planning |
+
+For each tool call, Python constructs the arguments and invokes the corresponding gateway method. Arguments such as `provider_id`, `query`, and `top_k` come from runtime configuration or the request. The gateway records a trace, including the tool name, parameters hash, latency, success/failure, and where available, a query reference.
+
+The retrieval service combines its first four search lists with **reciprocal rank fusion (RRF)**. RRF is a ranking method that gives credit to a case appearing high in multiple independent result lists. The code can also relax some profile filters when too few cases match. It compares the fused results with cases cited by `trident_query` using **Jaccard overlap**—the size of the shared set divided by the size of their combined set—to show how much the two retrieval paths agree.
+
+### Important: the actual MCP adapter currently limits some tools
+
+The intended tool plan is not the same as guaranteed live behavior. In the current `MCP adapter`, the code says `trident_cypher` and `trident_label_ticket` are not in the registered agent grant; those methods return an empty list or mapping rather than making a normal MCP tool call. `find_exact` falls back to `trident_search`. So the classification “ticket label” and “Cypher” signals may not actually come from Synapt in this adapter configuration.
+
+Other methods—such as stats, schema, node lookup, graph traversal, episodes, feedback, and ingestion—exist or are configured for supporting workflows, but they are not all called during an ordinary analysis request. The list of tools configured in `config/synapt_tools.yaml` should not be taken as proof that each one is granted or actively used by the server.
+
+## 5. What the ML models do
+
+The model training scripts use **scikit-learn**, a Python machine-learning library, and read the split Parquet files. `ml/training/train_regressors.py` trains outcome regressors; `ml/training/train_classifier.py` trains classifiers.
+
+The regressors estimate production impact, revenue loss, and recovery days. The code compares candidate models such as Ridge regression and HistGradientBoosting and stores selected artifacts under `artifacts/models/`. **Ridge** is a regularized linear model; **HistGradientBoosting** is a tree-based model that learns nonlinear patterns efficiently. **One-hot encoding** represents categorical fields as model-compatible indicator columns.
+
+The `model registry` loads model artifacts and applies them to a new profile. **Split conformal prediction** uses held-out calibration examples to widen point estimates into prediction intervals. An interval is intended to communicate uncertainty rather than imply that an estimate is exact. The same registry may also return explainability factors and resilience estimates.
+
+These models are distinct from the LLMs: the ML models calculate numeric predictions, while LLMs handle language tasks such as extracting fields or writing a summary.
+
+## 6. How source data becomes usable
+
+The offline data pipeline is in `data_preprocessing/pipeline.py`. Dataset acquisition in `scripts/download_dataset.py` checks for a local raw CSV, can attempt a configured Kaggle download, and can generate synthetic fallback data. The current `dataset manifest` records a real-data source and 100,000 rows.
+
+The pipeline cleans and normalizes the rows, reports rejections and data quality, and creates several kinds of output:
+
+- **Parquet** is a compressed, column-oriented format suited to analytical tables and training data. The full cleaned ledger is `cases_clean.parquet`; its SQLite mirror supports relational lookups.
+- **SQLite** is a lightweight local database suited to small records and transactions, such as run reports and feedback statuses. This project has separate databases for the disruption ledger, app runs, feedback, and LLM caching, rather than one database with every kind of data.
+- **Case cards** convert a structured disruption row into a machine-readable Markdown block plus narrative. They’re intended for Synapt ingestion and retrieval, not for training the ML models. Their format is produced by `data_preprocessing/case_cards/builder.py`.
+
+The model splits are 80,000 training rows, 10,000 validation rows, and 10,000 test rows. The 16,000-row calibration split is carved **out of the training split**; the training script excludes those rows from fitting, then uses them to calibrate prediction intervals. Split creation is in `data_preprocessing/preprocessing/splitting.py`.
+
+The Synapt sample is a separate, stratified 500-case sample from training data, formatted into five batches of 100 case cards. Those batches are for staged ingestion, not five model-training steps. The sample builder is `data_preprocessing/preprocessing/synapt_sample.py`.
+
+## 7. Feedback and evaluation
+
+Feedback has a local SQLite store, review CLI, and retraining-gate scripts. It should be understood separately from the main investigation workflow: the current feedback submission path is not an automatic model-training step. The UI’s “actual outcome” path and the retraining gate are not fully connected to actual outcome ingestion and model fitting, as described earlier.
+
+Evaluation scripts build test sets, compute metrics, and run experiments; these are separate from normal report generation. **DeepEval** and the project’s evaluation code are for measuring quality, not for generating each live response.
+
+## 8. Implementation caveats to keep in mind
+
+- **The graph is sequential in current code.** The diagram depicts impact and response planning as branches, but the actual edges in `app/workflow/graph.py` run `investigate → impact → response_plan → recovery`. So impact and response planning do not currently execute in parallel.
+- **Streaming progress is not incremental.** The stream helper in `app/workflow/graph.py` completes the workflow before it emits its node-completion events. It returns SSE-formatted events, but they don’t represent live per-node progress.
+- **Some configured Synapt signals are restricted.** In the current MCP adapter, Cypher and label-ticket methods are placeholders, and exact lookup falls back to search. This can make the actual live retrieval/classification behavior narrower than the design diagram suggests.
+- **The Synapt admin-ingestion path is not a demonstrated upload implementation.** The current `SynaptAdminGateway.ingest` in `app/substrate/gateway.py` generates an ID and prints that an ingest was submitted; it does not call `trident_ingest`. So generated card batches do not, by themselves, prove they were uploaded.
+- **Feedback approval does not automatically retrain the models.** The local feedback store and review scripts are separate; the current gate’s challenger comparison is simulated, not a real model fit-and-promotion pipeline.
+
+## 9. Technical terms in plain language
+
+| Term | Meaning here |
+|---|---|
+| **REST API** | HTTP endpoints that accept a request and return a response, often encoded as JSON. |
+| **Pydantic schema** | A Python declaration of expected fields and types; used to validate requests and structure reports. |
+| **Async / `async`** | Python’s mechanism for waiting on network operations without blocking the whole server process. |
+| **State graph** | A set of workflow steps and explicit routing rules that pass shared state between steps. |
+| **MCP** | A standard protocol for connecting an application to external tools such as Synapt’s search operations. |
+| **Knowledge graph** | Data represented as entities/nodes and relationships/edges, useful for structured links between suppliers, events, and cases. |
+| **Semantic search** | Search based on meaning or relevance, not only exact word matching. |
+| **Cypher** | A query language used by graph databases; here it is intended for parameterized, structured graph queries. |
+| **RRF** | A way to combine multiple ranked search lists so cases supported by several signals rise in the final ranking. |
+| **SQLite** | A small, file-based relational database used here for state that changes or needs indexed lookups. |
+| **Parquet** | A compressed, column-based data file format used here for large analytical tables and ML splits. |
+| **Calibration** | A held-out data step used to estimate how wide prediction intervals should be. |
+| **Fallback** | A backup behavior when a preferred service or model fails, such as trying the next LLM candidate or using a fake response. |
+| **Circuit breaker** | A resilience pattern that temporarily stops calls to a repeatedly failing upstream service, allowing it time to recover. |
+| **SSE** | Server-Sent Events: a format for sending a stream of events from server to client. The current code emits SSE, but only after the workflow completes. |
+
+The main architectural idea is **deterministic orchestration around specialized AI and data components**: Python controls validation, tool calls, calculations, and verification; ML models provide numeric estimates; LLMs assist with language; and the local ledger and Synapt provide historical context. The caveats above matter because some documented branches and integrations are currently placeholders or narrower than the diagram implies.
+
+Ran terminal command: python - <<'PY'
+from pathlib import Path
+files = [
+    ('D:/supply-chain-project/app/api/routes.py', (1,260)),
+    ('D:/supply-chain-project/app/main.py', (1,180)),
+    ('D:/supply-chain-project/ui/app.py', (1,180)),
+    ('D:/supply-chain-project/app/services/run_store.py', (1,220)),
+    ('D:/supply-chain-project/app/feedback/store.py', (1,220)),
+    ('D:/supply-chain-project/data_preprocessing/pipeline.py', (1,220)),
+    ('D:/supply-chain-project/data_preprocessing/case_cards/builder.py', (1,220)),
+    ('D:/supply-chain-project/data_preprocessing/data_storing/parquet_io.py', (1,160)),
+    ('D:/supply-chain-project/data_preprocessing/data_storing/sqlite_io.py', (1,160)),
+    ('D:/supply-chain-project/ml/registry.py', (1,220)),
+    ('D:/supply-chain-project/ml/training/train_regressors.py', (1,260)),
+    ('D:/supply-chain-project/ml/training/train_classifier.py', (1,220)),
+    ('D:/supply-chain-project/scripts/dev.py', (1,240)),
+    ('D:/supply-chain-project/docker-compose.yml', (1,180)),
+    ('D:/supply-chain-project/Dockerfile', (1,180)),
+]
+for fp, (s,e) in files:
+    p = Path(fp)
+    print(f'===== {p} ({s}-{e}) =====')
+    lines = p.read_text(encoding='utf-8').splitlines()
+    for i in range(s-1, min(len(lines), e)):
+        print(f'{i+1:4}: {lines[i]}')
+    print()
+PY
+Tool execution failed: The user rejected this tool call. User feedback: The user denied permission.
+
+Background agent `Trace data model and interfaces` is complete
+
+Read agent `Trace data model and interfaces`
+Completed with input: {
+  "agent_id": "3d78f673-89fa-44c2-8a79-65bcd9f3596f",
+  "since_turn": 0
+}
+
+One additional clarification from the code trace: **the default Docker Compose setup explicitly runs with `LLM_MODE=fake`, `SYNAPT_MODE=mock`, and synthetic data**. So the architecture can connect to live services when configured, but that container setup is an offline/demo configuration, not a live Synapt-and-LLM deployment. The settings are in `docker-compose.yml`.
+
+Also, the Streamlit app’s home screen is mostly a dashboard shell and runtime-status display; the analysis, feedback, and other functions live on separate page modules. See `ui/app.py` and `ui/pages/`.

@@ -1,0 +1,43 @@
+flowchart TB
+    UI["Streamlit UI<br/>form, results, feedback"]
+    API["FastAPI service<br/>validate, guard, stream progress"]
+
+    subgraph WF["LangGraph workflow"]
+        direction LR
+        GATE["Input gate"] --> INTK["Intake"] --> CLS["Classify"] --> INV["Investigate"]
+        INV --> IMP["Impact"]
+        INV --> RSP["Response plan"]
+        IMP --> REC["Recovery"]
+        RSP --> REC
+        REC --> SYNTH["Synthesize"] --> VER["Verify"]
+        VER -. "revise, at most twice" .-> SYNTH
+    end
+
+    subgraph CALC["Calculators, no LLM"]
+        PRED["Predictions"]
+        PRIO["Priority score"]
+        RES["Resilience score"]
+        LEDGER["Case ledger"]
+    end
+
+    subgraph SUBS["Synapt Context Substrate"]
+        MCP["17 MCP tools: ask and read only"]
+        KG["Knowledge graph"]
+        CP["Case passages"]
+        PB["Playbooks"]
+        EP["Episodes"]
+        EX["Explainability"]
+        MCP --> KG & CP & PB & EP & EX
+    end
+
+    subgraph OFF["Offline"]
+        DP["Data pipeline"]
+        EV["Evaluation"]
+        FB["Feedback"]
+    end
+
+    UI --> API --> WF
+    WF <--> CALC
+    WF <--> SUBS
+    DP -. "ingest a train sample" .-> SUBS
+    FB --> DP

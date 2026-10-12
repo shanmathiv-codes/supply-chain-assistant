@@ -1,0 +1,5 @@
+to list pending items, run from project root:
+& .venv\Scripts\python.exe -m scripts.review_feedback list                              
+
+The review CLI lists pending records and supports approve and reject commands. For example:
+& .venv\Scripts\python.exe -m scripts.review_feedback approve --id 1 --notes "Reviewed"
