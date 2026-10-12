@@ -45,6 +45,8 @@ API_BASE_URL=http://127.0.0.1:8000
 STREAMLIT_PORT=8501
 ```
 
+When `SYNAPT_MODE=mcp`, the API opens one shared Synapt MCP session during startup and closes it during shutdown. If the initial connection cannot be established, API startup fails with the connection error; correct the Synapt URL or credentials and restart the API.
+
 ---
 
 ## 2. Model Endpoint Resolution & Probing

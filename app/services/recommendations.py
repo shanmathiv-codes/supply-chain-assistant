@@ -1,11 +1,12 @@
 """Recommendation service generating grounded mitigation actions backed by procedures and outcomes."""
 
+from pydantic import ValidationError
+
 from app.core.ids import generate_id
 from app.core.logging import logger
-from app.llm.fake import fake_llm
 from app.llm.router import router
 from app.schemas.evidence import Evidence, SubstrateCall
-from app.schemas.report import Recommendation, SimilarCase
+from app.schemas.report import Recommendation, ResponsePlan, SimilarCase
 from app.services.ledger import ledger_service
 from app.substrate.gateway import SynaptReadGateway
 
@@ -95,34 +96,46 @@ class RecommendationService:
                 messages=[
                     {
                         "role": "system",
-                        "content": "Generate grounded supply chain mitigation recommendations.",
+                        "content": (
+                            "Generate specific, actionable supply-chain mitigation recommendations "
+                            "grounded only in the supplied procedures and historical outcomes. "
+                            "Return a JSON object with a non-empty recommendations array. Each item "
+                            "must include a specific title, an actionable action, at least one "
+                            "evidence_ids value copied from the supplied evidence_ids, and a "
+                            "source_type of procedure, historical_case, aggregate_outcome, or assumed. "
+                            "Do not invent evidence IDs, case counts, or recovery estimates. "
+                            "Use null for unavailable estimates and counts."
+                        ),
                     },
                     {"role": "user", "content": f"Context: {context}"},
                 ],
+                schema_cls=ResponsePlan,
                 context=context,
+                fallback_to_fake=False,
             )
             raw_recs = llm_res.get("recommendations", [])
-        except Exception as exc:
-            logger.warning(f"Router response_plan call failed: {exc}")
-            fake_res = fake_llm.invoke("response_plan", context)
-            raw_recs = fake_res.get("recommendations", [])
+        except (RuntimeError, ValidationError) as exc:
+            logger.warning(f"Structured response_plan unavailable: {exc}")
+            return []
 
-        # 5. Format and enforce strict grounding and evidence linkage
+        # 5. Keep only recommendations that cite evidence returned for this run.
         recommendations: list[Recommendation] = []
         for r in raw_recs:
             cited_ids = [eid for eid in r.get("evidence_ids", []) if eid in evidence_store]
             if not cited_ids:
-                cited_ids = [active_ev_ids[0]]
+                logger.warning(
+                    "Omitting response_plan recommendation without valid evidence citations."
+                )
+                continue
 
             rec = Recommendation(
-                title=r.get("title", "Mitigation Action"),
-                action=r.get("action", "Initiate tactical response coordination."),
+                title=r["title"],
+                action=r["action"],
                 evidence_ids=cited_ids,
-                source_type=r.get("source_type", "historical_case"),
+                source_type=r["source_type"],
                 expected_full_recovery_days=r.get("expected_full_recovery_days"),
                 historical_cases_count=r.get("historical_cases_count"),
-                caveats=r.get("caveats")
-                or "Associated with historical observations; recovery durations vary with regional supplier conditions.",
+                caveats=r.get("caveats"),
             )
             recommendations.append(rec)
 

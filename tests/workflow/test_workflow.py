@@ -15,8 +15,11 @@ settings.synapt_mode = "mock"
 settings.llm_mode = "fake"
 
 from app.main import app
+from app.workflow.graph import route_after_verify
 from app.schemas.request import DisruptionAnalyzeRequest, DisruptionProfile
 from app.workflow.graph import run_workflow
+from app.workflow.nodes.response_plan import response_plan_node
+from app.workflow.nodes.verify import verify_node
 
 client = TestClient(app)
 
@@ -82,6 +85,69 @@ async def test_workflow_no_evidence_path():
         assert report.status == "degraded"
         assert any("no historical evidence" in g.lower() for g in report.knowledge_gaps)
         assert len(report.recommendations) == 0
+
+
+@pytest.mark.asyncio
+async def test_response_plan_marks_missing_recommendations_degraded(monkeypatch):
+    async def no_recommendations(**kwargs):
+        return []
+
+    monkeypatch.setattr(
+        "app.workflow.nodes.response_plan.recommendation_service.generate_recommendations",
+        no_recommendations,
+    )
+    state = {
+        "events": [],
+        "similar_cases": [object()],
+        "profile": {"disruption_type": "Transportation Delay"},
+        "classification": None,
+        "evidence": {},
+        "substrate_trace": [],
+        "status": "ok",
+        "knowledge_gaps": [],
+        "limitations": [],
+    }
+
+    result = await response_plan_node(state)
+
+    assert result["status"] == "degraded"
+    assert result["recommendations"] == []
+    assert any("No validated" in gap for gap in result["knowledge_gaps"])
+
+
+def test_verifier_route_stops_even_when_findings_remain():
+    assert route_after_verify({"fix_list": ["unresolved issue"], "revision": 0}) == "__end__"
+
+
+@pytest.mark.asyncio
+async def test_verify_node_returns_degraded_report_with_findings(monkeypatch):
+    findings = ["A historical claim is missing evidence."]
+
+    async def failed_checks(**kwargs):
+        return False, {"grounding": 2}, findings
+
+    monkeypatch.setattr("app.workflow.nodes.verify.run_verifier_checks", failed_checks)
+    result = await verify_node(
+        {
+            "run_id": "RUN-TEST",
+            "status": "ok",
+            "runtime_modes": {"synapt_mode": "mcp"},
+            "claims": [],
+            "evidence": {},
+            "predictions": [],
+            "recommendations": [],
+            "similar_cases": [],
+            "substrate_trace": [],
+            "knowledge_gaps": [],
+            "limitations": [],
+            "events": [],
+        }
+    )
+
+    assert result["status"] == "degraded"
+    assert result["final_report"].status == "degraded"
+    assert findings[0] in result["limitations"][0]
+    assert result["fix_list"] == findings
 
 
 @pytest.mark.asyncio

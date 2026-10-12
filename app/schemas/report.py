@@ -100,11 +100,24 @@ class Recommendation(BaseModel):
 
     title: str
     action: str
-    evidence_ids: list[str] = Field(default_factory=list)
+    evidence_ids: list[str] = Field(min_length=1)
     source_type: Literal["procedure", "historical_case", "aggregate_outcome", "assumed"]
     expected_full_recovery_days: float | None = None
     historical_cases_count: int | None = None
     caveats: str | None = None
+
+
+class ResponsePlan(BaseModel):
+    """Structured LLM response containing grounded mitigation recommendations."""
+
+    recommendations: list[Recommendation] = Field(min_length=1)
+
+
+class JudgeEvaluation(BaseModel):
+    """Structured LLM quality-judge response."""
+
+    scores: dict[str, float]
+    fix_list: list[str] = Field(default_factory=list)
 
 
 class ClassificationResult(BaseModel):

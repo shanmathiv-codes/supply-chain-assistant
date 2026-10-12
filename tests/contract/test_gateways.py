@@ -3,7 +3,12 @@
 import pytest
 
 from app.schemas.evidence import SubstrateCall
-from app.substrate.gateway import SynaptReadGateway
+from app.substrate.gateway import (
+    SynaptFeedbackGateway,
+    SynaptReadGateway,
+    shared_mcp_adapter,
+)
+from app.substrate.mcp_adapter import MCPError, McpSubstrateAdapter
 
 
 @pytest.mark.asyncio
@@ -44,3 +49,22 @@ async def test_read_gateway_contract(mode):
         assert isinstance(exact_res, list)
         if exact_res:
             assert exact_res[0].provenance_mode == "MOCK"
+
+
+def test_live_gateways_share_the_lifespan_mcp_adapter(monkeypatch):
+    from app.core.config import settings
+
+    monkeypatch.setattr(settings, "synapt_mode", "mcp")
+
+    assert SynaptReadGateway().adapter is shared_mcp_adapter
+    assert SynaptReadGateway().adapter is SynaptFeedbackGateway().adapter
+
+
+@pytest.mark.asyncio
+async def test_mcp_adapter_does_not_open_sessions_from_request_methods():
+    adapter = McpSubstrateAdapter()
+
+    with pytest.raises(MCPError, match="application lifespan"):
+        await adapter.list_tools()
+    with pytest.raises(MCPError, match="application lifespan"):
+        await adapter.call_tool("trident_search", {"query": "test"})

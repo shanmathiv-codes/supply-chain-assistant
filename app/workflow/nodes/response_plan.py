@@ -32,11 +32,28 @@ async def response_plan_node(state: WorkflowState) -> WorkflowState:
         trace=trace,
     )
 
-    events.append({"node": "response_plan", "stage": "completed", "count": len(recs)})
+    status = state.get("status", "ok")
+    knowledge_gaps = list(state.get("knowledge_gaps", []))
+    limitations = list(state.get("limitations", []))
+    if not recs:
+        status = "degraded"
+        gap = (
+            "No validated, evidence-linked mitigation recommendations were available "
+            "for this investigation."
+        )
+        knowledge_gaps.append(gap)
+        limitations.append(gap)
+        events.append({"node": "response_plan", "stage": "degraded", "reason": gap})
+    else:
+        events.append({"node": "response_plan", "stage": "completed", "count": len(recs)})
+
     return {
         **state,
         "recommendations": recs,
         "evidence": evidence_store,
         "substrate_trace": trace,
+        "status": status,
+        "knowledge_gaps": knowledge_gaps,
+        "limitations": limitations,
         "events": events,
     }

@@ -73,6 +73,7 @@ class LLMRouter:
         schema_cls: Type[T] | None = None,
         context: dict[str, Any] | None = None,
         budget: RunBudget | None = None,
+        fallback_to_fake: bool = True,
     ) -> tuple[dict[str, Any], T | None]:
         """Execute prompt and return structured JSON dictionary and validated model."""
         ctx = context or {}
@@ -208,6 +209,9 @@ class LLMRouter:
                     f"Candidate model {cand} failed: {clean_err}. Trying next candidate."
                 )
                 continue
+
+        if not fallback_to_fake:
+            raise RuntimeError(f"All live candidates exhausted for role {role}.")
 
         logger.error(f"All live candidates exhausted for role {role}. Falling back to FakeLLM.")
         res_dict = fake_llm.invoke(prompt_name, ctx)

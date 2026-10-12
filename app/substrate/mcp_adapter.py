@@ -36,27 +36,22 @@ class McpSubstrateAdapter:
         self._timeout = float(settings.synapt_query_timeout)
         self._verify = settings.effective_synapt_verify
 
-    async def __aenter__(self) -> McpSubstrateAdapter:
-        await self.connect()
-        return self
-
-    async def __aexit__(self, *exc: Any) -> None:
-        await self.aclose()
-
     async def aclose(self) -> None:
         if self._stack is not None:
             try:
                 await self._stack.aclose()
-            except BaseException:
-                pass
+            except Exception as exc:
+                logger.warning(f"Error while closing Synapt MCP session: {exc}")
             finally:
                 self._stack = None
                 self._session = None
 
-    async def connect(self, *, force_token: bool = False) -> None:
-        """Establish or renew a long-lived Streamable HTTP MCP session."""
-        await self.aclose()
-        token = await synapt_auth_client.get_token(force_refresh=force_token)
+    async def connect(self) -> None:
+        """Establish the long-lived Streamable HTTP session from app lifespan."""
+        if self._session is not None:
+            return
+
+        token = await synapt_auth_client.get_token()
         if not token:
             raise MCPError("Cannot open MCP session: no active Synapt token could be acquired.")
 
@@ -77,11 +72,11 @@ class McpSubstrateAdapter:
             self._stack = stack
             self._session = session
             logger.info(f"Initialized MCP session to Synapt at {self.base_url}")
-        except BaseException as exc:
+        except Exception as exc:
             try:
                 await stack.aclose()
-            except BaseException:
-                pass
+            except Exception as close_exc:
+                logger.warning(f"Error cleaning up failed Synapt MCP initialization: {close_exc}")
             probe = await self._diagnose(token)
             err_msg = (
                 f"Could not open MCP session at {self.base_url} [server said: {probe}] ({exc})"
@@ -155,10 +150,11 @@ class McpSubstrateAdapter:
         return None
 
     async def call_tool(self, tool_name: str, arguments: dict[str, Any] | None = None) -> Any:
-        """Execute an MCP tool call with injected provider_id and auto-retry."""
+        """Execute an MCP tool call using the app-lifespan-owned session."""
         if self._session is None:
-            await self.connect()
-        assert self._session is not None
+            raise MCPError(
+                "Synapt MCP session is not initialized; the application lifespan must connect first."
+            )
 
         args = arguments or {}
         clean_args = {
@@ -177,16 +173,8 @@ class McpSubstrateAdapter:
 
         try:
             result = await self._session.call_tool(tool_name, clean_args)
-        except BaseException as exc:
-            logger.info(
-                f"MCP tool call '{tool_name}' failed ({exc}); reconnecting with fresh token..."
-            )
-            await self.connect(force_token=True)
-            assert self._session is not None
-            try:
-                result = await self._session.call_tool(tool_name, clean_args)
-            except BaseException as retry_exc:
-                raise MCPError(f"Tool {tool_name} failed after retry: {retry_exc}") from exc
+        except Exception as exc:
+            raise MCPError(f"Tool {tool_name} failed: {exc}") from exc
 
         unwrapped = self._unwrap(result)
         # Check if the tool reported access denial
@@ -213,8 +201,9 @@ class McpSubstrateAdapter:
 
     async def list_tools(self) -> list[dict[str, Any]]:
         if self._session is None:
-            await self.connect()
-        assert self._session is not None
+            raise MCPError(
+                "Synapt MCP session is not initialized; the application lifespan must connect first."
+            )
         res = await self._session.list_tools()
         return [
             {
@@ -410,3 +399,6 @@ class McpSubstrateAdapter:
     async def label_ticket(self, ticket_text: str, provider_id: str = "") -> dict[str, Any]:
         """trident_label_ticket is not in registered agent grant; return empty mapping."""
         return {}
+
+
+shared_mcp_adapter = McpSubstrateAdapter()

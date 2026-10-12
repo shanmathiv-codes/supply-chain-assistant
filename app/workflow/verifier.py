@@ -7,7 +7,7 @@ from app.core.logging import logger
 from app.llm.fake import fake_llm
 from app.llm.router import router
 from app.schemas.evidence import Evidence
-from app.schemas.report import Claim
+from app.schemas.report import Claim, JudgeEvaluation
 from app.services.ledger import ledger_service
 
 CAUSAL_PATTERNS = [
@@ -104,11 +104,17 @@ async def run_verifier_checks(
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a quality judge evaluating supply chain disruption reports.",
+                    "content": (
+                        "You are a quality judge evaluating supply chain disruption reports. "
+                        "Return a JSON object with a numeric scores object and a fix_list array "
+                        "of strings. Do not return a top-level array."
+                    ),
                 },
                 {"role": "user", "content": f"Narrative: {narrative}\nFix list so far: {fixes}"},
             ],
+            schema_cls=JudgeEvaluation,
             context=judge_ctx,
+            fallback_to_fake=False,
         )
         scores = judge_res.get(
             "scores",

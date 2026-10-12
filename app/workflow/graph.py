@@ -39,11 +39,7 @@ def route_after_investigate(state: WorkflowState) -> str:
 
 
 def route_after_verify(state: WorkflowState) -> str:
-    """Loop back to synthesize if verifier checks found issues and revision < 2."""
-    fixes = state.get("fix_list", [])
-    revision = state.get("revision", 0)
-    if fixes and revision < 2:
-        return "synthesize"
+    """Finish after the single verifier pass to avoid an unbounded repair loop."""
     return END
 
 

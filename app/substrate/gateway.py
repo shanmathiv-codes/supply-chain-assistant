@@ -8,7 +8,7 @@ from typing import Any
 from app.core.config import settings
 from app.core.logging import correlation_id_ctx, logger
 from app.schemas.evidence import Evidence, SubstrateCall
-from app.substrate.mcp_adapter import McpSubstrateAdapter
+from app.substrate.mcp_adapter import McpSubstrateAdapter, shared_mcp_adapter
 from app.substrate.mock_adapter import MockSubstrateAdapter
 from app.substrate.replay_adapter import ReplaySubstrateAdapter
 
@@ -62,8 +62,7 @@ class SynaptReadGateway:
     def adapter(self):
         curr_mode = self.mode
         if curr_mode == "mcp":
-            if not isinstance(self._adapter, McpSubstrateAdapter):
-                self._adapter = McpSubstrateAdapter()
+            self._adapter = shared_mcp_adapter
         elif curr_mode == "replay":
             if not isinstance(self._adapter, ReplaySubstrateAdapter):
                 self._adapter = ReplaySubstrateAdapter()
@@ -304,8 +303,7 @@ class SynaptFeedbackGateway:
     @property
     def adapter(self) -> McpSubstrateAdapter | None:
         if self.mode == "mcp":
-            if not isinstance(self._adapter, McpSubstrateAdapter):
-                self._adapter = McpSubstrateAdapter()
+            self._adapter = shared_mcp_adapter
             return self._adapter
         return None
 
@@ -332,3 +330,14 @@ class SynaptAdminGateway:
             f"[AdminGateway] Ingest submitted: connector={spec.get('connector_type')} -> {req_id}"
         )
         return req_id
+
+
+async def initialize_live_mcp() -> None:
+    """Open the shared live Synapt connection within the FastAPI lifespan."""
+    if settings.effective_synapt_mode == "mcp":
+        await shared_mcp_adapter.connect()
+
+
+async def close_live_mcp() -> None:
+    """Close the shared live Synapt connection within the FastAPI lifespan."""
+    await shared_mcp_adapter.aclose()

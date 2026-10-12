@@ -1,6 +1,9 @@
 """API test suite covering endpoints, guardrails, error payloads, and basic requirements."""
 
+import asyncio
 import os
+
+import pytest
 
 os.environ["SYNAPT_MODE"] = "mock"
 os.environ["LLM_MODE"] = "fake"
@@ -15,6 +18,30 @@ settings.llm_mode = "fake"
 from app.main import app
 
 client = TestClient(app)
+
+
+@pytest.mark.asyncio
+async def test_mcp_session_is_owned_by_application_lifespan(monkeypatch):
+    from app.main import lifespan
+    from app.substrate import gateway as gateway_module
+
+    lifecycle_tasks = []
+
+    async def connect():
+        lifecycle_tasks.append(("connect", asyncio.current_task()))
+
+    async def close():
+        lifecycle_tasks.append(("close", asyncio.current_task()))
+
+    monkeypatch.setattr(settings, "synapt_mode", "mcp")
+    monkeypatch.setattr(gateway_module.shared_mcp_adapter, "connect", connect)
+    monkeypatch.setattr(gateway_module.shared_mcp_adapter, "aclose", close)
+
+    async with lifespan(app):
+        assert [event for event, _ in lifecycle_tasks] == ["connect"]
+
+    assert [event for event, _ in lifecycle_tasks] == ["connect", "close"]
+    assert lifecycle_tasks[0][1] is lifecycle_tasks[1][1]
 
 
 def test_health_endpoint():

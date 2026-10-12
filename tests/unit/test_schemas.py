@@ -5,7 +5,7 @@ from pydantic import ValidationError
 
 from app.schemas.errors import ErrorResponse
 from app.schemas.evidence import Evidence
-from app.schemas.report import Claim
+from app.schemas.report import Claim, JudgeEvaluation, ResponsePlan
 from app.schemas.request import DisruptionProfile
 
 
@@ -49,6 +49,30 @@ def test_claim_model():
     assert claim.kind == "HISTORICAL_FACT"
     assert "EV-01" not in claim.evidence_ids
     assert "EV-001" in claim.evidence_ids
+
+
+def test_structured_llm_response_schemas_reject_incomplete_shapes():
+    recommendation = {
+        "title": "Contact the backup supplier",
+        "action": "Confirm available capacity for the affected components.",
+        "evidence_ids": ["EV-001"],
+        "source_type": "historical_case",
+    }
+    plan = ResponsePlan.model_validate({"recommendations": [recommendation]})
+    assert plan.recommendations[0].action.startswith("Confirm")
+
+    with pytest.raises(ValidationError):
+        ResponsePlan.model_validate(
+            {"recommendations": [{"evidence_ids": ["EV-001"]}]}
+        )
+    with pytest.raises(ValidationError):
+        ResponsePlan.model_validate({"recommendations": []})
+    with pytest.raises(ValidationError):
+        ResponsePlan.model_validate(
+            {"recommendations": [{**recommendation, "evidence_ids": []}]}
+        )
+    with pytest.raises(ValidationError):
+        JudgeEvaluation.model_validate([{"scores": {}, "fix_list": []}])
 
 
 def test_error_response_format():

@@ -57,6 +57,33 @@ def test_ui_launcher_adds_project_root_to_pythonpath(monkeypatch):
     assert "existing-path" in captured["env"]["PYTHONPATH"].split(os.pathsep)
 
 
+def test_recommendation_display_handles_string_and_list_caveats():
+    analysis_page = importlib.import_module("ui.pages.2_Analysis")
+    report = {
+        "recommendations": [
+            {
+                "title": "Activate an alternate supplier",
+                "action": "Confirm backup supplier capacity.",
+                "caveats": "Confirm current supplier availability before execution.",
+            },
+            {
+                "id": "REC-002",
+                "action": "Reroute shipments.",
+                "caveats": ["Check lane capacity."],
+            },
+        ]
+    }
+
+    markdown = analysis_page.generate_printable_markdown(report)
+
+    assert "### Activate an alternate supplier" in markdown
+    assert "- **Action:** Confirm backup supplier capacity." in markdown
+    assert "- **Caveat:** Confirm current supplier availability before execution." in markdown
+    assert "- **Caveat:** Check lane capacity." in markdown
+    assert "Rationale:** None" not in markdown
+    assert "Caveat:** H\n" not in markdown
+
+
 def test_ui_pages_syntax_and_imports():
     """Verify all Streamlit page scripts can be compiled and imported without syntax errors."""
     pages = [

@@ -208,19 +208,33 @@ def generate_printable_markdown(report: dict[str, Any]) -> str:
         md += f"- **{p.get('target')}**: Point Estimate **{p.get('point'):.1f}** (80% Range: [{p.get('low'):.1f}, {p.get('high'):.1f}])\n"
 
     md += "\n## 3. Recommended Actions\n"
-    for r in report.get("recommendations", []):
-        md += f"### {r.get('id')}: {r.get('action')}\n"
-        md += f"- **Rationale:** {r.get('rationale')}\n"
+    for idx, r in enumerate(report.get("recommendations", []), 1):
+        title = r.get("title") or r.get("id") or f"Recommendation {idx}"
+        md += f"### {title}\n"
+        if r.get("action"):
+            md += f"- **Action:** {r.get('action')}\n"
+        if r.get("rationale"):
+            md += f"- **Rationale:** {r.get('rationale')}\n"
         if r.get("evidence_ids"):
             md += f"- **Citations:** {', '.join(r.get('evidence_ids'))}\n"
-        if r.get("caveats"):
-            md += f"- **Caveats:** {', '.join(r.get('caveats'))}\n"
+        for caveat in _recommendation_caveats(r):
+            md += f"- **Caveat:** {caveat}\n"
 
     md += "\n## 4. Limitations & Non-Causal Disclaimers\n"
     for lim in report.get("limitations", []):
         md += f"- {lim}\n"
 
     return md
+
+
+def _recommendation_caveats(recommendation: dict[str, Any]) -> list[str]:
+    """Normalize current string caveats and older list-shaped reports for display."""
+    caveats = recommendation.get("caveats")
+    if isinstance(caveats, str):
+        return [caveats] if caveats else []
+    if isinstance(caveats, list):
+        return [caveat for caveat in caveats if isinstance(caveat, str) and caveat]
+    return []
 
 
 def main() -> None:
@@ -386,12 +400,16 @@ def main() -> None:
             st.warning("No recommendations generated (degraded mode or insufficient evidence).")
         else:
             for idx, r in enumerate(recs, 1):
-                st.markdown(f"#### {idx}. {r.get('action')}")
-                st.markdown(f"**Rationale:** {r.get('rationale')}")
+                title = r.get("title") or r.get("action") or f"Recommendation {idx}"
+                st.markdown(f"#### {idx}. {title}")
+                if r.get("title") and r.get("action") and r["title"] != r["action"]:
+                    st.markdown(f"**Action:** {r['action']}")
+                if r.get("rationale"):
+                    st.markdown(f"**Rationale:** {r['rationale']}")
                 render_evidence_chips(
                     r.get("evidence_ids", []), evidence_store, key_prefix=f"rec_{idx}"
                 )
-                for cav in r.get("caveats", []):
+                for cav in _recommendation_caveats(r):
                     st.caption(f"*Caveat:* {cav}")
                 st.divider()
 

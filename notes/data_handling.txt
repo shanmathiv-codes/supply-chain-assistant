@@ -1,0 +1,314 @@
+I’ll trace the dataset pipeline from source CSV through preprocessing, SQLite, Parquet, case-card generation, and the five-batch split, then explain what each artifact is used for.
+
+Search for `parquet|to_parquet|read_parquet|batch|case_cards|SQLite|sqlite|CREATE TABLE|d...`
+
+Find files matching `data_preprocessing/**/*.py`
+
+Find files matching `dataset/**/*`
+
+Find files matching `scripts/*dataset*.py`
+
+Find files matching `app/**/*store*.py`
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\pipeline.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\data_storing\\sqlite_io.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\data_storing\\parquet_io.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\preprocessing\\splitting.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\case_cards\\builder.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\preprocessing\\synapt_sample.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\ledger.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\run_store.py"
+}
+
+Read , lines 350 to 435
+Completed with input: {
+  "path": "D:\\supply-chain-project\\PROJECT_BRIEF.md",
+  "view_range": [
+    350,
+    435
+  ]
+}
+
+Read , lines 500 to 525
+Completed with input: {
+  "path": "D:\\supply-chain-project\\PROJECT_BRIEF.md",
+  "view_range": [
+    500,
+    525
+  ]
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\data_storing\\manifest.py"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\scripts\\download_dataset.py"
+}
+
+"Read" failed
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml\\training.py"
+}
+Tool execution failed: Path does not exist
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\llm\\cache.py"
+}
+
+Read , lines 625 to 680
+Completed with input: {
+  "path": "D:\\supply-chain-project\\evaluation\\build_eval_sets.py",
+  "view_range": [
+    625,
+    680
+  ]
+}
+
+Find files matching `ml/**/*.py`
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\dataset\\MANIFEST.json"
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\config\\settings.yaml"
+}
+
+Read , lines 1 to 60
+Completed with input: {
+  "path": "D:\\supply-chain-project\\dataset\\reports\\data_quality.md",
+  "view_range": [
+    1,
+    60
+  ]
+}
+
+Read , lines 1 to 40
+Completed with input: {
+  "path": "D:\\supply-chain-project\\dataset\\reports\\sample_representativeness.md",
+  "view_range": [
+    1,
+    40
+  ]
+}
+
+Read , lines 1 to 50
+Completed with input: {
+  "path": "D:\\supply-chain-project\\dataset\\synapt_sample\\ingest_checklist.md",
+  "view_range": [
+    1,
+    50
+  ]
+}
+
+Read , lines 65 to 140
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\case_cards\\builder.py",
+  "view_range": [
+    65,
+    140
+  ]
+}
+
+Read , lines 405 to 422
+Completed with input: {
+  "path": "D:\\supply-chain-project\\PROJECT_BRIEF.md",
+  "view_range": [
+    405,
+    422
+  ]
+}
+
+Read , lines 1 to 190
+Completed with input: {
+  "path": "D:\\supply-chain-project\\scripts\\ingest_to_synapt.py",
+  "view_range": [
+    1,
+    190
+  ]
+}
+
+Read , lines 80 to 140
+Completed with input: {
+  "path": "D:\\supply-chain-project\\scripts\\dev.py",
+  "view_range": [
+    80,
+    140
+  ]
+}
+
+Read , lines 1 to 145
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml\\training\\train_regressors.py",
+  "view_range": [
+    1,
+    145
+  ]
+}
+
+Read , lines 1 to 115
+Completed with input: {
+  "path": "D:\\supply-chain-project\\ml\\training\\train_classifier.py",
+  "view_range": [
+    1,
+    115
+  ]
+}
+
+Read 
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\services\\run_store.py"
+}
+
+Read , lines 15 to 74
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\feedback\\store.py",
+  "view_range": [
+    15,
+    74
+  ]
+}
+
+Read , lines 365 to 400
+Completed with input: {
+  "path": "D:\\supply-chain-project\\PROJECT_BRIEF.md",
+  "view_range": [
+    365,
+    400
+  ]
+}
+
+pylanceRunCodeSnippet
+Completed with input: {"serverName":"pylance mcp server","toolName":"pylance-mcp-server-pylanceRunCodeSnippet"}
+
+Search for `class SynaptAdminGateway|async def ingest|def ingest`
+
+Read , lines 335 to 425
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\gateway.py",
+  "view_range": [
+    335,
+    425
+  ]
+}
+
+Read , lines 1 to 130
+Completed with input: {
+  "path": "D:\\supply-chain-project\\data_preprocessing\\data_cleaning\\cleaners.py",
+  "view_range": [
+    1,
+    130
+  ]
+}
+
+Search for `read_parquet|train.parquet|val.parquet|test.parquet|calibration.parquet|cases...`
+
+Read , lines 320 to 345
+Completed with input: {
+  "path": "D:\\supply-chain-project\\app\\substrate\\gateway.py",
+  "view_range": [
+    320,
+    345
+  ]
+}
+
+Here’s the flow in this project, from the original dataset to the artifacts used by the application.
+
+## 1. Starting dataset and cleaning
+
+The pipeline acquires data using `--source auto` in `download_dataset.py`: it uses a CSV already in `dataset/raw/` if one exists, otherwise tries Kaggle, then falls back to generated synthetic data.
+
+**For the dataset currently in the project, the manifest says the source is real, with 100,000 rows and 15 columns.** See `MANIFEST.json`. The raw file is `supply_chain_disruption_recovery.csv`.
+
+The pipeline then normalizes column names and categories, parses booleans and numbers, and checks rows against the expected schema. It writes a cleaned intermediate file and data-quality reports; rejected rows and reasons go to a report rather than silently being included. This is implemented in `pipeline.py` and the `data-cleaning code`.
+
+## 2. Parquet files: the analytical and ML datasets
+
+Parquet is a compressed, column-oriented file format. It stores tabular data efficiently and works well for reading selected columns and doing large DataFrame operations. In this project, Parquet is the main format for cleaned data, model training, and evaluation—not a database that handles individual record updates.
+
+The pipeline produces:
+
+- `interim/cases_clean.parquet`: cleaned intermediate data.
+- `processed/cases_clean.parquet`: the full cleaned **ledger**; it currently has 100,000 rows.
+- `processed/schema.json`: column data types for the ledger.
+- `splits/`: the model/evaluation datasets.
+
+The ledger is used by the application for local case lookups and statistics, and by the mock substrate adapter. The split files are consumed by the model-training and evaluation code. For example, `train_regressors.py` loads training, calibration, and validation data from Parquet.
+
+## 3. Train, validation, test, and calibration splits
+
+These are **four statistical partitions**, separate from the five case-card batches:
+
+| File | Current rows | Purpose |
+|---|---:|---|
+| `train.parquet` | 80,000 | Model development and fitting |
+| `val.parquet` | 10,000 | Model and configuration validation |
+| `test.parquet` | 10,000 | Held-out evaluation |
+| `calibration.parquet` | 16,000 | Calibrating prediction intervals |
+
+Calibration is a subset of the 80,000 training rows, not a fifth disjoint partition. The regressor training code removes those 16,000 rows from its fitting data, so it fits on 64,000, then uses calibration rows to set prediction-interval bounds. The split-generation logic is in `splitting.py`.
+
+## 4. SQLite databases: separate stores for different jobs
+
+There isn’t one SQLite database for everything; there are several:
+
+| SQLite file | Tables found in the project | Purpose |
+|---|---|---|
+| `disruptions.db` | `disruptions` | SQLite mirror of the cleaned ledger, used for quick case-by-ID lookups and as a local/mock data source. |
+| `app.db` | `runs`, `feedback` | Stores completed run reports. The `feedback` table is defined here, but the current feedback submission endpoint writes to `feedback.db` instead. |
+| `feedback.db` | `feedback`, `outcomes`, `review_queue` | Stores submitted feedback and outcomes, plus their pending/approved/rejected review status. |
+| `llm_cache.db` | `response_cache` | Caches LLM responses to reduce repeated calls and support reproducibility. |
+
+SQLite is useful here for small transactional changes and indexed lookups—for example, saving a new run or changing a review item’s status. The cleaned, large-scale analytical dataset and model splits remain in Parquet. SQLite table creation and access are implemented in `sqlite_io.py`, `run_store.py`, and `feedback/store.py`.
+
+## 5. Case cards and their purpose
+
+A case card converts one disruption row into a structured text record: an ID, fields such as disruption type and severity, outcome metrics, and a short narrative. The builder is `builder.py`.
+
+**Case cards are intended for Synapt’s document/graph retrieval, not for training the ML models.** Model training uses the Parquet splits. The local ledger also retains the structured rows for direct lookup.
+
+Each card has a `disruption_id`; the card index records a hash for each card to help identify unchanged content during ingestion.
+
+## 6. Why there are five batches
+
+The current pipeline selects a **500-case stratified sample from the training split** for Synapt. It writes case cards in batches of 100, so 500 cases become **five Markdown files of 100 cards each**. The sample selection is implemented in `synapt_sample.py`; the pipeline also writes cards to `dataset/case_cards/` and the Synapt-specific copies to `dataset/synapt_sample/cards/`. The checklist is in `ingest_checklist.md`.
+
+So the five batches are **upload-sized files for the sampled case cards**. They are not five ML-training batches or five train/test partitions.
+
+**Important implementation caveat:** although the files and checklist are generated, the current `Synapt ingestion script` doesn’t yet upload those files when run with `--confirm`; its confirmed path only constructs the gateway and prints a success message. The gateway’s current `ingest method` is also a placeholder. Thus the batch files are prepared for ingestion, but successful real ingestion is not currently demonstrated by those code paths.

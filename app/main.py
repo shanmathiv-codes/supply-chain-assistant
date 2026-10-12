@@ -16,6 +16,7 @@ from app.api.routes import router
 from app.core.config import settings
 from app.core.logging import correlation_id_ctx, logger
 from app.schemas.errors import ErrorDetail, ErrorResponse
+from app.substrate.gateway import close_live_mcp, initialize_live_mcp
 
 
 @asynccontextmanager
@@ -26,8 +27,12 @@ async def lifespan(app: FastAPI):
     logger.info("Application starting up with active runtime modes:")
     for k, v in settings.runtime_modes.items():
         logger.info(f"  {k}: {v}")
-    yield
-    logger.info("Application shutting down.")
+    await initialize_live_mcp()
+    try:
+        yield
+    finally:
+        await close_live_mcp()
+        logger.info("Application shutting down.")
 
 
 app = FastAPI(

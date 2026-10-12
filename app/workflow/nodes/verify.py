@@ -25,9 +25,11 @@ async def verify_node(state: WorkflowState) -> WorkflowState:
     )
 
     limitations = list(state.get("limitations", []))
-    if not passed and state.get("revision", 0) >= 2:
+    status = state.get("status", "ok")
+    if not passed:
+        status = "degraded"
         limitations.append(
-            f"Max verification revisions reached (2). Unresolved items: {'; '.join(fixes)}"
+            f"Verification found unresolved issues: {'; '.join(fixes)}"
         )
 
     # Limitation notices for runtime modes
@@ -44,7 +46,7 @@ async def verify_node(state: WorkflowState) -> WorkflowState:
 
     final_report = Report(
         run_id=state.get("run_id", "RUN-UNKNOWN"),
-        status=state.get("status", "ok"),
+        status=status,
         runtime_modes=runtime_modes,
         classification=state.get("classification"),
         priority=state.get("priority"),
@@ -69,6 +71,7 @@ async def verify_node(state: WorkflowState) -> WorkflowState:
     )
     return {
         **state,
+        "status": status,
         "fix_list": fixes,
         "judge_scores": judge_scores,
         "limitations": limitations,
